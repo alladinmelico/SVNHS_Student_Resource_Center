@@ -8,13 +8,13 @@ class User extends CI_Controller{
     }
 
     function login(){
-        $data['title'] = "Login";
+		$data['title'] = "Login";
         $this->load->vars($data);
-        $this->load->view('login');
+        $this->load->view('Login');
     }
 
     function register(){
-        $data['title'] = "Login";
+		$data['title'] = "Login";
         $this->load->vars($data);
         $this->load->view('register');
     }
