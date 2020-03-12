@@ -21,46 +21,65 @@
         <div class="card-body">
           <h4 class="card-title text-dark">Registration Form</h4>
           <?php
-            echo form_open("user/create");
-            $data = array('name'=>'strEmailAddress',
+            echo form_open("user/register");
+            $data = array('name'=>'email',
                             'type' => 'email',
-                            'id'=>'strEmailAddress',
+                            'id'=>'email',
                             'size'=>25,
                             'class'=>'form-control');
             echo form_label('Email');
             echo form_input($data);
 
-            $data = array('name'=>'strFirstName',
+            $data = array('name'=>'first_name',
                             'type' => 'text',
-                            'id'=>'strFirstName',
+                            'id'=>'first_name',
                             'size'=>25,
                             'class'=>'form-control');
             echo form_label('First Name');
             echo form_input($data);
 
-            $data = array('name'=>'strLastName',
+            $data = array('name'=>'last_name',
                             'type' => 'text',
-                            'id'=>'strLastName',
+                            'id'=>'last_name',
                             'size'=>25,
                             'class'=>'form-control');
             echo form_label('Last Name');
-            echo form_input($data);
+						echo form_input($data);
+						
+						$options = array();
+						foreach($roles as $role){
+							if(!($role['name'] == 'admin')){
+								$options[$role['idRoles']] =ucfirst($role['name']);
+							}
+						}
+						echo form_label('Register As:');
+						echo form_dropdown('roles_id',$options,'',array('class'=>'form-control mb-5'));
 
-            $data = array('name'=>'strPassword',
+						$data = array('name'=>'username',
+                            'type' => 'text',
+                            'id'=>'username',
+                            'size'=>25,
+                            'class'=>'form-control');
+            echo form_label('Username');
+						echo form_input($data);
+
+            $data = array('name'=>'password',
                             'type' => 'password',
-                            'id'=>'strPassword',
+                            'id'=>'password',
                             'size'=>25,
                             'class'=>'form-control');
             echo form_label('Password');
             echo form_input($data);
 
-            $data = array('name'=>'strPasswordConfirm',
+            $data = array('name'=>'password_confirm',
                             'type' => 'password',
-                            'id'=>'strPassword',
+                            'id'=>'password_confirm',
                             'size'=>25,
                             'class'=>'form-control');
             echo form_label('Confirm Password');
-            echo form_input($data);
+						echo form_input($data);
+						
+					
 
             $data = array('name'=>'login',
                             'type' => 'submit',

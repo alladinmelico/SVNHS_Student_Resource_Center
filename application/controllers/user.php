@@ -4,19 +4,31 @@ class User extends CI_Controller{
         parent::__construct();
         if(!isset($_SESSION)){
             session_start();
-        }
+		}
+		$this->load->library('session');
     }
 
     function login(){
-		$data['title'] = "Login";
-        $this->load->vars($data);
-        $this->load->view('Login');
-    }
+		if($this->input->server('REQUEST_METHOD') =='POST'){
+			$this->MUser->verify();
+		} else{
+			$data['title'] = "Login";
+			$this->load->vars($data);
+			$this->load->view('Login');
+		}
+	}
+	
 
     function register(){
-		$data['title'] = "Login";
-        $this->load->vars($data);
-        $this->load->view('register');
+		if($this->input->server('REQUEST_METHOD') =='POST'){
+			$this->MUser->create();
+			redirect('login');
+		} else{
+			$data['title'] = "Login";
+			$data['roles'] = $this->MUser->getAllRoles();
+			$this->load->vars($data);
+			$this->load->view('register');
+		}
     }
 }
 ?>

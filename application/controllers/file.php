@@ -3,9 +3,47 @@ class File extends CI_Controller{
     public function __construct(){
         parent::__construct();
 		require_once ('vendor\autoload.php');
-	
+
+		if(!isset($_SESSION)){
+            session_start();
+        }
+	}
+	function index(){
+		$data['title'] = "Files";
+		$data['contents'] = 'files/index';
+		$data['files'] = $this->MFile->getAllUserFiles();
+		$this->load->vars($data);
+		$this->load->view('layout/template');
 	}
 	
+	function create()
+	{
+		if($this->input->server('REQUEST_METHOD') =='POST'){
+			$this->MFile->create();
+			$this->MFile->user_file();
+			// redirect('files');
+		}
+		$data['title'] = "Upload Document";
+		$data['contents'] = 'files/create';
+
+		$this->load->vars($data);
+		$this->load->view('layout/template');
+	}
+
+	function update($id=0)
+	{
+		if($this->input->server('REQUEST_METHOD') =='POST'){
+			$this->MFile->update();
+			// redirect('files');
+		} else {
+			$data['title'] = "Upload Document";
+			$data['contents'] = 'files/edit';
+			$data['file'] = $this->MFile->getFile($id);
+			$this->load->vars($data);
+			$this->load->view('layout/template');
+		}
+	}
+
 	function google_upload(){
 		$client = new Google_Client();
 		// Get your credentials from the console
@@ -28,11 +66,11 @@ class File extends CI_Controller{
 
 			//Insert a file
 			$file = new Google_Service_Drive_DriveFile();
-			$file->setName(uniqid().'.jpg');
+			$file->setName('logo.jpg');
 			$file->setDescription('A test document');
 			$file->setMimeType('image/jpeg');
 
-			$data = file_get_contents('a.jpg');
+			$data = file_get_contents(base_url().'logo.jpg',true);
 
 			$createdFile = $service->files->create($file, array(
 				'data' => $data,
@@ -46,11 +84,9 @@ class File extends CI_Controller{
 			$authUrl = $client->createAuthUrl();
 			header('Location: ' . $authUrl);
 			exit();
+			// echo 'gg';
 		}
 	}
 
-	function create(){
-
-	}
 }
 ?>

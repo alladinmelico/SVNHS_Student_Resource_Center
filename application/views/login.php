@@ -25,20 +25,19 @@
         <img class="card-img-top "alt="" >
         <div class="card-body">
           <?php
-            echo form_open("user/loginVerify");
+            echo form_open("login");
 
-            $data = array('name'=>'strEmail',
-                            'type' => 'email',
-                            'id'=>'strEmail',
+            $data = array('name'=>'username',
+                            'type' => 'text',
+                            'id'=>'username',
                             'size'=>25,
-                            'class'=>'form-control mb-3',
-                            'placeholder'=>'you@example.org');
-            echo form_label('Email');
+                            'class'=>'form-control mb-3');
+            echo form_label('Username');
             echo form_input($data);
 
-            $data = array('name'=>'strPassword',
+            $data = array('name'=>'password',
                             'type' => 'password',
-                            'id'=>'strPassword',
+                            'id'=>'password',
                             'size'=>25,
                             'class'=>'form-control mb-5');
             echo form_label('Password');
