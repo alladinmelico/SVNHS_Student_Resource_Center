@@ -75,12 +75,14 @@ class MFile extends CI_Model{
   }
 
   function delete(){
-
+	  $this->db->delete('files',array(
+		  'idFile' => $_POST['idFile']
+	  ));
   }
 
   function user_file(){
 	  $data = array(
-		  'student_id' => $this->session->idUser,
+		  'student_id' => $this->session->userdata('idUser'),
 		  'file_id' => $this->db->insert_id()
 	  );
 	  $this->db->insert('file_student',$data);
@@ -110,6 +112,23 @@ class MFile extends CI_Model{
 		foreach($Q->result_array() as $row){
 			$data[] = $row;
 		}
+	}
+
+	$Q->free_result();
+	return $data;
+  }
+
+  function getUserFile($id){
+	$data = array();
+	$this->db->select('*');
+	$this->db->from('files f');
+	$this->db->join('file_student fs','f.idFile = fs.file_id');
+	$this->db->where('fs.student_id',$this->session->userdata('idUser'));
+	$this->db->where('fs.file_id',$id);
+	$Q = $this->db->get();
+
+	if ($Q->num_rows() > 0){
+		$data = $Q -> row_array();
 	}
 
 	$Q->free_result();

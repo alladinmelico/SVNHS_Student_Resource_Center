@@ -10,7 +10,10 @@
 		<?php foreach($files as $file){ ?>
 			<tr>
 				<td scope="row">
-					<a href="<?= $file['idFile']?>"><?= $file['description']?></a>
+					<a href="file/<?=$file['idFile']?>"><?= $file['title']?></a>
+				</td>
+				<td scope="row">
+					<?= $file['description']?>
 				</td>
 			</tr>
 		<?php }?>

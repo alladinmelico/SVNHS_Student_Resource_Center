@@ -57,3 +57,4 @@ $route['translate_uri_dashes'] = FALSE;
 $route['login'] = 'user/login';
 $route['register'] = 'user/register';
 $route['upload'] = 'file/upload';
+$route['file/(:num)'] = 'file/show/$1';

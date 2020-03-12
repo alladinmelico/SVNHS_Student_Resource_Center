@@ -15,26 +15,39 @@ class File extends CI_Controller{
 		$this->load->vars($data);
 		$this->load->view('layout/template');
 	}
+
+	function show($id){
+		if($this->input->server('REQUEST_METHOD') =='POST'){
+			$this->MFile->delete();
+			redirect('file');
+		} else{
+			$data['title'] = "File";
+			$data['contents'] = 'files/show';
+			$data['file'] = $this->MFile->getUserFile($id);
+			$this->load->vars($data);
+			$this->load->view('layout/template');
+		}
+	}
 	
-	function create()
-	{
+	function create(){
 		if($this->input->server('REQUEST_METHOD') =='POST'){
 			$this->MFile->create();
 			$this->MFile->user_file();
-			// redirect('files');
+			redirect('file');
+		} else{
+			$data['title'] = "Upload Document";
+			$data['contents'] = 'files/create';
+	
+			$this->load->vars($data);
+			$this->load->view('layout/template');
 		}
-		$data['title'] = "Upload Document";
-		$data['contents'] = 'files/create';
-
-		$this->load->vars($data);
-		$this->load->view('layout/template');
 	}
 
 	function update($id=0)
 	{
 		if($this->input->server('REQUEST_METHOD') =='POST'){
 			$this->MFile->update();
-			// redirect('files');
+			redirect('file');
 		} else {
 			$data['title'] = "Upload Document";
 			$data['contents'] = 'files/edit';
@@ -42,6 +55,10 @@ class File extends CI_Controller{
 			$this->load->vars($data);
 			$this->load->view('layout/template');
 		}
+	}
+
+	function delete(){
+
 	}
 
 	function google_upload(){

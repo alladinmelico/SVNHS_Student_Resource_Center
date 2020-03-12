@@ -6,7 +6,15 @@ class User extends CI_Controller{
             session_start();
 		}
 		$this->load->library('session');
-    }
+	}
+	
+	function index(){
+		$data['title'] = "Student Resource";
+		$data['contents'] = 'user/index';
+
+		$this->load->vars($data);
+		$this->load->view('layout/template');
+	}
 
     function login(){
 		if($this->input->server('REQUEST_METHOD') =='POST'){

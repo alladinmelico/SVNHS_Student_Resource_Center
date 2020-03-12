@@ -30,7 +30,7 @@
 	echo form_label('Description');
 	echo form_input($data);
 
-	$data = array('name'=>'createActor',
+	$data = array('name'=>'',
 					'type' => 'submit',
 					'value'=>'Upload',
 					'class'=>'btn btn-success mt-5');

@@ -6,22 +6,28 @@ class MUser extends CI_Model{
 
 
   function verify(){
-	$this->db->select('idUSer,username,roles_id');
+	$this->db->select('idUser,username,roles_id');
 	$this->db->where('username',$_POST['username']);
 	$this->db->where('password',hash('md5',$_POST['password']));
 	$this->db->limit(1);
 	$Q = $this->db->get('User');
 	if ($Q->num_rows() > 0){
 		$row = $Q->row_array();
-		$_SESSION['idUser'] = $row['idUser'];
-		$_SESSION['username'] = $row['strUsername'];
-		print_r($row);
+		
+		$newData = array(
+			'idUser' => $row['idUser'],
+			'username' => $row['username']
+		);
+
+		$this->session->set_userdata($newData);
+
 		if($row['roles_id']==1){
-			$_SESSION['isAdmin'] = true;
+			$this->session->set_userdata('isAdmin',true);
 			redirect('/');
 		} else {
 			(redirect('user/'));
 		}
+
 	}else{
 		redirect('login');
 	}
