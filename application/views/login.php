@@ -12,12 +12,12 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <script src="https://apis.google.com/js/platform.js" async defer></script>
 
-    <link rel="stylesheet" href="<?php echo base_url()?>css/main.css">
+
     <link href="<?= base_url()?>css/all.css" rel="stylesheet">
     <script defer src="<?= base_url()?>js/all.js"></script>
     <link href="<?= base_url()?>css/solid.css" rel="stylesheet">
     <script defer src="<?= base_url()?>js/solid.js"></script>
-    <link rel="stylesheet" href="<?= base_url()?>css/main.css">
+    <link rel="stylesheet" href="<?= base_url()?>css/custom.css">
   </head>
   <body class="bg-dark">
       <div class="container mt-5 text-dark" style="width: 25rem;">
@@ -31,7 +31,8 @@
                             'type' => 'text',
                             'id'=>'username',
                             'size'=>25,
-                            'class'=>'form-control mb-3');
+														'class'=>'form-control mb-3',
+														'required'=>'required');
             echo form_label('Username');
             echo form_input($data);
 
@@ -39,7 +40,8 @@
                             'type' => 'password',
                             'id'=>'password',
                             'size'=>25,
-                            'class'=>'form-control mb-5');
+														'class'=>'form-control mb-5',
+														'required'=>'required');
             echo form_label('Password');
             echo form_input($data);
 

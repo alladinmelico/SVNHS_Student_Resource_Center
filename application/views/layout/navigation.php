@@ -43,6 +43,11 @@
 	padding: 16px;
 	}
 
+	#logout{
+		position: absolute;
+		bottom: 5px;
+	}
+
 	@media screen and (max-height: 450px) {
 	.sidenav {padding-top: 15px;}
 	.sidenav a {font-size: 18px;}
@@ -52,6 +57,7 @@
 <div id="mySidenav" class="sidenav">
   <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
   <a href="<?=base_url()?>file">Files</a>
+  <a href="<?=base_url()?>user/logout" id="logout" class="text-danger">Logout</a>
 </div>
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">

@@ -32,11 +32,16 @@ class User extends CI_Controller{
 			$this->MUser->create();
 			redirect('login');
 		} else{
-			$data['title'] = "Login";
-			$data['roles'] = $this->MUser->getAllRoles();
+			$data['title'] = "Register";
 			$this->load->vars($data);
 			$this->load->view('register');
 		}
-    }
+	}
+	
+	function logout(){
+		session_write_close();
+		unset($_SESSION['idAdmin']);
+		redirect('login');
+	}
 }
 ?>

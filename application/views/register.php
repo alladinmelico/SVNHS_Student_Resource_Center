@@ -7,12 +7,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" href="<?php echo base_url()?>css/main.css">
+  
     <link href="<?= base_url()?>css/all.css" rel="stylesheet">
     <script defer src="<?= base_url()?>js/all.js"></script>
     <link href="<?= base_url()?>css/solid.css" rel="stylesheet">
     <script defer src="<?= base_url()?>js/solid.js"></script>
-    <link rel="stylesheet" href="<?= base_url()?>css/main.css">
+    <link rel="stylesheet" href="<?= base_url()?>css/custom.css">
   </head>
   <body class="bg-dark text-center">
       <div class="container mt-5 text-dark" style="width: 25rem;">
@@ -46,15 +46,27 @@
             echo form_label('Last Name');
 						echo form_input($data);
 						
-						$options = array();
-						foreach($roles as $role){
-							if(!($role['name'] == 'admin')){
-								$options[$role['idRoles']] =ucfirst($role['name']);
-							}
-						}
-						echo form_label('Register As:');
-						echo form_dropdown('roles_id',$options,'',array('class'=>'form-control mb-5'));
+						echo form_label('Register as:');
+						echo '<br><div class="custom-control custom-radio custom-control-inline ml-5">';
+							echo form_radio(array(
+													'value'=>'student',
+													'id'=>'radioStudent',
+													'name'=>'role',
+													'class'=>'custom-control-input',
+													'required'=>'required'));
+							echo form_label('Student','radioStudent',array('class'=>'custom-control-label'));
+						echo '</div>';
 
+						echo '<div class="custom-control custom-radio custom-control-inline mx-auto">';
+							echo form_radio(array(
+													'value'=>'teacher',
+													'id'=>'radioTeacher',
+													'name'=>'role',
+													'class'=>'custom-control-input',
+													'required'=>'required'));
+							echo form_label('Teacher','radioTeacher',array('class'=>'custom-control-label  mb-3'));
+						echo '</div><br>';
+						
 						$data = array('name'=>'username',
                             'type' => 'text',
                             'id'=>'username',

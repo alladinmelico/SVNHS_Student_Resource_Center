@@ -69,8 +69,6 @@
 
 		$data = json_encode ($data);
 
-		// NOTE: Use the key 'http' even if you are making an HTTPS request. See:
-		// https://php.net/manual/en/function.stream-context-create.php
 		$options = array (
 			'http' => array (
 				'header' => $headers,
@@ -149,9 +147,6 @@
 			"Ocp-Apim-Subscription-Key: $key\r\n";
 
 		$data = json_encode ($data);
-
-		// NOTE: Use the key 'http' even if you are making an HTTPS request. See:
-		// https://php.net/manual/en/function.stream-context-create.php
 		$options = array (
 			'http' => array (
 				'header' => $headers,
@@ -187,9 +182,6 @@
 			// "Content-Length: " . count($data,COUNT_NORMAL) . "\r\n" .
 			"Ocp-Apim-Subscription-Key: $key\r\n";
 		$data = json_encode ($data);
-
-		// NOTE: Use the key 'http' even if you are making an HTTPS request. See:
-		// https://php.net/manual/en/function.stream-context-create.php
 		$options = array (
 			'http' => array (
 				'header' => $headers,
