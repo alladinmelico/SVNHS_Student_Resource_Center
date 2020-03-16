@@ -10,3 +10,30 @@ label {
     background: linear-gradient(to right, #ACB6E5, #74ebd5);
     /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
+
+.text-dim {
+    color: rgb(43, 155, 127);
+}
+
+.h1,
+.h2,
+thead,
+.thead {
+    color: #3CD3AD;
+}
+
+#style::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    background-color: rgb(31, 31, 31);
+}
+
+#style::-webkit-scrollbar {
+    width: 12px;
+    background-color: #F5F5F5;
+}
+
+#style::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
+    background-color: #3CD3AD;
+}

@@ -9,28 +9,34 @@ class MUser extends CI_Model{
 
 
   function verify(){
-	$this->db->select('idUser,username,isAdmin');
-	$this->db->where('username',$_POST['username']);
-	$this->db->where('password',hash('md5',$_POST['password']));
-	$this->db->limit(1);
-	$Q = $this->db->get('Users');
+	if($_POST['role']=='student'){
+		$this->db->where('username',$_POST['username']);
+		$this->db->where('password',hash('md5',$_POST['password']));
+		$this->db->limit(1);
+		$Q = $this->db->get('Users');
+	} elseif($_POST['role']=='teacher'){
+		$this->db->where('username',$_POST['username']);
+		$this->db->where('password',hash('md5',$_POST['password']));
+		$this->db->limit(1);
+		$Q = $this->db->get('Teachers');
+	}
+	
 	if ($Q->num_rows() > 0){
 		$row = $Q->row_array();
-		
-		$newData = array(
-			'idUser' => $row['idUser'],
-			'username' => $row['username']
-		);
+		$this->session->set_userdata('username',$row['username']);
 
-		$this->session->set_userdata($newData);
-
-		if($row['isAdmin']==1){
-			$_SESSION['isAdmin'] = true;
-			redirect('/');
-		} else {
-			(redirect('user/'));
+		if(isset($row['idTeacher'])){
+			$this->session->set_userdata('idTeacher',$row['idTeacher']);
+			redirect('teacher');
+		} elseif(isset($row['idUser'])){
+			$this->session->set_userdata('idUser',$row['idUser']);
+			if($row['isAdmin']==1){
+				$_SESSION['isAdmin'] = true;
+				redirect('admin');
+			} else {
+				redirect('user');
+			}
 		}
-
 	}else{
 		redirect('login');
 	}

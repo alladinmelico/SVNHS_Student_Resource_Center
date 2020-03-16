@@ -152,8 +152,7 @@ class MFile extends CI_Model{
 
   function getFile($id){
 	$data = array();
-	$actor = array('idFile' => $id);
-	$Q = $this->db->get_where('files',$actor,1);
+	$Q = $this->db->get_where('files',array('idFile' => $id),1);
 
 	if($Q->num_rows() > 0){
 		$data = $Q -> row_array();
