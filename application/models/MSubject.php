@@ -29,7 +29,7 @@ class MSubject extends CI_Model{
 	  ));
   }
 
-  function getFile($id){
+  function getSubject($id){
 	$data = array();
 	$Q = $this->db->get_where('subjects',array('idSubject' => $id),1);
 

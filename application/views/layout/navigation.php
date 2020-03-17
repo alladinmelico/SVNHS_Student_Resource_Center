@@ -18,17 +18,14 @@
 	}
 
 	.sidenav a {
-	padding: 8px 8px 8px 32px;
+	padding: 8px 8px 8px 10px;
 	text-decoration: none;
 	font-size: 25px;
-	color: #818181;
+	color: white;
 	display: block;
 	transition: 0.3s;
 	}
 
-	.sidenav a:hover {
-	color: #f1f1f1;
-	}
 
 	.sidenav .closebtn {
 	position: absolute;
@@ -54,24 +51,46 @@
 	}
 </style>
 
-<div id="mySidenav" class="sidenav">
+<div id="mySidenav" class="sidenav bg-dark">
   <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-  <a href="<?=base_url()?>file">Files</a>
-  <a href="<?=base_url()?>user/logout" id="logout" class="text-danger">Logout</a>
+  <?php
+	if($this->session->has_userdata('idUser')){
+		$this->load->view('layout/menu_student');
+	} elseif($this->session->has_userdata('idTeacher')){
+		$this->load->view('layout/menu_teacher');
+	}
+  ?>
 </div>
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
 	<a class="navbar-brand" href="#" onclick="openNav()">
 		<i class="fas fa-bars"></i>
 	</a>
-	<button class="navbar-toggler d-lg-none" type="button" data-toggle="collapse" data-target="#collapsibleNavId" aria-controls="collapsibleNavId"
-		aria-expanded="false" aria-label="Toggle navigation"></button>
+	<button class="navbar-toggler d-lg-none" 
+		type="button" data-toggle="collapse" 
+		data-target="#collapsibleNavId" 
+		aria-controls="collapsibleNavId"
+		aria-expanded="false" aria-label="Toggle navigation">
+		<i class="fas fa-search"></i>
+	</button>
 
 	<div class="collapse navbar-collapse" id="collapsibleNavId">
-		<form class="form-inline ml-auto my-2 my-lg-0">
-			<input class="form-control mr-sm-2" type="text" placeholder="Search">
-			<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+		<form class="form-inline ml-auto my-2 my-lg-0 mr-3">
+			<input class="form-control mr-sm-2 border-none" type="text" placeholder="Search">
+			<button class="btn btn-outline-success my-2 my-sm-0" type="submit"><i class="fas fa-search"></i></button>
 		</form>
+	</div>
+	
+	<div class="dropdown open">
+		<button class="btn btn-light dropdown-toggle" 
+		type="button" id="triggerId" data-toggle="dropdown" 
+		aria-haspopup="true"aria-expanded="false">
+		<i class="fas fa-user"></i>
+		</button>
+		<div class="dropdown-menu dropdown-menu-right" aria-labelledby="triggerId">
+			<a class="dropdown-item text-danger" 
+				href="<?=base_url()?>user/logout">Logout</a>
+		</div>
 	</div>
 </nav>
 

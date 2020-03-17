@@ -1,7 +1,7 @@
 <div class="container">
 	<div class="row">
 		<div class="col">
-			<h1>Classes
+			<h1>Activities
 				<button type="button" class="btn" data-toggle="modal" data-target="#modelId">
 					<i class="fas fa-plus-circle h1"></i>
 				</button>
@@ -18,17 +18,17 @@
 					<tr>
 						<th>Title</th>
 						<th>Description</th>
-						<th>Code</th>
+						<th>Class</th>
 						<th></th>
 					</tr>
 					</thead>
 					<tbody>
-					<?php foreach($classes as $class){ ?>
+					<?php foreach($activities as $activity){ ?>
 						<tr>
-							<td scope="row"><?= $class['class_title']?></td>
-							<td scope="row"><?= $class['class_description']?></td>
-							<td scope="row"><?= $class['class_code']?></td>
-							<td><a href="classes/<?=$class['idClass']?>"><i class="fas fa-chevron-circle-right h2"></i></a></td>
+							<td scope="row"><?= $activity['activity_title']?></td>
+							<td scope="row"><?= $activity['activity_description']?></td>
+							<td scope="row"><?= $activity['class_title']?></td>
+							<td><a href="activity/<?=$activity['idActivity']?>"><i class="fas fa-chevron-circle-right h2"></i></a></td>
 						</tr>
 					<?php }?>
 					</tbody>
@@ -44,19 +44,26 @@
 	<div class="modal-dialog modal-dialog-centered" role="document">
 		<div class="modal-content">
 				<div class="modal-header">
-						<h5 class="modal-title">Create Class</h5>
+						<h5 class="modal-title">Create Activity</h5>
 							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 								<span aria-hidden="true">&times;</span>
 							</button>
 					</div>
 			<div class="modal-body">
 				<div class="container-fluid">
-					<?php $this->load->view('class/create');?>
+					<?php $this->load->view('activity/create');?>
 				</div>
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-				<button type="button" class="btn btn-primary">Save</button>
+				<?php
+					$data = array('name'=>'',
+					'type' => 'submit',
+					'value'=>'Add',
+					'class'=>'btn btn-success');
+					echo form_submit($data);
+					echo form_close();
+				?>
 			</div>
 		</div>
 	</div>

@@ -32,18 +32,6 @@ class MActivity extends CI_Model{
 	  ));
   }
 
-  function getFile($id){
-	$data = array();
-	$Q = $this->db->get_where('activities',array('idActivity' => $id),1);
-
-	if($Q->num_rows() > 0){
-		$data = $Q -> row_array();
-	}
-
-	$Q->free_result();
-	return $data;
-  }
-
   function getAllActivities(){
 	$data = array();
 	$this->db->order_by('activity_name','ASC');
@@ -57,6 +45,80 @@ class MActivity extends CI_Model{
 
 	$Q->free_result();
 	return $data;
+	}
+
+	function getAllTeacherActivities(){
+		$data = array();
+		$this->db->from('classes c');
+		$this->db->join('activities a','c.idClass = a.classes_idClass');
+		$this->db->where('c.teachers_idTeacher',$this->session->userdata('idTeacher'));
+		$this->db->order_by('a.activity_title','ASC');
+		$Q = $this->db->get();
+
+		if ($Q->num_rows() > 0){
+			foreach($Q->result_array() as $row){
+				$data[] = $row;
+			}
+		}
+
+		$Q->free_result();
+		return $data;
+	}
+
+	function getTotalTeacherActivities(){
+		$data = null;
+		$this->db->from('classes c');
+		$this->db->join('class_user cu','cu.classes_idClass = c.idClass');
+		$this->db->join('users u','cu.users_idUser = u.idUser');
+		$this->db->join('activities a','a.classes_idClass = c.idClass');
+		$this->db->where('cu.users_idUser',$this->session->userdata('idUser'));
+		$data = $this->db->count_all_results();
+		
+		return $data;
+		
+	}
+
+	function getTotalUserActivities(){
+		$data = null;
+		$this->db->from('classes c');
+		$this->db->join('activities a','c.idClass = a.classes_idClass');
+		$this->db->where('c.teachers_idTeacher',$this->session->userdata('idTeacher'));
+		$data = $this->db->count_all_results();
+		
+		return $data;
+		
+	}
+
+	function getTeacherActivity($id){
+		$data = array();
+		$Q = $this->db->get_where('activities',array('idActivity' => $id),1);
+
+		if($Q->num_rows() > 0){
+			$data = $Q -> row_array();
+		}
+
+		$Q->free_result();
+		return $data;
+	}
+
+	function getUserActivities($id){
+		$data = array();
+		$this->db->from('activities a');
+		$this->db->join('activity_user au','a.idActivity = au.activities_idActivity');
+		$this->db->join('users u','u.idUser = au.users_idUser');
+		$this->db->join('files f','f.activities_idActivity = a.idActivity');
+		$this->db->where('a.idActivity',$id);
+		$this->db->order_by('u.last_name','ASC');
+		$Q = $this->db->get();
+
+		if ($Q->num_rows() > 0){
+			foreach($Q->result_array() as $row){
+				$data[] = $row;
+			}
+		}
+
+		$Q->free_result();
+		return $data;
 	}
 
 	

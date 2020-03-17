@@ -96,8 +96,9 @@
 <div class="container">
 	<div class="row">
 		<div class="col-lg-1-12">
+			<h1 class="text-info"><?=ucfirst($subject['subject_name'])?></h1>
 			<h2><?=$class['class_title']?></h2>
-			<?=$class['class_description']?>
+			<p><?=$class['class_description']?></p> 
 		</div>
 	</div>
 

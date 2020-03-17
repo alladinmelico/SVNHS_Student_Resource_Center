@@ -57,6 +57,7 @@ $route['upload'] = 'file/upload';
 $route['file/(:num)'] = 'file/show/$1';
 
 $route['classes/(:num)'] = 'classes/show/$1';
+$route['activity/(:num)'] = 'activity/show/$1';
 
 $route['default_controller'] = 'user';
 $route['404_override'] = '';

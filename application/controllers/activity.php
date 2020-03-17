@@ -12,6 +12,8 @@ class Activity extends CI_Controller{
 	function index(){
 		$data['title'] = "Activities";
 		$data['contents'] = 'activity/index';
+		$data['activities'] = $this->MActivity->getAllTeacherActivities();
+		$data['classes'] = $this->MClass->getAllTeacherClasses();
 		$this->load->vars($data);
 		$this->load->view('layout/template');
 	}
@@ -22,6 +24,8 @@ class Activity extends CI_Controller{
 		} else{
 			$data['title'] = "activity";
 			$data['contents'] = 'activity/show';
+			$data['activity'] = $this->MActivity->getTeacherActivity($id);
+			$data['files'] = $this->MActivity->getUserActivities($id);
 			$this->load->vars($data);
 			$this->load->view('layout/template');
 		}
@@ -34,6 +38,7 @@ class Activity extends CI_Controller{
 		} else{
 			$data['title'] = "Create activity";
 			$data['contents'] = 'activity/create';
+			$data['classes'] = $this->MClass->getAllTeacherClasses();
 			$this->load->vars($data);
 			$this->load->view('layout/template');
 		}

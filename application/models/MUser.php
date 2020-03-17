@@ -10,11 +10,13 @@ class MUser extends CI_Model{
 
   function verify(){
 	if($_POST['role']=='student'){
+		$this->db->select('idUser,username');
 		$this->db->where('username',$_POST['username']);
 		$this->db->where('password',hash('md5',$_POST['password']));
 		$this->db->limit(1);
 		$Q = $this->db->get('Users');
 	} elseif($_POST['role']=='teacher'){
+		$this->db->select('idTeacher,username');
 		$this->db->where('username',$_POST['username']);
 		$this->db->where('password',hash('md5',$_POST['password']));
 		$this->db->limit(1);

@@ -39,9 +39,27 @@ class User extends CI_Controller{
 	}
 	
 	function logout(){
-		session_write_close();
+		$this->session->unset_userdata('idUser');
+		$this->session->unset_userdata('idTeacher');
+		$this->session->unset_userdata('username');
 		unset($_SESSION['idAdmin']);
 		redirect('login');
+	}
+
+	function classes(){
+		$data['title'] = "Classes";
+		$data['contents'] = 'user/user_class';
+		$data['classes'] = $this->MClass->getAllUserClasses();
+		$this->load->vars($data);
+		$this->load->view('layout/template');
+	}
+
+	function activity(){
+
+	}
+
+	function todo(){
+
 	}
 }
 ?>

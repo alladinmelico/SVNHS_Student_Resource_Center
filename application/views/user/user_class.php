@@ -18,7 +18,6 @@
 					<tr>
 						<th>Title</th>
 						<th>Description</th>
-						<th>Code</th>
 						<th></th>
 					</tr>
 					</thead>
@@ -27,7 +26,6 @@
 						<tr>
 							<td scope="row"><?= $class['class_title']?></td>
 							<td scope="row"><?= $class['class_description']?></td>
-							<td scope="row"><?= $class['class_code']?></td>
 							<td><a href="classes/<?=$class['idClass']?>"><i class="fas fa-chevron-circle-right h2"></i></a></td>
 						</tr>
 					<?php }?>

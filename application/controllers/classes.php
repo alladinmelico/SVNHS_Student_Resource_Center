@@ -13,6 +13,7 @@ class Classes extends CI_Controller{
 		$data['title'] = "Classes";
 		$data['contents'] = 'class/index';
 		$data['classes'] = $this->MClass->getAllTeacherClasses();
+		$data['subjects'] = $this->MSubject->getAllSubjects();
 		$this->load->vars($data);
 		$this->load->view('layout/template');
 	}
@@ -26,6 +27,7 @@ class Classes extends CI_Controller{
 			$data['class'] = $this->MClass->getCLass($id);
 			$data['users'] = $this->MClass->getClassUsers($id);
 			$data['activities'] = $this->MClass->getClassActivities($id);
+			$data['subject'] = $this->MClass->getClassSubject($id);
 			$this->load->vars($data);
 			$this->load->view('layout/template');
 		}
