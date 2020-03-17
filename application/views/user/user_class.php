@@ -49,12 +49,19 @@
 					</div>
 			<div class="modal-body">
 				<div class="container-fluid">
-					<?php $this->load->view('class/create');?>
+					<?php $this->load->view('user/user_add_class');?>
 				</div>
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-				<button type="button" class="btn btn-primary">Save</button>
+				<?php
+					$data = array('name'=>'',
+							'type' => 'submit',
+							'value'=>'Upload',
+							'class'=>'btn btn-success');
+					echo form_submit($data);
+					echo form_close();
+				?>
 			</div>
 		</div>
 	</div>

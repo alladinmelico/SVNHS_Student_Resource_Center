@@ -121,6 +121,46 @@ class MActivity extends CI_Model{
 		return $data;
 	}
 
-	
+	function getUserActivity($id){
+		$data = array();
+		$this->db->from('activities a');
+		$this->db->join('activity_user au','a.idActivity = au.activities_idActivity');
+		$this->db->join('users u','u.idUser = au.users_idUser');
+		$this->db->where('a.idActivity',$id);
+		$this->db->where('u.idUser',$this->session->userdata('idUser'));
+
+		$Q = $this->db->get();
+
+		if ($Q->num_rows() > 0){
+			$data = $Q->row_array();
+		}
+
+		$Q->free_result();
+		return $data;
+	}
+
+	function getActivity($id){
+		$data = array();
+		$this->db->where('idActivity',$id);
+		$Q = $this->db->get('activities');
+
+		if ($Q->num_rows() > 0){
+			$data = $Q->row_array();
+		}
+
+		$Q->free_result();
+		return $data;
+	}
+
+	function addActivityUser(){
+		$data = array(
+			'users_idUser' => $this->session->userdata('idUser'),
+			'activities_idActivity' => $_POST['activities_idActivity']
+		);
+
+
+		$this->db->insert('activity_user', $data);
+		
+	}
 }
 ?>

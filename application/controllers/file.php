@@ -16,10 +16,10 @@ class File extends CI_Controller{
 		$this->load->view('layout/template');
 	}
 
-	function show($id){
+	function show($id=0){
 		if($this->input->server('REQUEST_METHOD') =='POST'){
 			$this->MFile->delete();
-			redirect('file');
+			redirect('user/activity/'.$_POST['idActivity']);
 		} else{
 			$data['title'] = "File";
 			$data['contents'] = 'files/show';
@@ -32,8 +32,8 @@ class File extends CI_Controller{
 	function create(){
 		if($this->input->server('REQUEST_METHOD') =='POST'){
 			$this->MFile->create();
-			$this->MFile->user_file();
-			redirect('file');
+			$this->MActivity->addActivityUser();
+			redirect('user/activity/'.$_POST['activities_idActivity']);
 		} else{
 			$data['title'] = "Upload Document";
 			$data['contents'] = 'files/create';

@@ -2,6 +2,7 @@
 class MUser extends CI_Model{
     public function __construct(){
 		  parent::__construct();
+		  
 		  if(!isset($_SESSION)){
             session_start();
 		}
@@ -59,6 +60,16 @@ class MUser extends CI_Model{
 		$this->db->insert('teachers',$data);
 	}
 
+  }
+
+  function addClass(){
+	  $data = array(
+		  'users_idUser' => $this->session->userdata('idUser'),
+		  'classes_idClass' => $_POST['idClass']
+	  );
+
+	  $this->db->insert('class_user', $data);
+	  
   }
 }
 ?>

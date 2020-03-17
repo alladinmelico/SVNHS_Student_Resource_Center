@@ -43,7 +43,19 @@ class MClass extends CI_Model{
 
 		$Q->free_result();
 		return $data;
-  	}
+	  }
+	  
+	function getAllClass(){
+		$data = array();
+		$Q = $this->db->get('classes');
+		if($Q->num_rows() > 0){
+			foreach($Q -> result_array() as $row){
+				$data[] = $row;
+			}
+		}
+		$Q->free_result();
+		return $data;
+	}
 
   	function getAllTeacherClasses(){
 		$data = array();
@@ -54,6 +66,8 @@ class MClass extends CI_Model{
 				$data[] = $row;
 			}
 		}
+		$Q->free_result();
+		return $data;
 	}
 
 	function getAllUserClasses(){
@@ -62,6 +76,7 @@ class MClass extends CI_Model{
 		$this->db->join('class_user cu','c.idClass = cu.classes_idClass');
 		$this->db->join('users u','u.idUser = cu.users_idUser');
 		$this->db->where('cu.users_idUser',$this->session->userdata('idUser'));
+		$this->db->where('cu.confirmed',1);
 		$Q = $this->db->get();
 	
 		if($Q->num_rows() > 0){
@@ -97,7 +112,7 @@ class MClass extends CI_Model{
 	function getClassActivities($id){
 		$data = array();
 
-		$this->db->select('a.activity_title,a.activity_description,a.activity_timestamp');
+		$this->db->select('a.activity_title,a.activity_description,a.activity_timestamp,a.idActivity');
 		$this->db->from('classes c');
 		$this->db->join('activities a','a.classes_idClass = c.idClass');
 		$this->db->where('c.idClass',$id);
@@ -150,5 +165,20 @@ class MClass extends CI_Model{
 		
 		return $data;
 	}
+
+	function getCode($id){
+		$data = array();
+		$this->db->select('class_code');
+		$Q =  $this->db->get_where('classes',array('idClass'=>$id));
+
+		if($Q->num_rows() > 0){
+			$data = $Q->row_array();
+		} 
+
+		$Q->free_result();
+		return $data;
+	}
+
+	
 }
 ?>

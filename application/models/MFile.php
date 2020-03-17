@@ -12,7 +12,8 @@ class MFile extends CI_Model{
   function create(){
 	$data= array(
 		'file_description' => $_POST['description'],
-		'title' => $_POST['title']
+		'title' => $_POST['title'],
+		'activities_idActivity'=> $_POST['activities_idActivity']
 	);
 
 	$config['upload_path'] = './files/';
@@ -184,11 +185,12 @@ class MFile extends CI_Model{
 
   function getUserFile($id){
 	$data = array();
-	$this->db->select('*');
 	$this->db->from('files f');
-	$this->db->join('file_student fs','f.idFile = fs.file_id');
-	$this->db->where('fs.student_id',$this->session->userdata('idUser'));
-	$this->db->where('fs.file_id',$id);
+	$this->db->join('activities a','f.activities_idActivity = a.idActivity');
+	$this->db->join('activity_user au','au.activities_idActivity = a.idActivity');
+	$this->db->join('users u','au.users_idUser = u.idUser');
+	$this->db->where('u.idUser',$this->session->userdata('idUser'));
+	$this->db->where('f.activities_idActivity',$id);
 	$Q = $this->db->get();
 
 	if ($Q->num_rows() > 0){
