@@ -5,6 +5,7 @@ class MFile extends CI_Model{
     public function __construct(){
 		  parent::__construct();
 		  $this->config->load('api_config');
+		  $this->load->helper('file');
 		  $this->subscription_key = $this->config->item('azure_subscription_key');
 		  $this->endpoint = $this->config->item('azure_endpoint');
   	}
@@ -138,9 +139,11 @@ class MFile extends CI_Model{
   }
 
   function delete(){
-	  $this->db->delete('files',array(
-		  'idFile' => $_POST['idFile']
-	  ));
+	  if(unlink($_POST['source'])){
+		  $this->db->delete('files',array(
+			  'idFile' => $_POST['idFile']
+		  ));
+	  }
   }
 
   function user_file(){

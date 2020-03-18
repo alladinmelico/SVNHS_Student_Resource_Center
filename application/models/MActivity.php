@@ -226,5 +226,11 @@ class MActivity extends CI_Model{
 		$Q->free_result();
 		return $data;
 	}
+
+	function deleteActivityUser(){
+		$this->db->where('users_idUser',$this->session->userdata('idUser'));
+		$this->db->where('activities_idActivity',$_POST['idActivity']);
+		$this->db->delete('activity_user');
+	}
 }
 ?>
