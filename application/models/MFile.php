@@ -303,5 +303,44 @@ class MFile extends CI_Model{
 		return $result;
 	}
 	
+	function getFileLanguage($json){
+		$languageJson = json_decode($json,true);
+		foreach($languageJson as $value){
+			foreach($value as $data){
+				foreach(array_values($data['detectedLanguages']) as $language){
+					return ($language['name']);
+				}
+			}
+		}
+	}
+
+	function getFileSentiment($json){
+		$languageJson = json_decode($json,true);
+		foreach($languageJson as $value){
+			foreach($value as $data){
+				return $data['score'];
+			}
+		}
+	}
+
+	function getFileKeyPhrases($json){
+		$languageJson = json_decode($json,true);
+		foreach($languageJson as $value){
+			foreach($value as $data){
+				return $data['keyPhrases'];
+			}
+		}
+	}
+
+	function getFileEntity($json){
+		$languageJson = json_decode($json,true);
+		// return $languageJson;
+		foreach($languageJson as $value){
+			foreach($value as $data){
+				return $data['entities'];
+			}
+		}
+	}
+	
 }
 ?>
