@@ -13,8 +13,7 @@ class MFile extends CI_Model{
   function create(){
 	$data= array(
 		'file_description' => $_POST['description'],
-		'title' => $_POST['title'],
-		'activities_idActivity'=> $_POST['activities_idActivity']
+		'title' => $_POST['title']
 	);
 
 	$config['upload_path'] = './files/';
@@ -189,11 +188,11 @@ class MFile extends CI_Model{
   function getUserFile($id){
 	$data = array();
 	$this->db->from('files f');
-	$this->db->join('activities a','f.activities_idActivity = a.idActivity');
 	$this->db->join('activity_user au','au.activities_idActivity = a.idActivity');
 	$this->db->join('users u','au.users_idUser = u.idUser');
+	$this->db->join('files f','f.idFile = au.files_idFile');
 	$this->db->where('u.idUser',$this->session->userdata('idUser'));
-	$this->db->where('f.activities_idActivity',$id);
+	$this->db->where('au.activities_idActivity',$id);
 	$Q = $this->db->get();
 
 	if ($Q->num_rows() > 0){
@@ -235,10 +234,8 @@ class MFile extends CI_Model{
 				$value = implode(', ', $value);
 			}
 			$pdfDetails[$property] = $value;
-			// echo $property . ' => ' . $value . "\n";
 		}
 
-		// print_r($pdfDetails);
 		return $text;
 	}
 

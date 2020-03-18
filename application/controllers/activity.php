@@ -21,14 +21,17 @@ class Activity extends CI_Controller{
 		$this->load->view('layout/template');
 	}
 
-	function show($id){
+	function show($id=0){
 		if($this->input->server('REQUEST_METHOD') =='POST'){
+			$this->MActivity->delete();
 			redirect('activity');
 		} else{
 			$data['title'] = "activity";
 			$data['contents'] = 'activity/show';
 			$data['activity'] = $this->MActivity->getTeacherActivity($id);
+			$data['due'] = $this->MActivity->getActivityDueDate($id);
 			$data['files'] = $this->MActivity->getUserActivities($id);
+			$data['classes'] = $this->MClass->getAllTeacherClasses();
 			$this->load->vars($data);
 			$this->load->view('layout/template');
 		}
@@ -50,7 +53,7 @@ class Activity extends CI_Controller{
 	function update($id=0){
 		if($this->input->server('REQUEST_METHOD') =='POST'){
 			$this->MActivity->update();
-			redirect('file');
+			redirect('activity/'.$_POST['idActivity']);
 		} else {
 			$data['title'] = "Update";
 			$data['contents'] = 'activity/edit';

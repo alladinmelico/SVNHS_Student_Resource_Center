@@ -21,7 +21,7 @@
         <div class="card-body">
           <h4 class="card-title text-dark">Registration Form</h4>
           <?php
-            echo form_open("user/register");
+            echo form_open("guest/register");
             $data = array('name'=>'email',
                             'type' => 'email',
                             'id'=>'email',

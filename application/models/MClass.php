@@ -161,6 +161,7 @@ class MClass extends CI_Model{
 		$this->db->join('class_user cu','cu.classes_idClass = c.idClass');
 		$this->db->join('users u','cu.users_idUser = u.idUser');
 		$this->db->where('cu.users_idUser',$this->session->userdata('idUser'));
+		$this->db->where('cu.confirmed',1);
 		$data = $this->db->count_all_results();
 		
 		return $data;

@@ -14,7 +14,7 @@ class MTeacher extends CI_Model{
 
 	function getRequest(){
 		$data = array();
-
+		$this->db->select('u.first_name,u.last_name,c.class_title,u.idUser');
 		$this->db->from('classes c');
 		$this->db->join('class_user cu','c.idClass = cu.classes_idClass');
 		$this->db->join('users u','u.idUser = cu.users_idUser');

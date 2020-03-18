@@ -27,7 +27,6 @@
 	echo form_label('Description');
 	echo form_textarea($data);
 
-	echo form_hidden('activities_idActivity',$this->uri->segment(3));
 
 	$data = array('name'=>'createActor',
 					'type' => 'submit',

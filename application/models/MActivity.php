@@ -9,7 +9,8 @@ class MActivity extends CI_Model{
 		'activity_description' => $_POST['activity_description'],
 		'activity_title' => $_POST['activity_title'],
 		'classes_idClass' => $_POST['classes_idClass'],
-		'total_items' => $_POST['total_items']
+		'total_items' => $_POST['total_items'],
+		'activity_DueDate' =>$_POST['activity_DueDate']
 	);
 
 	$this->db->insert('activities',$data);
@@ -19,7 +20,11 @@ class MActivity extends CI_Model{
 
   function update(){
 	$data= array(
-		'activity_name' => $_POST['activity_name']
+		'activity_description' => $_POST['activity_description'],
+		'activity_title' => $_POST['activity_title'],
+		'classes_idClass' => $_POST['classes_idClass'],
+		'total_items' => $_POST['total_items'],
+		'activity_DueDate' =>$_POST['activity_DueDate']
 	);
 
 	$this->db->where('idActivity',$_POST['idActivity']);
@@ -68,10 +73,9 @@ class MActivity extends CI_Model{
 	function getTotalTeacherActivities(){
 		$data = null;
 		$this->db->from('classes c');
-		$this->db->join('class_user cu','cu.classes_idClass = c.idClass');
-		$this->db->join('users u','cu.users_idUser = u.idUser');
+		$this->db->join('teachers t','t.idTeacher = c.teachers_idTeacher');
 		$this->db->join('activities a','a.classes_idClass = c.idClass');
-		$this->db->where('cu.users_idUser',$this->session->userdata('idUser'));
+		$this->db->where('t.idTeacher',$this->session->userdata('idTeacher'));
 		$data = $this->db->count_all_results();
 		
 		return $data;
@@ -101,12 +105,24 @@ class MActivity extends CI_Model{
 		return $data;
 	}
 
+	function getActivityDueDate($id){
+		$this->db->select("DATE_FORMAT(activity_DueDate,'%Y-%m-%d') as due,TIME(activity_DueDate) as dueTime");
+		$Q = $this->db->get_where('activities',array('idActivity' => $id),1);
+
+		if($Q->num_rows() > 0){
+			$data = $Q -> row_array();
+		}
+
+		$Q->free_result();
+		return $data;
+	}
+
 	function getUserActivities($id){
 		$data = array();
 		$this->db->from('activities a');
 		$this->db->join('activity_user au','a.idActivity = au.activities_idActivity');
 		$this->db->join('users u','u.idUser = au.users_idUser');
-		$this->db->join('files f','f.activities_idActivity = a.idActivity');
+		$this->db->join('files f','f.idFile = au.files_idFile');
 		$this->db->where('a.idActivity',$id);
 		$this->db->order_by('u.last_name','ASC');
 		$Q = $this->db->get();
@@ -155,7 +171,8 @@ class MActivity extends CI_Model{
 	function addActivityUser(){
 		$data = array(
 			'users_idUser' => $this->session->userdata('idUser'),
-			'activities_idActivity' => $_POST['activities_idActivity']
+			'activities_idActivity' => $_POST['activities_idActivity'],
+			'files_idFile'=> $this->db->insert_id()
 		);
 
 
@@ -189,11 +206,15 @@ class MActivity extends CI_Model{
 
 	function getTeacherUnchecked(){
 		$data = array();
+		$this->db->select('c.class_title,a.activity_title,a.idActivity,DATE(f.file_timestamp) as dateSubmitted,
+		u.last_name,u.first_name,DATEDIFF(a.activity_DueDate,f.file_timestamp) AS dayRemaining,
+		HOUR(TIMEDIFF(a.activity_DueDate,f.file_timestamp)) AS timeRemaining, DATE(a.activity_DueDate) as dateDue');
 		$this->db->from('activities a');
 		$this->db->join('activity_user au','a.idActivity = au.activities_idActivity');
 		$this->db->join('users u','u.idUser = au.users_idUser');
 		$this->db->join('classes c','c.idClass = a.classes_idClass');
 		$this->db->join('teachers t','t.idTeacher = c.teachers_idTeacher');
+		$this->db->join('files f','f.idFile = au.files_idFile');
 		$this->db->where('t.idTeacher',$this->session->userdata('idTeacher'));
 		$this->db->where('au.score');
 		$Q = $this->db->get();

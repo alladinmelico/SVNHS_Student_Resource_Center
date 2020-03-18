@@ -36,6 +36,15 @@ class Teacher extends CI_Controller{
 		redirect('login');
 	}
 
+	function check($id){
+		$data['title'] = "Check Activity";
+		$data['contents'] = 'activity/check';
+		$data['file'] = $this->MFile->getUserFile($id);
+		$data['activity'] = $this->MActivity->getActivity($id);
+		$this->load->vars($data);
+		$this->load->view('layout/template');
+	}
+
 	
 }
 ?>

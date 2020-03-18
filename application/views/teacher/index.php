@@ -109,7 +109,7 @@
 					<tbody>
 						 <?php foreach($requests as $request){?>
 							<tr>
-								<td scope="row"><?=ucfirst($request['first_name']).' '.ucfirst($request['first_name'])?></td>
+								<td scope="row"><?=ucfirst($request['first_name']).' '.ucfirst($request['last_name'])?></td>
 								<td scope="row"><?=ucfirst($request['class_title'])?></td>
 								<td scope="row">
 									<!-- <a href="<?=base_url()?>teacher/confirmUser/<?=$request['idUser']?>">confirm</a> -->
