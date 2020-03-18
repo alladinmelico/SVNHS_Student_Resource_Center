@@ -2,11 +2,14 @@
 class User extends CI_Controller{
     public function __construct(){
         parent::__construct();
-		require_once ('vendor\autoload.php');
         if(!isset($_SESSION)){
-            session_start();
+			session_start();
 		}
 		$this->load->library('session');
+		if(!$this->session->has_userdata('idUser')){
+			redirect('access_denied');
+		}
+		require_once ('vendor\autoload.php');
 	}
 	
 	function index(){
@@ -17,35 +20,6 @@ class User extends CI_Controller{
 		$this->load->view('layout/template');
 	}
 
-    function login(){
-		if($this->input->server('REQUEST_METHOD') =='POST'){
-			$this->MUser->verify();
-		} else{
-			$data['title'] = "Login";
-			$this->load->vars($data);
-			$this->load->view('Login');
-		}
-	}
-	
-
-    function register(){
-		if($this->input->server('REQUEST_METHOD') =='POST'){
-			$this->MUser->create();
-			redirect('login');
-		} else{
-			$data['title'] = "Register";
-			$this->load->vars($data);
-			$this->load->view('register');
-		}
-	}
-	
-	function logout(){
-		$this->session->unset_userdata('idUser');
-		$this->session->unset_userdata('idTeacher');
-		$this->session->unset_userdata('username');
-		unset($_SESSION['idAdmin']);
-		redirect('login');
-	}
 
 	function classes(){
 		$data['title'] = "Classes";
@@ -93,7 +67,19 @@ class User extends CI_Controller{
 	}
 
 	function todo(){
-
+		$data['title'] = "Student Activity";
+		$data['contents'] = 'user/user_todo';
+		$data['todos'] = $this->MActivity->getUserToDo();
+		$this->load->vars($data);
+		$this->load->view('layout/template');
+	}
+	
+	function logout(){
+		$this->session->unset_userdata('idUser');
+		$this->session->unset_userdata('idTeacher');
+		$this->session->unset_userdata('username');
+		unset($_SESSION['idAdmin']);
+		redirect('login');
 	}
 }
 ?>

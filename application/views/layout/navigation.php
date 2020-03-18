@@ -58,6 +58,9 @@
 		$this->load->view('layout/menu_student');
 	} elseif($this->session->has_userdata('idTeacher')){
 		$this->load->view('layout/menu_teacher');
+	} else{
+		$message_403 = "You don't have access to the url you where trying to reach.";
+show_error($message_403 , 403 );
 	}
   ?>
 </div>
@@ -103,7 +106,7 @@
 		</button>
 		<div class="dropdown-menu dropdown-menu-right" aria-labelledby="triggerId">
 			<a class="dropdown-item text-danger" 
-				href="<?=base_url()?>user/logout">Logout</a>
+				href="<?=base_url()?><?=($this->session->has_userdata('idUser'))? 'user':'teacher'?>/logout">Logout</a>
 		</div>
 	</div>
 </nav>

@@ -1,4 +1,9 @@
 
+<?php
+	if(!$this->session->has_userdata('idTeacher')){
+		redirect('login');
+	}
+?>
 <ul class="list-group">
 	<li class="list-group-item d-flex 
 		justify-content-between align-items-center list-group-item-action 
@@ -28,6 +33,8 @@
 	justify-content-between align-items-center list-group-item-action
 	<?=($this->uri->segment(2)=='unchecked')? 'active':'bg-dark';?>">
 		<i class="fas fa-exclamation-circle text-light lead"></i><a href="<?=base_url()?>activity/unchecked">Unchecked</a>
-		<span class="badge badge-danger badge-pill">pill2</span>
+		<span class="badge badge-danger badge-pill">
+			<?=$this->MActivity->getTotalTeacherUnchecked();?>
+		</span>
 	</li>
 </ul>

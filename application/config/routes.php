@@ -51,8 +51,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 */
 
 
-$route['login'] = 'user/login';
-$route['register'] = 'user/register';
+$route['login'] = 'guest/login';
+$route['register'] = 'guest/register';
 $route['upload'] = 'file/upload';
 $route['file/(:num)'] = 'file/show/$1';
 
@@ -61,5 +61,6 @@ $route['activity/(:num)'] = 'activity/show/$1';
 $route['user/classes/(:num)'] = 'user/showUserClass/$1';
 
 $route['default_controller'] = 'user';
+$route['access_denied'] = 'guest/access_denied';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;

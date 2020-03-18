@@ -18,7 +18,9 @@
 	<li class="list-group-item d-flex 
 	justify-content-between align-items-center list-group-item-action
 	<?=($this->uri->segment(2)=='todo')? 'active':'bg-dark';?>">
-		<i class="fas fa-exclamation-circle text-light lead"></i><a href="<?=base_url()?>activity/unchecked">To Do</a>
-		<span class="badge badge-danger badge-pill">pill2</span>
+		<i class="fas fa-exclamation-circle text-light lead"></i><a href="<?=base_url()?>user/todo">To Do</a>
+		<span class="badge badge-danger badge-pill">
+			<?=$this->MActivity->getTotalUserToDo()?>
+		</span>
 	</li>
 </ul>

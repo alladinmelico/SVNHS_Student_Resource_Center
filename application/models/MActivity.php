@@ -162,5 +162,69 @@ class MActivity extends CI_Model{
 		$this->db->insert('activity_user', $data);
 		
 	}
+
+	function getTotalUserToDo(){
+		$this->db->from('activities a');
+		$this->db->join('activity_user au','a.idActivity = au.activities_idActivity');
+		$this->db->join('users u','u.idUser = au.users_idUser');
+		$this->db->where('u.idUser',$this->session->userdata('idUser'));
+		$this->db->where('au.score');
+		$data = $this->db->count_all_results();
+
+		return $data;
+	}
+
+	function getTotalTeacherUnchecked(){
+		$this->db->from('activities a');
+		$this->db->join('activity_user au','a.idActivity = au.activities_idActivity');
+		$this->db->join('users u','u.idUser = au.users_idUser');
+		$this->db->join('classes c','c.idClass = a.classes_idClass');
+		$this->db->join('teachers t','t.idTeacher = c.teachers_idTeacher');
+		$this->db->where('t.idTeacher',$this->session->userdata('idTeacher'));
+		$this->db->where('au.score');
+		$data = $this->db->count_all_results();
+
+		return $data;
+	}
+
+	function getTeacherUnchecked(){
+		$data = array();
+		$this->db->from('activities a');
+		$this->db->join('activity_user au','a.idActivity = au.activities_idActivity');
+		$this->db->join('users u','u.idUser = au.users_idUser');
+		$this->db->join('classes c','c.idClass = a.classes_idClass');
+		$this->db->join('teachers t','t.idTeacher = c.teachers_idTeacher');
+		$this->db->where('t.idTeacher',$this->session->userdata('idTeacher'));
+		$this->db->where('au.score');
+		$Q = $this->db->get();
+
+		if ($Q->num_rows() > 0){
+			foreach($Q->result_array() as $row){
+				$data[] = $row;
+			}
+		}
+
+		$Q->free_result();
+		return $data;
+	}
+
+	function getUserToDo(){
+		$data = array();
+		$this->db->from('activities a');
+		$this->db->join('activity_user au','a.idActivity = au.activities_idActivity');
+		$this->db->join('users u','u.idUser = au.users_idUser');
+		$this->db->where('u.idUser',$this->session->userdata('idUser'));
+		$this->db->where('au.score');
+		$Q = $this->db->get();
+
+		if ($Q->num_rows() > 0){
+			foreach($Q->result_array() as $row){
+				$data[] = $row;
+			}
+		}
+
+		$Q->free_result();
+		return $data;
+	}
 }
 ?>
