@@ -181,11 +181,13 @@ class MActivity extends CI_Model{
 	}
 
 	function getTotalUserToDo(){
-		$this->db->from('activities a');
-		$this->db->join('activity_user au','a.idActivity = au.activities_idActivity');
-		$this->db->join('users u','u.idUser = au.users_idUser');
-		$this->db->where('u.idUser',$this->session->userdata('idUser'));
-		$this->db->where('au.score');
+		$this->db->from('class_user cu');
+		$this->db->join('classes c','cu.classes_idClass = c.idClass');
+		$this->db->join('activities a','a.classes_idClass = c.idClass');
+		$this->db->join('activity_user au','a.idActivity = au.activities_idActivity','left');
+		$this->db->where('cu.users_idUser',$this->session->userdata('idUser'));
+		$this->db->where('cu.confirmed',1);
+		$this->db->where('au.activities_idActivity');
 		$data = $this->db->count_all_results();
 
 		return $data;
@@ -231,11 +233,12 @@ class MActivity extends CI_Model{
 
 	function getUserToDo(){
 		$data = array();
-		$this->db->from('activities a');
-		$this->db->join('activity_user au','a.idActivity = au.activities_idActivity');
-		$this->db->join('users u','u.idUser = au.users_idUser');
-		$this->db->where('u.idUser',$this->session->userdata('idUser'));
-		$this->db->where('au.score');
+		$this->db->from('class_user cu');
+		$this->db->join('classes c','cu.classes_idClass = c.idClass');
+		$this->db->join('activities a','a.classes_idClass = c.idClass');
+		$this->db->join('activity_user au','a.idActivity = au.activities_idActivity','left');
+		$this->db->where('cu.users_idUser',$this->session->userdata('idUser'));
+		$this->db->where('au.activities_idActivity');
 		$Q = $this->db->get();
 
 		if ($Q->num_rows() > 0){
@@ -252,6 +255,45 @@ class MActivity extends CI_Model{
 		$this->db->where('users_idUser',$this->session->userdata('idUser'));
 		$this->db->where('activities_idActivity',$_POST['idActivity']);
 		$this->db->delete('activity_user');
+	}
+
+	function getStudentPerformances($id){
+		$data = array();
+		$this->db->select('((au.score/a.total_items) * 100) as percentage,au.activity_submitted');
+		$this->db->from('class_user cu');
+		$this->db->join('classes c','cu.classes_idClass = c.idClass');
+		$this->db->join('activities a','a.classes_idClass = c.idClass');
+		$this->db->join('activity_user au','a.idActivity = au.activities_idActivity');
+		$this->db->where('au.users_idUser',$this->session->userdata('idUser'));
+		$this->db->where('cu.users_idUser',$this->session->userdata('idUser'));
+		$this->db->where('c.idClass',$id);
+		$this->db->where('cu.confirmed',1);
+		$Q = $this->db->get();
+
+		if ($Q->num_rows() > 0){
+			foreach($Q->result_array() as $row){
+				$data[] = $row;
+			}
+		}
+
+		$Q->free_result();
+		return $data;
+	}
+
+	function getTotalItems($id){
+		$data = null;
+		// $this->db->select('((au.score/a.total_items) * 100) as percentage,au.activity_submitted');
+		// $this->db->from('class_user cu');
+		// $this->db->join('classes c','cu.classes_idClass = c.idClass');
+		// $this->db->join('activities a','a.classes_idClass = c.idClass');
+		// $this->db->join('activity_user au','a.idActivity = au.activities_idActivity');
+		// $this->db->where('au.users_idUser',$this->session->userdata('idUser'));
+		// $this->db->where('cu.users_idUser',$this->session->userdata('idUser'));
+		// $this->db->where('c.idClass',$id);
+		// $this->db->where('cu.confirmed',1);
+		// $data = $this->db->count_all_results();
+		
+		return $data;
 	}
 }
 ?>

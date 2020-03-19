@@ -31,6 +31,8 @@ class Classes extends CI_Controller{
 			$data['users'] = $this->MClass->getClassUsers($id);
 			$data['activities'] = $this->MClass->getClassActivities($id);
 			$data['subject'] = $this->MClass->getClassSubject($id);
+			$data['scores'] = $this->MClass->getClassAverageScores($id);
+			$data['topStudents'] = $this->MClass->getTopStudents($id);
 			$this->load->vars($data);
 			$this->load->view('layout/template');
 		}

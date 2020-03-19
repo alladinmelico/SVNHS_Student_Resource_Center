@@ -11,13 +11,13 @@ class MUser extends CI_Model{
 
   function verify(){
 	if($_POST['role']=='student'){
-		$this->db->select('idUser,username');
+		$this->db->select('idUser,username,first_name,last_name');
 		$this->db->where('username',$_POST['username']);
 		$this->db->where('password',hash('md5',$_POST['password']));
 		$this->db->limit(1);
 		$Q = $this->db->get('Users');
 	} elseif($_POST['role']=='teacher'){
-		$this->db->select('idTeacher,username');
+		$this->db->select('idTeacher,username,first_name,last_name');
 		$this->db->where('username',$_POST['username']);
 		$this->db->where('password',hash('md5',$_POST['password']));
 		$this->db->limit(1);
@@ -27,6 +27,8 @@ class MUser extends CI_Model{
 	if ($Q->num_rows() > 0){
 		$row = $Q->row_array();
 		$this->session->set_userdata('username',$row['username']);
+		$this->session->set_userdata('first_name',$row['first_name']);
+		$this->session->set_userdata('last_name',$row['last_name']);
 
 		if(isset($row['idTeacher'])){
 			$this->session->set_userdata('idTeacher',$row['idTeacher']);
@@ -71,5 +73,6 @@ class MUser extends CI_Model{
 	  $this->db->insert('class_user', $data);
 	  
   }
+
 }
 ?>

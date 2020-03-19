@@ -187,7 +187,7 @@ class MFile extends CI_Model{
 
   function getUserFile($id){
 	$data = array();
-	$this->db->from('files f');
+	$this->db->from('activities a');
 	$this->db->join('activity_user au','au.activities_idActivity = a.idActivity');
 	$this->db->join('users u','au.users_idUser = u.idUser');
 	$this->db->join('files f','f.idFile = au.files_idFile');

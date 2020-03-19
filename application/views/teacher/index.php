@@ -98,6 +98,7 @@
 			
 		</div>
 		<div class="col-sm-1-12">
+			<h4>Enrollment Requests</h4>
 			<table class="table table-hover table-responsive">
 				<thead class="thead-inverse">
 					<tr>
@@ -112,7 +113,7 @@
 								<td scope="row"><?=ucfirst($request['first_name']).' '.ucfirst($request['last_name'])?></td>
 								<td scope="row"><?=ucfirst($request['class_title'])?></td>
 								<td scope="row">
-									<!-- <a href="<?=base_url()?>teacher/confirmUser/<?=$request['idUser']?>">confirm</a> -->
+									
 									<?php 
 										if(isset($error)){
 											print_r($error);

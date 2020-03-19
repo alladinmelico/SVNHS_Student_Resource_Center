@@ -102,7 +102,8 @@ show_error($message_403 , 403 );
 		<button class="btn btn-outline-light dropdown-toggle h2" 
 		type="button" id="triggerId" data-toggle="dropdown" 
 		aria-haspopup="true"aria-expanded="false">
-		<i class="fas fa-user"></i>
+		<?=$this->session->userdata('first_name').' '.$this->session->userdata('last_name');?>
+		<i class="fas fa-user ml-2"></i>
 		</button>
 		<div class="dropdown-menu dropdown-menu-right" aria-labelledby="triggerId">
 			<a class="dropdown-item text-danger" 

@@ -37,9 +37,10 @@ class User extends CI_Controller{
 			$data['title'] = "Class";
 			$data['contents'] = 'user/show_class';
 			$data['class'] = $this->MClass->getCLass($id);
-			$data['users'] = $this->MClass->getClassUsers($id);
+			$data['users'] = $this->MClass->getClassmates($id);
 			$data['activities'] = $this->MClass->getClassActivities($id);
 			$data['subject'] = $this->MClass->getClassSubject($id);
+			$data['performances'] = $this->MActivity->getStudentPerformances($id);
 			$this->load->vars($data);
 			$this->load->view('layout/template');
 		}
@@ -78,6 +79,8 @@ class User extends CI_Controller{
 		$this->session->unset_userdata('idUser');
 		$this->session->unset_userdata('idTeacher');
 		$this->session->unset_userdata('username');
+		$this->session->unset_userdata('first_name');
+		$this->session->unset_userdata('last_name');
 		unset($_SESSION['idAdmin']);
 		redirect('login');
 	}

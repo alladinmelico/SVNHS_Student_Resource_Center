@@ -109,6 +109,28 @@ class MClass extends CI_Model{
 		return $data;
 	}
 
+	function getClassmates($id){
+		$data = array();
+		$this->db->select('u.idUser, u.first_name, u.last_name, u.username');
+		$this->db->from('classes c');
+		$this->db->join('class_user cu','c.idClass = cu.classes_idClass');
+		$this->db->join('users u', 'u.idUser = cu.users_idUser');
+		$this->db->where('c.idClass',$id);
+		$this->db->where('u.idUser !=',$this->session->userdata('idUser'));
+		$Q = $this->db->get();
+
+		if($Q->num_rows() > 0){
+			foreach($Q -> result_array() as $row){
+				$data[] = $row;
+			}
+		}
+
+		$Q->free_result();
+		return $data;
+	}
+
+	
+
 	function getClassActivities($id){
 		$data = array();
 
@@ -175,6 +197,49 @@ class MClass extends CI_Model{
 		if($Q->num_rows() > 0){
 			$data = $Q->row_array();
 		} 
+
+		$Q->free_result();
+		return $data;
+	}
+
+	function getClassAverageScores($id){
+		$data = array();
+		$this->db->select('ABS(AVG(au.score)/a.total_items*100) as avgScore,a.activity_title');
+		$this->db->from('classes c');
+		$this->db->join('activities a','a.classes_idClass = c.idClass');
+		$this->db->join('activity_user au','au.activities_idActivity = a.idActivity');
+		$this->db->group_by('a.idActivity');
+		$this->db->where('a.classes_idClass',$id);
+		$this->db->order_by('a.activity_timestamp','ASC');
+		$Q = $this->db->get();
+
+		if($Q->num_rows() > 0){
+			foreach($Q -> result_array() as $row){
+				$data[] = $row;
+			}
+		}
+
+		$Q->free_result();
+		return $data;
+	}
+
+	function getTopStudents($id){
+		$data = array();
+		$this->db->select('(AVG(au.score)/a.total_items)*100 as avgScore,AVG(a.total_items) as total_items,u.first_name');
+		$this->db->from('classes c');
+		$this->db->join('activities a','a.classes_idClass = c.idClass');
+		$this->db->join('activity_user au','au.activities_idActivity = a.idActivity');
+		$this->db->join('users u','au.users_idUser = u.idUser');
+		$this->db->group_by('au.users_idUser');
+		$this->db->where('a.classes_idClass',$id);
+		$this->db->order_by('avgScore','DESC');
+		$Q = $this->db->get();
+
+		if($Q->num_rows() > 0){
+			foreach($Q -> result_array() as $row){
+				$data[] = $row;
+			}
+		}
 
 		$Q->free_result();
 		return $data;
