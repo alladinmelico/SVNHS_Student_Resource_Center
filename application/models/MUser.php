@@ -32,7 +32,12 @@ class MUser extends CI_Model{
 
 		if(isset($row['idTeacher'])){
 			$this->session->set_userdata('idTeacher',$row['idTeacher']);
-			redirect('teacher');
+			if($row['isAdmin']==1){
+				$_SESSION['isAdmin'] = true;
+				redirect('admin');
+			} else {
+				redirect('teacher');
+			}
 		} elseif(isset($row['idUser'])){
 			$this->session->set_userdata('idUser',$row['idUser']);
 			if($row['isAdmin']==1){

@@ -2,25 +2,37 @@
 <style>
 	.pdfobject-container { height: 80rem; width: 70rem; }
 </style>
-
-<div class="container">
+<div class="container mt-3">
 	<div class="row">
 		<div class="col-sm-3">
-			<div class="row py-5">
-				<div class="col">
-					<h3><?=$file['title']?></h3>
-				</div>
-				<div class="col-xs-1">
-					<a href="" type="button" class="btn text-info btn-lg bg-none"><i class="fas fa-edit"></i></a>
+			<?php if($file['users_idUser'] == $this->session->userdata('idUser')){?>
+				<div class="row justify-content-end">
+					<div class="custom-control custom-switch d-flex justify-content-end mr-3">
 					<?php
 						echo form_open('file/show');
 						echo form_hidden('source',$file['source']);
 						echo form_hidden('idFile',$file['idFile']);
-						echo form_hidden('idActivity',$this->uri->segment(3));?>
-						<button type="submit" class="btn text-danger btn-lg bg-none"><i class="fas fa-trash"></i></button>
-						<?php echo form_close();
+						echo form_hidden('idActivity',$this->uri->segment(3));
 					?>
+						<input name="isPublic" type="checkbox" class="custom-control-input " onclick="isPublicText()"
+						id="customSwitch1" data-toggle="modal" data-target="#modelId" 
+						<?=($file['isPublic'])? 'checked':''?>>
+						<label class="custom-control-label" for="customSwitch1">Public</label>
+					</div>
 				</div>
+			<?php }?>
+			<div class="row py-5">
+				<div class="col">
+					<h3><?=$file['title']?></h3>
+				</div>
+				<?php if($file['users_idUser'] == $this->session->userdata('idUser')){?>	
+					<div class="col">
+						<a href="" type="button" class="btn text-info btn-lg bg-none"><i class="fas fa-edit"></i></a>
+							
+							<button name="submit" type="submit" class="btn text-danger btn-lg bg-none" value="delete"><i class="fas fa-trash"></i></button>
+							
+					</div>
+				<?php }?>
 			</div>
 			<div class="row">
 				<p><?=$file['file_description']?></p>	
@@ -44,14 +56,13 @@
 								<a href="<?=$data['wikipediaUrl']?>" target="_blank"
 								 class="badge badge-pill badge-info font-weight-bold"><?=$data['name']?></a>
 							<?php }
-						}
-						
+						}	
 					}
 				?>
 				</p>
 			</div>
 		</div>
-		<div id="document" class="col">	
+		<div id="document" class="col shadow border border-info rounded-lg py-2">	
 		</div>
 	</div>
 </div>
@@ -74,3 +85,47 @@
 <script src="<?=base_url()?>node_modules/pdfobject/pdfobject.js"></script>
 <script>PDFObject.embed("<?=base_url()?><?=$file['source']?>", "#document");</script>
 
+
+<!-- Modal -->
+<div class="modal fade" id="modelId" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered" role="document">
+		<div class="modal-content">
+				<div class="modal-header">
+						<h5 class="modal-title">Publish File</h5>
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+					</div>
+			<div class="modal-body">
+				<div class="container-fluid">
+					<p> Do you want to make your file <?=($file['isPublic'])? 'PRIVATE':'PUBLIC'?>?</p>
+					<small>It will be <?=($file['isPublic'])? 'NOT':''?> visible on search results.</small>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" onclick="isPublic()" data-dismiss="modal">Close</button>
+				<?php
+					$data = array('name'=>'submit',
+								'type' => 'submit',
+								'value'=>'Update',
+								'class'=>'btn btn-info');
+					echo form_submit($data);
+					echo form_close();
+				?>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script>
+	$('#exampleModal').on('show.bs.modal', event => {
+		var button = $(event.relatedTarget);
+		var modal = $(this);
+		// Use above variables to manipulate the DOM
+		
+	});
+
+	function isPublic(){
+		document.getElementById('customSwitch1').checked = <?=($file['isPublic'])? 'true':'false'?>
+	}
+</script>

@@ -65,7 +65,7 @@ show_error($message_403 , 403 );
   ?>
 </div>
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+<nav class="navbar navbar-expand-lg navbar-dark bg-info">
 	<a class="navbar-brand" href="#" onclick="openNav()">
 		<i class="fas fa-bars"></i>
 	</a>
@@ -78,9 +78,9 @@ show_error($message_403 , 403 );
 	</button>
  
 	<div class="collapse navbar-collapse" id="collapsibleNavId">
-		<form class="form-inline mx-auto my-2 my-lg-0 mr-3">
-			<input class="form-control mr-sm-2 border-none" type="text" placeholder="Search">
-			<button class="btn btn-outline-success my-2 my-sm-0" type="submit"><i class="fas fa-search"></i></button>
+		<form class="form-inline mx-auto my-2 my-lg-0 mr-3" method="GET" action="<?=base_url()?>search">
+			<input class="form-control mr-sm-2 border-none" name="term" type="text" placeholder="Search">
+			<button class="btn btn-outline-light my-2 my-sm-0" type="submit"><i class="fas fa-search"></i></button>
 		</form>
 	</div>
 
@@ -99,7 +99,7 @@ show_error($message_403 , 403 );
 	</div>
 
 	<div class="dropdown open">
-		<button class="btn btn-outline-light dropdown-toggle h2" 
+		<button class="btn btn-outline-light dropdown-toggle" 
 		type="button" id="triggerId" data-toggle="dropdown" 
 		aria-haspopup="true"aria-expanded="false">
 		<?=$this->session->userdata('first_name').' '.$this->session->userdata('last_name');?>

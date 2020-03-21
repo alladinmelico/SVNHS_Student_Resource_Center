@@ -23,9 +23,9 @@
 								<td scope="row"><?=$uncheck['dateDue']?></td>
 								<td scope="row"><?php
 									$timeRemained=$uncheck['dayRemaining'].' day';
-									$timeRemained.=($uncheck['dayRemaining']>1)? 's and ':'and ';
+									$timeRemained.=($uncheck['dayRemaining']>1)? 's and ':' and ';
 									$timeRemained.=(($uncheck['dayRemaining']*24)-($uncheck['timeRemaining']));
-									$timeRemained.=($uncheck['dayRemaining']>1)? ' hours':' hour';
+									$timeRemained.=($uncheck['timeRemaining']>1)? ' hours':' hour';
 									echo $timeRemained;
 									if($uncheck['timeRemaining']<0){
 										echo '<i class="fas fa-exclamation-circle text-weight-bold">Late Submitted!</i>';
@@ -33,7 +33,8 @@
 									?>
 								</td>
 								<td scope="row">
-									<a href="<?=base_url()?>teacher/check/<?=$uncheck['idActivity']?>"><i class="fas fa-chevron-circle-right h2"></i></a>
+									<a href="<?=base_url()?>teacher/check/<?=$uncheck['idActivity']?>/<?=$uncheck['idUser']?>">
+									<i class="fas fa-chevron-circle-right h2"></i></a>
 								</td>
 							</tr>
 						<?php }?>

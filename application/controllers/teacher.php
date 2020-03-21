@@ -36,7 +36,11 @@ class Teacher extends CI_Controller{
 		redirect('login');
 	}
 
-	function check($id){
+	function check($id=0){
+		if($this->input->server('REQUEST_METHOD') =='POST'){
+			$this->MActivity->updateScore();
+			redirect('activity/unchecked');
+		}
 		$data['title'] = "Check Activity";
 		$data['contents'] = 'activity/check';
 		$data['file'] = $this->MFile->getUserFile($id);

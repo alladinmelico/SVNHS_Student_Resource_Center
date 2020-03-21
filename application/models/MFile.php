@@ -8,18 +8,39 @@ class MFile extends CI_Model{
 		  $this->load->helper('file');
 		  $this->subscription_key = $this->config->item('azure_subscription_key');
 		  $this->endpoint = $this->config->item('azure_endpoint');
-  	}
+	  }
 
-  function create(){
+	function search(){
+		$data = array();
+		$this->db->from('files');
+		$this->db->where('isPublic',1);
+		$this->db->like('title',$_GET['term']);
+		$this->db->or_like('file_description',$_GET['term']);
+		$this->db->or_like('key_phrase',$_GET['term']);
+		$Q = $this->db->get();
+
+		if ($Q->num_rows() > 0){
+			foreach($Q->result_array() as $row){
+				$data[] = $row;
+			}
+		}
+
+		$Q->free_result();
+		return $data;
+		
+	}
+
+ 	function create(){
 	$data= array(
 		'file_description' => $_POST['description'],
 		'title' => $_POST['title']
 	);
 
+	$config['file_name'] = time().$_FILES["file"]['name'];
 	$config['upload_path'] = './files/';
 	$config['allowed_types'] = 'pdf|doc|docx';
 	$config['max_size'] = '20000';
-	$config['remove_spaces'] = false;
+	$config['remove_spaces'] = true;
 	$config['overwrite'] = false;
 	$config['max_width'] = '0';
 	$config['max_height'] = '0';
@@ -79,10 +100,11 @@ class MFile extends CI_Model{
 	);
 
 	if(isset($_FILES['file']['name']) && !empty($_FILES['file']['tmp_name'])){
+		$config['file_name'] = time().$_FILES["file"]['name'];
 		$config['upload_path'] = './files/';
 		$config['allowed_types'] = 'pdf|doc|docx';
 		$config['max_size'] = '20000';
-		$config['remove_spaces'] = false;
+		$config['remove_spaces'] = true;
 		$config['overwrite'] = false;
 		$config['max_width'] = '0';
 		$config['max_height'] = '0';
@@ -185,13 +207,16 @@ class MFile extends CI_Model{
 	return $data;
 	}
 
-  function getUserFile($id){
+  function getUserFile($id,$user=0){
+	if($user == 0){
+		$user =$this->session->userdata('idUser');
+	}
 	$data = array();
 	$this->db->from('activities a');
 	$this->db->join('activity_user au','au.activities_idActivity = a.idActivity');
 	$this->db->join('users u','au.users_idUser = u.idUser');
 	$this->db->join('files f','f.idFile = au.files_idFile');
-	$this->db->where('u.idUser',$this->session->userdata('idUser'));
+	$this->db->where('u.idUser',$id);
 	$this->db->where('au.activities_idActivity',$id);
 	$Q = $this->db->get();
 
@@ -201,6 +226,21 @@ class MFile extends CI_Model{
 
 	$Q->free_result();
 	return $data;
+	}
+	
+	function getSearchedFile($id){
+		$data = array();
+		$this->db->from('activity_user au');
+		$this->db->join('files f','f.idFile = au.files_idFile');
+		$this->db->where('au.files_idFile',$id);
+		$Q = $this->db->get();
+
+		if ($Q->num_rows() > 0){
+			$data = $Q -> row_array();
+		}
+
+		$Q->free_result();
+		return $data;
 	}
 
   function DetectLanguage ($host, $path, $key, $data) {
@@ -337,6 +377,13 @@ class MFile extends CI_Model{
 				return $data['entities'];
 			}
 		}
+	}
+
+	function updateIsPublic(){
+		$isPublic = ($_POST['isPublic'] == 'on')? '1':'0';
+		$this->db->set('isPublic',$isPublic);
+		$this->db->where('idFile',$_POST['idFile']);
+		$this->db->update('files');
 	}
 	
 }

@@ -21,9 +21,13 @@ class File extends CI_Controller{
 
 	function show($id=0){
 		if($this->input->server('REQUEST_METHOD') =='POST'){
-			print_r($_POST);
-			$this->MFile->delete();
-			$this->MActivity->deleteActivityUser();
+			if($_POST['submit'] == 'delete'){
+				$this->MFile->delete();
+				$this->MActivity->deleteActivityUser();
+			} elseif ($_POST['submit'] == 'Update'){
+				$this->MFile->updateIsPublic();
+			}
+			
 			redirect('user/activity/'.$_POST['idActivity']);
 		} else{
 			$data['title'] = "File";

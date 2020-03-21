@@ -208,7 +208,7 @@ class MActivity extends CI_Model{
 
 	function getTeacherUnchecked(){
 		$data = array();
-		$this->db->select('c.class_title,a.activity_title,a.idActivity,DATE(f.file_timestamp) as dateSubmitted,
+		$this->db->select('c.class_title,u.idUser,a.activity_title,a.idActivity,DATE(f.file_timestamp) as dateSubmitted,
 		u.last_name,u.first_name,DATEDIFF(a.activity_DueDate,f.file_timestamp) AS dayRemaining,
 		HOUR(TIMEDIFF(a.activity_DueDate,f.file_timestamp)) AS timeRemaining, DATE(a.activity_DueDate) as dateDue');
 		$this->db->from('activities a');
@@ -278,6 +278,19 @@ class MActivity extends CI_Model{
 
 		$Q->free_result();
 		return $data;
+	}
+
+	function updateScore(){
+		$data = array(
+			'score'=>$_POST['score']
+		);
+
+		
+		$this->db->where('users_idUser', $_POST['users_idUser']);
+		$this->db->where('activities_idActivity', $_POST['activities_idActivity']);
+		
+		$this->db->update('activity_user', $data);
+		
 	}
 
 	function getTotalItems($id){
