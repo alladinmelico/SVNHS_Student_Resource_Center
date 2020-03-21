@@ -30,6 +30,19 @@ class MFile extends CI_Model{
 		
 	}
 
+	function getAllFiles(){
+		$data = array();
+		$Q = $this->db->get_where('files',array('isPublic' => 1));
+		if ($Q->num_rows() > 0){
+			foreach($Q->result_array() as $row){
+				$data[] = $row;
+			}
+		}
+
+		$Q->free_result();
+		return $data;
+	}
+
  	function create(){
 	$data= array(
 		'file_description' => $_POST['description'],

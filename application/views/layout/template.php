@@ -24,7 +24,11 @@
   <body>
 	  <div>
 		  <div>
-		  	<?php $this->load->view('/layout/navigation'); ?>
+				<?php 
+					if($this->session->userdata('idUser')){
+						$this->load->view('/layout/navigation'); 
+					} else $this->load->view('/layout/guest_navigation');
+				?>
 		  </div>
 
 		  <div >

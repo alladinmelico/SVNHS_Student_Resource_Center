@@ -78,7 +78,7 @@
                             'value'=>'Login',
                             'class'=>'btn btn-success btn-lg btn-block');
 						echo form_submit($data);
-						echo anchor('/','Continue as Guest',array('class'=>'d-flex justify-content-end text-muted'));
+						
             echo form_close();
             
           ?>
@@ -107,6 +107,7 @@
             <script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
           
             <p class="text-center mt-5">Don't have an Account? <a href="<?= base_url()?>register">Sign-up</a></p>
+						<p class="d-flex justify-content-end text-muted">Continue as Guest<a href="<?=base_url()?>" ><i class="fas fa-arrow-right ml-2"></i></a></p>
         </div>
       </div>
           

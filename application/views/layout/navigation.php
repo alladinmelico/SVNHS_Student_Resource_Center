@@ -49,6 +49,16 @@
 	.sidenav {padding-top: 15px;}
 	.sidenav a {font-size: 18px;}
 	}
+
+	input {
+      border-top-style: hidden;
+      border-right-style: hidden;
+      border-left-style: hidden;
+      border-bottom-style: none;
+      }
+      .no-outline:focus {
+      outline: none;
+      }
 </style>
 
 <div id="mySidenav" class="sidenav bg-dark">
@@ -69,18 +79,11 @@ show_error($message_403 , 403 );
 	<a class="navbar-brand" href="#" onclick="openNav()">
 		<i class="fas fa-bars"></i>
 	</a>
-	<button class="navbar-toggler d-lg-none" 
-		type="button" data-toggle="collapse" 
-		data-target="#collapsibleNavId" 
-		aria-controls="collapsibleNavId"
-		aria-expanded="false" aria-label="Toggle navigation">
-		<i class="fas fa-search"></i>
-	</button>
  
-	<div class="collapse navbar-collapse" id="collapsibleNavId">
-		<form class="form-inline mx-auto my-2 my-lg-0 mr-3" method="GET" action="<?=base_url()?>search">
-			<input class="form-control mr-sm-2 border-none" name="term" type="text" placeholder="Search">
-			<button class="btn btn-outline-light my-2 my-sm-0" type="submit"><i class="fas fa-search"></i></button>
+	<div class="container">
+		<form class="form-inline mx-auto bg-light rounded-lg" method="GET" action="<?=base_url()?>search">
+			<input class="no-outline bg-light rounded-left ml-1" name="term" type="text" placeholder="Search">
+			<button class="btn rounded-right bg-light" type="submit"><i class="fas fa-search"></i></button>
 		</form>
 	</div>
 

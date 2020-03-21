@@ -10,7 +10,11 @@ class Guest extends CI_Controller{
 	}
 
 	function index(){
-
+		$data['title'] = "Activities";
+		$data['contents'] = 'index';
+		$data['files'] = $this->MFile->getAllFiles();
+		$this->load->vars($data);
+		$this->load->view('layout/template');
 	}
 
 	

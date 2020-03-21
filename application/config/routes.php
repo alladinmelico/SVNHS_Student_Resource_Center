@@ -59,8 +59,9 @@ $route['file/(:num)'] = 'file/show/$1';
 $route['classes/(:num)'] = 'classes/show/$1';
 $route['activity/(:num)'] = 'activity/show/$1';
 $route['user/classes/(:num)'] = 'user/showUserClass/$1';
+// $route[''] = 'guest';
 
-$route['default_controller'] = 'user';
+$route['default_controller'] = 'guest';
 $route['access_denied'] = 'guest/access_denied';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
