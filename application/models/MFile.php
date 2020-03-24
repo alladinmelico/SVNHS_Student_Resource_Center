@@ -229,7 +229,7 @@ class MFile extends CI_Model{
 	$this->db->join('activity_user au','au.activities_idActivity = a.idActivity');
 	$this->db->join('users u','au.users_idUser = u.idUser');
 	$this->db->join('files f','f.idFile = au.files_idFile');
-	$this->db->where('u.idUser',$id);
+	$this->db->where('u.idUser',$user);
 	$this->db->where('au.activities_idActivity',$id);
 	$Q = $this->db->get();
 

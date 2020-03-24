@@ -1,9 +1,3 @@
-
-<?php
-	if(!$this->session->has_userdata('idTeacher')){
-		redirect('login');
-	}
-?>
 <ul class="list-group">
 	<li class="list-group-item d-flex 
 		justify-content-between align-items-center list-group-item-action 

@@ -77,7 +77,10 @@ show_error($message_403 , 403 );
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-info">
 	<a class="navbar-brand" href="#" onclick="openNav()">
-		<i class="fas fa-bars"></i>
+		<i class="fas fa-bars mr-5"></i>
+	</a>
+	<a class="navbar-brand" href="<?=base_url()?><?=($this->session->has_userdata('idUser'))? 'user':'teacher'?>" >
+		<img src="<?=base_url()?>logo_banner.png" alt="" height="70em">
 	</a>
  
 	<div class="container">

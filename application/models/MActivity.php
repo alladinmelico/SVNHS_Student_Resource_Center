@@ -238,6 +238,7 @@ class MActivity extends CI_Model{
 		$this->db->join('activities a','a.classes_idClass = c.idClass');
 		$this->db->join('activity_user au','a.idActivity = au.activities_idActivity','left');
 		$this->db->where('cu.users_idUser',$this->session->userdata('idUser'));
+		$this->db->where('cu.confirmed',1);
 		$this->db->where('au.activities_idActivity');
 		$Q = $this->db->get();
 

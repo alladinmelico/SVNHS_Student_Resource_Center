@@ -9,11 +9,11 @@
       outline: none;
       }
 </style>
-<nav class="navbar navbar-expand-lg navbar-dark bg-info">
+<nav class="navbar bg-info">
 	<a class="navbar-brand" href="<?=base_url()?>" onclick="openNav()">
-	<i class="fas fa-chalkboard"></i>
+		<img src="<?=base_url()?>logo_banner.png" alt="" height="70em">
 	</a> 
-	<div class="container">
+	<div class="container-sm">
 		<form class="form-inline mx-auto bg-light rounded-lg" method="GET" action="<?=base_url()?>search">
 			<input class="no-outline bg-light rounded-left ml-1" name="term" type="text" placeholder="Search">
 			<button class="btn rounded-right bg-light" type="submit"><i class="fas fa-search"></i></button>
