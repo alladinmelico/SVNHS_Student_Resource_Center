@@ -32,18 +32,19 @@ class Teacher extends CI_Controller{
 		$this->session->unset_userdata('idUser');
 		$this->session->unset_userdata('idTeacher');
 		$this->session->unset_userdata('username');
+		$this->session->unset_userdata('email');
 		unset($_SESSION['idAdmin']);
 		redirect('login');
 	}
 
-	function check($id=0){
+	function check($id=0,$user=0){
 		if($this->input->server('REQUEST_METHOD') =='POST'){
 			$this->MActivity->updateScore();
 			redirect('activity/unchecked');
 		}
 		$data['title'] = "Check Activity";
 		$data['contents'] = 'activity/check';
-		$data['file'] = $this->MFile->getUserFile($id);
+		$data['file'] = $this->MFile->getUserFile($id,$user);
 		$data['activity'] = $this->MActivity->getActivity($id);
 		$this->load->vars($data);
 		$this->load->view('layout/template');

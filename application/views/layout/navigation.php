@@ -75,7 +75,7 @@ show_error($message_403 , 403 );
   ?>
 </div>
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-info">
+<nav class="navbar navbar-expand-lg navbar-dark blue-gradient ">
 	<a class="navbar-brand" href="#" onclick="openNav()">
 		<i class="fas fa-bars mr-5"></i>
 	</a>
@@ -86,11 +86,11 @@ show_error($message_403 , 403 );
 	<div class="container">
 		<form class="form-inline mx-auto bg-light rounded-lg" method="GET" action="<?=base_url()?>search">
 			<input class="no-outline bg-light rounded-left ml-1" name="term" type="text" placeholder="Search">
-			<button class="btn rounded-right bg-light" type="submit"><i class="fas fa-search"></i></button>
+			<button class="btn btn-info waves-effect" type="submit"><i class="fas fa-search fa-lg"></i></button>
 		</form>
 	</div>
 
-	<div class="dropdown open">
+	<!-- <div class="dropdown open">
 		<button class="btn bg-none" 
 		type="button" id="triggerId" data-toggle="dropdown" 
 		aria-haspopup="true"aria-expanded="false">
@@ -102,7 +102,7 @@ show_error($message_403 , 403 );
 				href="<?=base_url()?>user/logout">
 				</a>
 		</div>
-	</div>
+	</div> -->
 
 	<div class="dropdown open">
 		<button class="btn btn-outline-light dropdown-toggle" 

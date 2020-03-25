@@ -174,7 +174,7 @@
 								<td scope="row"><?=$activity['activity_title']?></td>
 								<td scope="row"><?=$activity['activity_description']?></td>
 								<td scope="row"><?=$activity['activity_timestamp']?></td>
-								<td scope="row"><?= anchor('activity','<i class="fas fa-chevron-circle-right h2"></i>')?></td>
+								<td scope="row"><?= anchor('activity/'.$activity['idActivity'],'<i class="fas fa-chevron-circle-right h2"></i>')?></td>
 							</tr>
 						<?php }?>
 					</tbody>

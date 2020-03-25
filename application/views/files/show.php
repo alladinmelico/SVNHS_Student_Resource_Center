@@ -14,9 +14,9 @@
 						echo form_hidden('idFile',$file['idFile']);
 						echo form_hidden('idActivity',$this->uri->segment(3));
 					?>
-						<input name="isPublic" type="checkbox" class="custom-control-input " onclick="isPublicText()"
+						<input name="isPublic" type="checkbox" class="custom-control-input "
 						id="customSwitch1" data-toggle="modal" data-target="#modelId" 
-						<?=($file['isPublic'])? 'checked':''?>>
+							<?=($file['isPublic'])? 'checked':''?>>
 						<label class="custom-control-label" for="customSwitch1">Public</label>
 					</div>
 				</div>
@@ -27,9 +27,9 @@
 				</div>
 				<?php if($file['users_idUser'] == $this->session->userdata('idUser')){?>	
 					<div class="col">
-						<a href="" type="button" class="btn text-info btn-lg bg-none"><i class="fas fa-edit"></i></a>
+						<a href="" type="button" class="btn btn-primary btn-sm "><i class="fas fa-edit fa-lg"></i></a>
 							
-							<button name="submit" type="submit" class="btn text-danger btn-lg bg-none" value="delete"><i class="fas fa-trash"></i></button>
+							<button name="submit" type="submit" class="btn btn-danger btn-sm" value="delete"><i class="fas fa-trash fa-lg"></i></button>
 							
 					</div>
 				<?php }?>
@@ -103,15 +103,9 @@
 				</div>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-secondary" onclick="isPublic()" data-dismiss="modal">Close</button>
-				<?php
-					$data = array('name'=>'submit',
-								'type' => 'submit',
-								'value'=>'Update',
-								'class'=>'btn btn-info');
-					echo form_submit($data);
-					echo form_close();
-				?>
+				<button type="button" class="btn btn-secondary" id="closebtn" data-dismiss="modal" >Close</button>
+				<button name="submit" type="submit" class="btn btn-info" value="Update">Update</button>
+				<?= form_close()?>
 			</div>
 		</div>
 	</div>
@@ -121,11 +115,10 @@
 	$('#exampleModal').on('show.bs.modal', event => {
 		var button = $(event.relatedTarget);
 		var modal = $(this);
-		// Use above variables to manipulate the DOM
 		
 	});
 
-	function isPublic(){
-		document.getElementById('customSwitch1').checked = <?=($file['isPublic'])? 'true':'false'?>
-	}
+	$('#modelId').on('hide.bs.modal', function () {
+	window.alert('hidden event fired!');
+	});
 </script>

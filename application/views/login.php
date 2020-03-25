@@ -1,87 +1,44 @@
-
-<!doctype html>
-<html lang="en">
-  <head>
-    <title><?= $title;?></title>
-    
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="google-signin-client_id" 
-    content="293153048084-oh88r7c3hf34sp3q3vlkbb43p8m4j7tn.apps.googleusercontent.com">
-
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <script src="https://apis.google.com/js/platform.js" async defer></script>
-
-		<script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
-    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
-		
-
-    <link href="<?= base_url()?>css/all.css" rel="stylesheet">
-    <script defer src="<?= base_url()?>js/all.js"></script>
-    <link href="<?= base_url()?>css/solid.css" rel="stylesheet">
-    <script defer src="<?= base_url()?>js/solid.js"></script>
-    <link rel="stylesheet" href="<?= base_url()?>css/custom.css">
-  </head>
+<?php include('layout/head.php');?>
   <body class="bg-dark">
       <div class="container mt-5 text-dark" style="width: 25rem;">
-      <div class="card text-left">
+      <div class="card text-left winter-neva-gradient">
         <img class="card-img-top "alt="" >
         <div class="card-body">
-          <?php
-						echo form_open("login");
-						
-						echo form_label('Login as:');
-						echo '<br><div class="custom-control custom-radio custom-control-inline ml-4 h5">';
-							echo form_radio(array(
-													'value'=>'student',
-													'id'=>'radioStudent',
-													'name'=>'role',
-													'class'=>'custom-control-input',
-													'required'=>'required'));
-							echo form_label('<i class="fas fa-user"></i><span class="text-muted ml-2">Student</span>',
-							'radioStudent',array('class'=>'custom-control-label'));
-						echo '</div>';
 
-						echo '<div class="custom-control custom-radio custom-control-inline h5">';
-							echo form_radio(array(
-													'value'=>'teacher',
-													'id'=>'radioTeacher',
-													'name'=>'role',
-													'class'=>'custom-control-input',
-													'required'=>'required'));
-							echo form_label('<i class="fas fa-user-tie "></i><span class="text-muted ml-2">Teacher</span>',
-							'radioTeacher',array('class'=>'custom-control-label  mb-3'));
-						echo '</div><br>';
+					<?=form_open('login')?>
 
-            $data = array('name'=>'username',
-                            'type' => 'text',
-                            'id'=>'username',
-                            'size'=>25,
-														'class'=>'form-control mb-3',
-														'required'=>'required');
-            echo form_label('Username');
-            echo form_input($data);
+					<div class="btn-group btn-group-toggle container" data-toggle="buttons">
+						<label class="btn btn-info form-check-label">
+							<input class="form-check-input" type="radio" name="role" id="option2" autocomplete="off" value="student" required>
+							<i class="fas fa-user prefix mr-2"></i>
+							Student
+						</label>
+						<label class="btn btn-info form-check-label">
+							<input class="form-check-input" type="radio" name="role" id="option3" autocomplete="off" value="teacher" required>
+								<i class="fas fa-user-tie prefix mr-2"></i>
+								Teacher
+						</label>
+					</div>
 
-            $data = array('name'=>'password',
-                            'type' => 'password',
-                            'id'=>'password',
-                            'size'=>25,
-														'class'=>'form-control mb-5',
-														'required'=>'required');
-            echo form_label('Password');
-            echo form_input($data);
+					<div class="md-form md-outline form-lg">
+						<i class="fas fa-user prefix"></i>
+						<input name="username" type="text" id="inputIconEx2" class="form-control form-control-lg">
+						<label for="inputIconEx2" class="bg-none">Username</label>
+					</div>
 
-            echo anchor('user/forgotPassword','forgot password?<br>');
-            $data = array('name'=>'login',
-                            'type' => 'submit',
-                            'id'=>'',
-                            'value'=>'Login',
-                            'class'=>'btn btn-success btn-lg btn-block');
-						echo form_submit($data);
-						
-            echo form_close();
-            
-          ?>
+					<div class="md-form md-outline form-lg">
+						<i class="fas fa-lock prefix"></i>
+						<input name="password" type="password" id="password" class="form-control">
+						<label for="password">Password</label>
+					</div>
+					<div class="text-right mb-4">
+						<a href="<?=base_url('user/forgotPassword')?>">forgot password?</a>
+					</div>
+
+					<button type="submit" class="btn btn-info btn-lg btn-block rounded-pill">LOG IN</button>
+
+					<?=form_close()?>
+
           <p class="text-center mt-5">OR</p>
             <div id="my-signin2" class="d-flex justify-content-center mb-3"></div>
             <script>

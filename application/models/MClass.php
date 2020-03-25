@@ -245,6 +245,13 @@ class MClass extends CI_Model{
 		return $data;
 	}
 
+	function isRequested(){
+		$Q = $this->db->get_where('class_user',array('users_idUser' => $this->session->userdata('idUser')));
+		if($Q->num_rows()>0){
+			return TRUE;
+		} else return FALSE;
+	}
+
 	
 }
 ?>

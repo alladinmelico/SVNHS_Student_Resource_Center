@@ -13,6 +13,7 @@ class User extends CI_Controller{
 	}
 	
 	function index(){
+		
 		$data['title'] = "Student Resource";
 		$data['contents'] = 'user/index';
 		$data['todos'] = $this->MActivity->getUserToDo();
@@ -53,10 +54,13 @@ class User extends CI_Controller{
 	function addClass(){
 		if($this->input->server('REQUEST_METHOD') =='POST'){
 			if($this->MClass->getCode($_POST['idClass'])['class_code'] != $_POST['class_code']){
-				echo $this->MClass->getCode($_POST['idClass']);
-				echo "<script>alert('Wrong Code ')</script>";
+				$this->session->set_flashdata('invalidCode',TRUE);
+				redirect('user/classes','refresh');
 			} else{
-				$this->MUser->addClass();
+				if(!$this->MClass->isRequested()){
+					$this->MUser->addClass();
+				} else $this->session->set_flashdata('isRequested',TRUE);
+
 				redirect('user/classes');
 			}
 		} 
@@ -78,6 +82,46 @@ class User extends CI_Controller{
 		$this->load->vars($data);
 		$this->load->view('layout/template');
 	}
+
+	function sendEmail(){
+		if($this->input->server('REQUEST_METHOD') =='POST'){
+			//Load email library
+			$this->load->library('email');
+
+			//SMTP & mail configuration
+			$config = array(
+				'protocol'  => 'smtp',
+				'smtp_host' => 'ssl://smtp.googlemail.com',
+				'smtp_port' => 465,
+				'smtp_user' => 'sresourceinformation@gmail.com',
+				'smtp_pass' => 'studentRI2k20',
+				'mailtype'  => 'text',
+				'charset'   => 'utf-8'
+			);
+			$this->email->initialize($config);
+			$this->email->set_mailtype("html");
+			$this->email->set_newline("\r\n");
+
+			$from = $this->session->userdata('email');
+			$to = 'sresourceinformation@gmail.com';
+			$subject = $this->input->post('subject');
+			$message = $this->input->post('message');
+
+			$this->email->set_newline("\r\n");
+			$this->email->to($to);
+			$this->email->from($from);
+			$this->email->subject($subject);
+			$this->email->message($message);
+
+			if($this->email->send()){
+				$this->session->set_flashdata('emailSend',TRUE);
+				redirect('user','refresh');
+			} else{
+				show_error($this->email->print_debugger());
+			}
+			
+		}
+	}
 	
 	function logout(){
 		$this->session->unset_userdata('idUser');
@@ -85,6 +129,7 @@ class User extends CI_Controller{
 		$this->session->unset_userdata('username');
 		$this->session->unset_userdata('first_name');
 		$this->session->unset_userdata('last_name');
+		$this->session->unset_userdata('email');
 		unset($_SESSION['idAdmin']);
 		redirect('login');
 	}

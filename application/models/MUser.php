@@ -29,6 +29,7 @@ class MUser extends CI_Model{
 		$this->session->set_userdata('username',$row['username']);
 		$this->session->set_userdata('first_name',$row['first_name']);
 		$this->session->set_userdata('last_name',$row['last_name']);
+		$this->session->set_userdata('email',$row['email']);
 
 		if(isset($row['idTeacher'])){
 			$this->session->set_userdata('idTeacher',$row['idTeacher']);

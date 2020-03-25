@@ -1,26 +1,4 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <title><?= $title;?></title>
-    
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="google-signin-client_id" 
-    content="293153048084-oh88r7c3hf34sp3q3vlkbb43p8m4j7tn.apps.googleusercontent.com">
-
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-		<script src="https://apis.google.com/js/platform.js" async defer></script>
-		<!-- Font Awesome JS -->
-    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
-    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
-		<link rel="icon" href="<?=base_url()?>logo.ico">
-		<link rel="stylesheet" href="<?= base_url()?>css/custom.css">
-    <link href="<?= base_url()?>css/all.css" rel="stylesheet">
-    <script defer src="<?= base_url()?>js/all.js"></script>
-    <link href="<?= base_url()?>css/solid.css" rel="stylesheet">
-    <script defer src="<?= base_url()?>js/solid.js"></script>
-		
-  </head>
+<?php include('head.php');?>
   <body>
 		  <div>
 				<?php 
@@ -29,6 +7,30 @@
 					} else $this->load->view('/layout/guest_navigation');
 				?>
 		  </div>
+
+		  <?php
+		  	if($this->session->flashdata()){
+				if($this->session->flashdata('emailSend')){
+					$color = 'success';
+					$message = 'Mail has been sent!';
+				}
+				if($this->session->flashdata('invalidCode')){
+					$color = 'danger';
+					$message = 'Invalid Code';
+				}
+
+				if($this->session->flashdata('isRequested')){
+					$color = 'info';
+					$message = 'You already requested to join the class, Please wait for the confirmation of your teacher';
+				}
+			?>
+				<div class="alert alert-<?=$color?>" role="alert">
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<?=$message?>
+				</div>
+			<?php } ?>
 
 		  <div class="container-fluid">
         <div class="row">
@@ -76,8 +78,57 @@
 			  <?php $this->load->view('/layout/footer'); ?>
 		  </div>
 
-  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+		  <div class="fixed-bottom d-flex justify-content-end">
+		  <a href="" class="btn btn-default btn-rounded mb-4" data-toggle="modal" data-target="#modalContactForm">
+			  <i class="fas fa-envelope fa-lg mr-2"></i>Contact Us
+
+		  </a>
+			</div>
+
+  	<!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script> -->
   </body>
 </html>
+
+
+<div class="modal fade" id="modalContactForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-side modal-bottom-right" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Write to us</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+
+		<?=form_open('user/sendEmail')?>
+
+        <div class="md-form mb-5">
+          <i class="fas fa-tag prefix grey-text"></i>
+          <input name="subject" type="text" id="form32" class="form-control validate">
+          <label data-error="wrong" data-success="right" for="form32">Subject</label>
+        </div>
+
+        <div class="md-form">
+			<i class="fas fa-pencil-alt	prefix grey-text"></i>
+          <textarea name="message" type="text" id="form8" class="md-textarea form-control" rows="4"></textarea>
+          <label data-error="wrong" data-success="right" for="form8">Your message</label>
+        </div>
+
+      </div>
+      <div class="modal-footer d-flex justify-content-center">
+		<button class="btn btn-info">Send <i class="fas fa-paper-plane ml-1"></i></button>
+			
+		<?=form_close()?>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+	$('.alert').alert()
+</script>

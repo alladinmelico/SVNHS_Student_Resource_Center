@@ -2,9 +2,8 @@
 	<div class="row">
 		<div class="col">
 			<h1>Classes
-				<button type="button" class="btn" data-toggle="modal" data-target="#modelId">
-					<i class="fas fa-plus-circle h1"></i>
-				</button>
+				<a class="btn-floating btn-lg blue-gradient text-white mt-3" data-toggle="modal" data-target="#modelId">
+				<i class="fas fa-plus-circle"></i></a>
 			</h1>
 		</div>
 	</div>
@@ -28,7 +27,7 @@
 							<td scope="row"><?= $class['class_title']?></td>
 							<td scope="row"><?= $class['class_description']?></td>
 							<td scope="row"><?= $class['class_code']?></td>
-							<td><a href="classes/<?=$class['idClass']?>"><i class="fas fa-chevron-circle-right h2"></i></a></td>
+							<td><a href="<?=base_url()?>classes/<?=$class['idClass']?>"><i class="fas fa-chevron-circle-right h2"></i></a></td>
 						</tr>
 					<?php }?>
 					</tbody>
@@ -56,7 +55,6 @@
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-				<button type="button" class="btn btn-primary">Save</button>
 			</div>
 		</div>
 	</div>

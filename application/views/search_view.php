@@ -24,7 +24,7 @@
 						<tbody>
 						<?php foreach($searched as $file){ ?>
 							<tr>
-								<td scope="row">
+								<td scope="row" class="h3">
 									<?=preg_replace('/('.$_GET['term'].')/i ','<span class="text-light bg-info">$1</span>',$file['title']) ?>
 								</td>
 								<td scope="row">

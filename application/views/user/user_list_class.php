@@ -4,10 +4,9 @@
 		<div class="col d-flex align-items-center">
 			<h3>Classes</h3>
 		</div>
-		<div class="col">
-			<button type="button" class="btn btn-sm " data-toggle="modal" data-target="#modelId">
-				<i class="fas fa-plus-circle h1"></i>
-			</button>
+		<div class="col py-1">
+			<a class="btn-floating btn-lg blue-gradient text-white" data-toggle="modal" data-target="#modelId">
+			<i class="fas fa-plus"></i></a>
 		</div>
 	</div>
 	<div class="row">

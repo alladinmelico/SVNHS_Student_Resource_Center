@@ -2,9 +2,8 @@
 	<div class="row">
 		<div class="col">
 			<h1>Classes
-				<button type="button" class="btn" data-toggle="modal" data-target="#modelId">
-					<i class="fas fa-plus-circle h1"></i>
-				</button>
+				<a class="btn-floating btn-lg blue-gradient text-white mt-3" data-toggle="modal" data-target="#modelId">
+				<i class="fas fa-plus-circle"></i></a>
 			</h1>
 		</div>
 	</div>
@@ -52,14 +51,8 @@
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-				<?php
-					$data = array('name'=>'',
-							'type' => 'submit',
-							'value'=>'Upload',
-							'class'=>'btn btn-success');
-					echo form_submit($data);
-					echo form_close();
-				?>
+				<button type="submit" class="btn btn-info">Request</button>
+				<?=form_close()?>
 			</div>
 		</div>
 	</div>
