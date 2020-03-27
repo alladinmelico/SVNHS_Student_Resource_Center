@@ -40,34 +40,6 @@
 		<?php }?>
 	</div>
 
-
-	<!-- <div class="row">
-		<div class="col-xl-12">
-			<table class="table table-striped ">
-				<thead class="thead-inverse">
-					<tr>
-						<th>Title</th>
-						<th>Description</th>
-						<th>Class</th>
-						<th>Date Due</th>
-						<th></th>
-					</tr>
-					</thead>
-					<tbody>
-					<?php foreach($activities as $activity){ ?>
-						<tr>
-							<td scope="row"><?= ucfirst($activity[''])?></td>
-							<td scope="row"><?= $activity['']?></td>
-							<td scope="row"><?= $activity['class_title']?></td>
-							<td scope="row lg"></td>
-							<td><a href="activity/<?=$activity['idActivity']?>"><i class="fas fa-chevron-circle-right h2"></i></a></td>
-						</tr>
-					<?php }?>
-					</tbody>
-			</table>
-		</div>
-	</div> -->
-
 </div>
 
 

@@ -150,6 +150,7 @@ class MClass extends CI_Model{
 		$this->db->from('classes c');
 		$this->db->join('activities a','a.classes_idClass = c.idClass');
 		$this->db->where('c.idClass',$id);
+		$this->db->where('a.isActive_Activity',1);
 		$Q = $this->db->get();
 
 		if($Q->num_rows() > 0){
