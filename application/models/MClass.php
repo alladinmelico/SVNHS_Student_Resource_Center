@@ -34,8 +34,9 @@ class MClass extends CI_Model{
 	}
 
 	function delete(){
-		$this->db->delete('classes',array(
-			'idClass' => $_POST['idClass']
+		$this->db->where('idClass',$_POST['idClass']);
+		$this->db->update('classes',array(
+			'isActive_Class' => 0
 		));
 	}
 
@@ -53,6 +54,7 @@ class MClass extends CI_Model{
 	  
 	function getAllClass(){
 		$data = array();
+		$this->db->where('c.isActive_Class',1);
 		$Q = $this->db->get('classes');
 		if($Q->num_rows() > 0){
 			foreach($Q -> result_array() as $row){
@@ -65,7 +67,10 @@ class MClass extends CI_Model{
 
   	function getAllTeacherClasses(){
 		$data = array();
-		$Q = $this->db->get_where('classes',array('teachers_idTeacher'=>$this->session->userdata('idTeacher')));
+		$Q = $this->db->get_where('classes',array(
+			'teachers_idTeacher'=>$this->session->userdata('idTeacher'),
+			'isActive_Class' => 1
+		));
 
 		if($Q->num_rows() > 0){
 			foreach($Q -> result_array() as $row){
@@ -83,6 +88,7 @@ class MClass extends CI_Model{
 		$this->db->join('users u','u.idUser = cu.users_idUser');
 		$this->db->where('cu.users_idUser',$this->session->userdata('idUser'));
 		$this->db->where('cu.confirmed',1);
+		$this->db->where('c.isActive_Class',1);
 		$Q = $this->db->get();
 	
 		if($Q->num_rows() > 0){
@@ -190,6 +196,7 @@ class MClass extends CI_Model{
 		$this->db->join('users u','cu.users_idUser = u.idUser');
 		$this->db->where('cu.users_idUser',$this->session->userdata('idUser'));
 		$this->db->where('cu.confirmed',1);
+		$this->db->where('c.isActive_Class',1);
 		$data = $this->db->count_all_results();
 		
 		return $data;
@@ -252,7 +259,10 @@ class MClass extends CI_Model{
 	}
 
 	function isRequested(){
-		$Q = $this->db->get_where('class_user',array('users_idUser' => $this->session->userdata('idUser')));
+		$Q = $this->db->get_where('class_user',array(
+			'users_idUser' => $this->session->userdata('idUser'),
+			'classes_idClass' => $_POST['idClass']
+		));
 		if($Q->num_rows()>0){
 			return TRUE;
 		} else return FALSE;

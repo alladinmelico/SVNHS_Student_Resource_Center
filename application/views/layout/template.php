@@ -21,8 +21,15 @@
 
 				if($this->session->flashdata('isRequested')){
 					$color = 'info';
-					$message = 'You already requested to join the class, Please wait for the confirmation of your teacher';
+					$message = 'You already requested to join the class, Please wait for the confirmation of your teacher.';
 				}
+
+				if($this->session->flashdata('requested')){
+					$color = 'info';
+					$message = 'Your request to enroll in this class has been submitted, please wait for the confirmation of your teacher.';
+				}
+
+
 			?>
 				<div class="alert alert-<?=$color?>" role="alert">
 					<button type="button" class="close" data-dismiss="alert" aria-label="Close">

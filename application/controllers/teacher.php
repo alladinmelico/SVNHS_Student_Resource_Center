@@ -50,6 +50,13 @@ class Teacher extends CI_Controller{
 		$this->load->view('layout/template');
 	}
 
+	function hasStudent($id){
+		$Q = $this->db->get_where('class_user',array('classes_idClass'=>$id));
+		if($Q->num_rows() > 0){
+			return TRUE;
+		} else return FALSE;
+	}
+
 	
 }
 ?>

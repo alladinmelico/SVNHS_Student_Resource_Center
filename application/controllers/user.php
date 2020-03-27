@@ -59,6 +59,7 @@ class User extends CI_Controller{
 			} else{
 				if(!$this->MClass->isRequested()){
 					$this->MUser->addClass();
+					$this->session->set_flashdata('requested',TRUE);
 				} else $this->session->set_flashdata('isRequested',TRUE);
 
 				redirect('user/classes');

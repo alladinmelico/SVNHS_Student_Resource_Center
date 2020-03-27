@@ -123,8 +123,8 @@
 	</script>
 
 
-<div class="container-fluid ">
-	<div class="row bg text-light">
+<div class="container-fluid">
+	<div class="row bg text-light ">
 			<div class="col-1">
 				<h3 class="text-info "><?=ucfirst($subject['subject_name'])?></h3>
 			</div>
@@ -141,24 +141,31 @@
 			
 	</div>
 	
-	
-	<div class="row py-5">
-		<div class="col">
-			<div class="container">
-				<div class="row overflow-auto py-3 rounded-lg shadow">
-					<div id="linechart" style="width: 1000px; height: 500px" ></div>
-				</div>
-				<div class="row py-3">
-					<div class="col px-3">
-						<div id="piechart" class="rounded-lg shadow" ></div>
-					</div>
-					<div class="col px-3">
-						<div id="barchart" class="rounded-lg shadow" ></div>
-					</div>
+	<?php if($users){?>
+		<div class="row py-5">
+			<div class="col">
+				<div class="container">
+					<?php if($scores){?>
+						<div class="row overflow-auto py-3 rounded-lg shadow">
+							<div id="linechart" style="width: 1000px; height: 500px" ></div>
+						</div>
+					<?php }?>
+
+					
+					<?php if($topStudents){?>
+						<div class="row py-3">
+							<div class="col px-3">
+								<div id="piechart" class="rounded-lg shadow" ></div>
+							</div>
+							<div class="col px-3">
+								<div id="barchart" class="rounded-lg shadow" ></div>
+							</div>
+						</div>
+					<?php }?>
 				</div>
 			</div>
 		</div>
-	</div>
+	
 
 	<div class="row py-5">
 		<div class="col py-3 px-3 border border-info rounded-lg shadow">
@@ -180,6 +187,12 @@
 		</div>
 	</div>
 
+	<?php } 
+	else {
+	?>
+		<h2 class="mt-5">No student has been enrolled in this class...</h2>
+		<strong class="text-muted mb-5">Kindly check your request inbox in your <a href="<?=base_url('teacher')?>">dashboard.</a></strong>
+	<?php }?>
 
 	<div class="row">
 		<div class="col-lg-1-12 py-3 px-3 border border-info rounded-lg shadow">
