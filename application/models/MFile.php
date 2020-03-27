@@ -12,11 +12,14 @@ class MFile extends CI_Model{
 
 	function search(){
 		$data = array();
+		
 		$this->db->from('files');
 		$this->db->where('isPublic',1);
+		$this->db->group_start();
 		$this->db->like('title',$_GET['term']);
 		$this->db->or_like('file_description',$_GET['term']);
 		$this->db->or_like('key_phrase',$_GET['term']);
+		$this->db->group_end();
 		$Q = $this->db->get();
 
 		if ($Q->num_rows() > 0){
