@@ -54,7 +54,7 @@ class MUser extends CI_Model{
   }
 
   function verifyEmailAddress($code){
-	  $this->db->where('user_verification_code','59d19e15a3f258105e01b3358b4aea9c42d7410ab783ed5e5c591e3ef7a2a255');
+	  $this->db->where('user_verification_code',$code);
 	  $this->db->update('users',array('isActive_User'=>1));
 	  return $this->db->affected_rows();
   }
@@ -120,18 +120,18 @@ class MUser extends CI_Model{
 			'charset'   => 'utf-8'
 		);
 		$this->email->initialize($config);
-		$this->email->set_mailtype("text");
+		$this->email->set_mailtype("html");
 		$this->email->set_newline("\r\n");
 
 		$this->email->set_newline("\r\n");
 		$this->email->to($email);
 		$this->email->from('sresourceinformation@gmail.com');
 		$this->email->subject('Email Verification');
-		$this->email->message('Dear User,\nPlease click on below URL or paste into your browser to verify your Email Address\n\nhttp://svnhs-is.edu/guest/verify/'.$verificationText."\n"."\n\nThanks\nAdmin");
+		$this->email->message('<h1>Dear User,</h1><br><h3>Please click on below URL or paste into your browser to verify your Email Address</h3> <br> http://svnhs-is.edu/guest/verify/'.$verificationText."<br><br>Thanks<br>Admin");
 
 		if($this->email->send()){
 			$this->session->set_flashdata('emailSend',TRUE);
-			redirect('guest/verificationSent');
+			$this->load->view('errors/cli/verify_sent');
 		} else{
 			show_error($this->email->print_debugger());
 		}
