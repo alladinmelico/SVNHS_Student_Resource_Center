@@ -54,7 +54,7 @@ class MClass extends CI_Model{
 	  
 	function getAllClass(){
 		$data = array();
-		$this->db->where('c.isActive_Class',1);
+		$this->db->where('isActive_Class',1);
 		$Q = $this->db->get('classes');
 		if($Q->num_rows() > 0){
 			foreach($Q -> result_array() as $row){

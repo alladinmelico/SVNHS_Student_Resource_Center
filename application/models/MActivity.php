@@ -40,6 +40,7 @@ class MActivity extends CI_Model{
 
   function getAllActivities(){
 	$data = array();
+	$this->db->where('isActive_Activity',1);
 	$this->db->order_by('activity_name','ASC');
 	$Q = $this->db->get('activities');
 
@@ -90,6 +91,7 @@ class MActivity extends CI_Model{
 		$this->db->from('classes c');
 		$this->db->join('activities a','c.idClass = a.classes_idClass');
 		$this->db->where('c.teachers_idTeacher',$this->session->userdata('idTeacher'));
+		$this->db->where('a.isActive_Activity',1);
 		$data = $this->db->count_all_results();
 		
 		return $data;
@@ -127,6 +129,7 @@ class MActivity extends CI_Model{
 		$this->db->join('users u','u.idUser = au.users_idUser');
 		$this->db->join('files f','f.idFile = au.files_idFile');
 		$this->db->where('a.idActivity',$id);
+		$this->db->where('a.isActive_Activity',1);
 		$this->db->order_by('u.last_name','ASC');
 		$Q = $this->db->get();
 
@@ -190,6 +193,7 @@ class MActivity extends CI_Model{
 		$this->db->join('activity_user au','a.idActivity = au.activities_idActivity','left');
 		$this->db->where('cu.users_idUser',$this->session->userdata('idUser'));
 		$this->db->where('cu.confirmed',1);
+		$this->db->where('a.isActive_Activity',1);
 		$this->db->where('au.activities_idActivity');
 		$data = $this->db->count_all_results();
 
@@ -204,6 +208,7 @@ class MActivity extends CI_Model{
 		$this->db->join('teachers t','t.idTeacher = c.teachers_idTeacher');
 		$this->db->where('t.idTeacher',$this->session->userdata('idTeacher'));
 		$this->db->where('au.score');
+		$this->db->where('a.isActive_Activity',1);
 		$data = $this->db->count_all_results();
 
 		return $data;
@@ -221,6 +226,7 @@ class MActivity extends CI_Model{
 		$this->db->join('teachers t','t.idTeacher = c.teachers_idTeacher');
 		$this->db->join('files f','f.idFile = au.files_idFile');
 		$this->db->where('t.idTeacher',$this->session->userdata('idTeacher'));
+		$this->db->where('a.isActive_Activity',1);
 		$this->db->where('au.score');
 		$Q = $this->db->get();
 
@@ -242,6 +248,7 @@ class MActivity extends CI_Model{
 		$this->db->join('activity_user au','a.idActivity = au.activities_idActivity','left');
 		$this->db->where('cu.users_idUser',$this->session->userdata('idUser'));
 		$this->db->where('cu.confirmed',1);
+		$this->db->where('a.isActive_Activity',1);
 		$this->db->where('au.activities_idActivity');
 		$Q = $this->db->get();
 
@@ -272,6 +279,7 @@ class MActivity extends CI_Model{
 		$this->db->where('cu.users_idUser',$this->session->userdata('idUser'));
 		$this->db->where('c.idClass',$id);
 		$this->db->where('cu.confirmed',1);
+		$this->db->where('a.isActive_Activity',1);
 		$Q = $this->db->get();
 
 		if ($Q->num_rows() > 0){
