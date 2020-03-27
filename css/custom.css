@@ -87,3 +87,8 @@ footer {
     right: 0;
     bottom: 0;
 }
+.custom-gradient,
+.blue-gradient {
+    background: rgb(0, 93, 124);
+    background: linear-gradient(13deg, rgba(0, 93, 124, 1) 0%, rgba(51, 181, 229, 1) 100%);
+}

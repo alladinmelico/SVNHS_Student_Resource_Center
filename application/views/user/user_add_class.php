@@ -11,7 +11,7 @@
 		$option[$class['idClass']] = ucfirst($class['class_title']);
 	}
 	echo form_label('Class');
-	echo form_dropdown('idClass',$option,'',array('class'=>'form-control'));
+	echo form_dropdown('idClass',$option,'',array('class'=>'form-control','required'=>'required'));
 
 	$data = array('name'=>'class_code',
 		'type' => 'text',

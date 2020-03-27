@@ -59,6 +59,11 @@
       .no-outline:focus {
       outline: none;
       }
+
+	  .custom-gradient,.blue-gradient{
+		background: rgb(0,93,124);
+		background: linear-gradient(13deg, rgba(0,93,124,1) 0%, rgba(51,181,229,1) 100%);
+	  }
 </style>
 
 <div id="mySidenav" class="sidenav bg-dark">
@@ -75,7 +80,7 @@ show_error($message_403 , 403 );
   ?>
 </div>
 
-<nav class="navbar navbar-expand-lg navbar-dark blue-gradient ">
+<nav class="navbar navbar-expand-lg navbar-dark custom-gradient">
 	<a class="navbar-brand" href="#" onclick="openNav()">
 		<i class="fas fa-bars mr-5"></i>
 	</a>
@@ -86,7 +91,7 @@ show_error($message_403 , 403 );
 	<div class="container">
 		<form class="form-inline mx-auto bg-light rounded-lg" method="GET" action="<?=base_url()?>search">
 			<input class="no-outline bg-light rounded-left ml-1" name="term" type="text" placeholder="Search">
-			<button class="btn btn-info waves-effect" type="submit"><i class="fas fa-search fa-lg"></i></button>
+			<button class="btn btn-info waves-effect btn-pill" type="submit"><i class="fas fa-search fa-lg"></i></button>
 		</form>
 	</div>
 

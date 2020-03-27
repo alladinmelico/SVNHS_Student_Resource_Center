@@ -37,28 +37,6 @@
 		<?php }?>
 	</div>
 
-	
-	<!-- <div class="row">
-		<div class="col-xl">
-			<div class="d-flex flex-column bd-highlight mb-3">
-				<?php foreach($classes as $class){ ?>
-					<div class="p-2 bd-highlight py-2 px-2 d-flex flex-row border rounded-lg bg-info-shadow mb-5">
-						<div class="col-sm-1-12">
-							<h3><?= $class['class_title']?>
-						</div>
-						<div class="col-lg-1-12 px-4">
-							<p class="font-weight-lighter"><?= $class['class_description']?></p>
-						</div>
-						<div class="col-xs-1-12">
-							<a href="classes/<?=$class['idClass']?>"><i class="fas fa-chevron-circle-right h2"></i></a>
-						</div>
-						</h3>
-					</div>
-				<?php }?>
-			</div>
-		</div>
-	</div> -->
-
 </div>
 
 
