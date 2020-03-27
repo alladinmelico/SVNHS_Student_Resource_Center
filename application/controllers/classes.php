@@ -33,6 +33,7 @@ class Classes extends CI_Controller{
 			$data['subject'] = $this->MClass->getClassSubject($id);
 			$data['scores'] = $this->MClass->getClassAverageScores($id);
 			$data['topStudents'] = $this->MClass->getTopStudents($id);
+			$data['subjects'] = $this->MSubject->getAllSubjects();
 			$this->load->vars($data);
 			$this->load->view('layout/template');
 		}
@@ -54,7 +55,7 @@ class Classes extends CI_Controller{
 	function update($id=0){
 		if($this->input->server('REQUEST_METHOD') =='POST'){
 			$this->MClass->update();
-			redirect('file');
+			redirect('classes/'.$_POST['idClass']);
 		} else {
 			$data['title'] = "Update";
 			$data['contents'] = 'class/edit';

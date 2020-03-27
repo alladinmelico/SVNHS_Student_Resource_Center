@@ -32,8 +32,9 @@ class MActivity extends CI_Model{
   }
 
   function delete(){
-	  $this->db->delete('activities',array(
-		  'idActivity' => $_POST['idActivity']
+	  $this->db->where('idActivity',$_POST['idActivity']);
+	  $this->db->update('activities',array(
+		  'isActive_Activity' => 0
 	  ));
   }
 
@@ -57,6 +58,7 @@ class MActivity extends CI_Model{
 		$this->db->from('classes c');
 		$this->db->join('activities a','c.idClass = a.classes_idClass');
 		$this->db->where('c.teachers_idTeacher',$this->session->userdata('idTeacher'));
+		$this->db->where('a.isActive_Activity',1);
 		$this->db->order_by('a.activity_title','ASC');
 		$Q = $this->db->get();
 
@@ -76,6 +78,7 @@ class MActivity extends CI_Model{
 		$this->db->join('teachers t','t.idTeacher = c.teachers_idTeacher');
 		$this->db->join('activities a','a.classes_idClass = c.idClass');
 		$this->db->where('t.idTeacher',$this->session->userdata('idTeacher'));
+		$this->db->where('a.isActive_Activity',1);
 		$data = $this->db->count_all_results();
 		
 		return $data;
@@ -294,7 +297,27 @@ class MActivity extends CI_Model{
 		
 	}
 
+	function getStudentSubmitted($id){
+		$data = array();
+		$this->db->from('activities a');
+		$this->db->join('activity_user au','a.idActivity = au.activities_idActivity');
+		$this->db->join('users u','u.idUser = au.users_idUser');
+		$this->db->join('files f','f.idFile = au.files_idFile');
+		$this->db->where('a.idActivity',$id);
+		$Q = $this->db->get();
+
+		if ($Q->num_rows() > 0){
+			foreach($Q->result_array() as $row){
+				$data[] = $row;
+			}
+		}
+
+		$Q->free_result();
+		return $data;
+	}
+
 	function getTotalItems($id){
+		
 		$data = null;
 		// $this->db->select('((au.score/a.total_items) * 100) as percentage,au.activity_submitted');
 		// $this->db->from('class_user cu');
@@ -309,5 +332,7 @@ class MActivity extends CI_Model{
 		
 		return $data;
 	}
+
+
 }
 ?>

@@ -10,7 +10,8 @@ class MClass extends CI_Model{
 			'class_description' => $_POST['class_description'],
 			'subjects_idSubject' => $_POST['subjects_idSubject'],
 			'class_code' => $_POST['class_code'],
-			'teachers_idTeacher	' => $_POST['teachers_idTeacher']
+			'teachers_idTeacher	' => $_POST['teachers_idTeacher'],
+			'cover'=>$_POST['cover']
 		);
 
 		$this->db->insert('classes',$data);
@@ -20,7 +21,12 @@ class MClass extends CI_Model{
 
 	function update(){
 		$data= array(
-			'class_name' => $_POST['class_name']
+			'class_title' => $_POST['class_title'],
+			'class_description' => $_POST['class_description'],
+			'subjects_idSubject' => $_POST['subjects_idSubject'],
+			'class_code' => $_POST['class_code'],
+			'teachers_idTeacher	' => $_POST['teachers_idTeacher'],
+			'cover'=>$_POST['cover']
 		);
 
 		$this->db->where('idClass',$_POST['idClass']);

@@ -42,14 +42,8 @@
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-				<?php
-					$data = array('name'=>'',
-							'type' => 'submit',
-							'value'=>'Submit',
-							'class'=>'btn btn-info');
-					echo form_submit($data);
-					echo form_close();
-				?>
+				<button name="submit" class="btn btn-success" type="submit">SAVE</button>
+				<?=form_close();?>
 			</div>
 		</div>
 	</div>

@@ -29,6 +29,7 @@ class Activity extends CI_Controller{
 			$data['title'] = "activity";
 			$data['contents'] = 'activity/show';
 			$data['activity'] = $this->MActivity->getTeacherActivity($id);
+			$data['submitted'] = $this->MActivity->getStudentSubmitted($id);
 			$data['due'] = $this->MActivity->getActivityDueDate($id);
 			$data['files'] = $this->MActivity->getUserActivities($id);
 			$data['classes'] = $this->MClass->getAllTeacherClasses();

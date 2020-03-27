@@ -119,14 +119,9 @@
 											print_r($error);
 										}
 										echo form_open('teacher/confirmUser');
-										echo form_hidden('idUser',$request['idUser']);
-										$data = array('name'=>'',
-														'type' => 'submit',
-														'value'=>'confirm',
-														'class'=>'btn btn-link');
-										echo form_submit($data);
-										echo form_close();
-									?>
+										echo form_hidden('idUser',$request['idUser']);?>
+										<button name="submit" class="btn btn-success" type="submit">SAVE</button>
+										<?=form_close();?>
 								</td>
 							</tr>
 						 <?php }?>

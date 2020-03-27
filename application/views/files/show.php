@@ -5,7 +5,7 @@
 <div class="container mt-3">
 	<div class="row">
 		<div class="col-sm-3">
-			<?php if($file['users_idUser'] == $this->session->userdata('idUser')){?>
+			<?php if($file['users_idUser'] == $this->session->userdata('idUser') && $this->uri->segment(1) != 'search'){?>
 				<div class="row justify-content-end">
 					<div class="custom-control custom-switch d-flex justify-content-end mr-3">
 					<?php
@@ -25,11 +25,12 @@
 				<div class="col">
 					<h3><?=$file['title']?></h3>
 				</div>
-				<?php if($file['users_idUser'] == $this->session->userdata('idUser')){?>	
+				<?php if($file['users_idUser'] == $this->session->userdata('idUser') && $this->uri->segment(1) != 'search'){?>	
 					<div class="col">
-						<a href="" type="button" class="btn btn-primary btn-sm "><i class="fas fa-edit fa-lg"></i></a>
-							
-							<button name="submit" type="submit" class="btn btn-danger btn-sm" value="delete"><i class="fas fa-trash fa-lg"></i></button>
+
+						<a href="" type="button" class="btn btn-primary btn-sm " data-toggle="modal" data-target="#exampleModalCenter"><i class="fas fa-edit fa-lg"></i></a>
+							<!-- <button name="submit" type="button" class="btn btn-primary btn-sm" value="update" id="customSwitch1" data-toggle="modal" data-target="#modelId" ><i class="fas fa-edit fa-lg"></button> -->
+							<button name="submit" type="submit" class="btn btn-danger btn-sm" value="delete" id="delete"><i class="fas fa-trash fa-lg"></i></button>
 							
 					</div>
 				<?php }?>
@@ -44,8 +45,10 @@
 			<div class="row">
 				<strong class="mr-1">Sentiment:</strong>
 				<p class="text-info font-weight-bold"><?=($this->MFile->getFileSentiment($file['sentiment']));?></p>
+				<?=(ucfirst($this->MFile->getFileLanguage($file['language'])) != 'English')? 
+				'<small class="text-muted">Sentiment analysis does not currently work on languages other than English, we will notify you if this feature comes available</small>':''?>
 			</div>
-			<div class="row">
+			<div class="row mt-2">
 				<strong class="mr-1">Entities:</strong>
 				<p><?php 
 					$entity = array_values($this->MFile->getFileEntity($file['entity']));
@@ -91,7 +94,7 @@
 	<div class="modal-dialog modal-dialog-centered" role="document">
 		<div class="modal-content">
 				<div class="modal-header">
-						<h5 class="modal-title">Publish File</h5>
+						<h5 class="modal-title" id="title">Publish File</h5>
 							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 								<span aria-hidden="true">&times;</span>
 							</button>
@@ -104,7 +107,7 @@
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-secondary" id="closebtn" data-dismiss="modal" >Close</button>
-				<button name="submit" type="submit" class="btn btn-info" value="Update">Update</button>
+				<button name="submit" type="submit" class="btn btn-info" value="Update">SAVE</button>
 				<?= form_close()?>
 			</div>
 		</div>
@@ -122,3 +125,28 @@
 	window.alert('hidden event fired!');
 	});
 </script>
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+  aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <?php $this->load->view('files/edit')?>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+		<button name="submit" class="btn btn-success" type="submit">SAVE</button>	
+		<?=form_close();?>
+      </div>
+    </div>
+  </div>
+</div>

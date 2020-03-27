@@ -109,7 +109,8 @@ class MFile extends CI_Model{
 
   function update(){
 	$data= array(
-		'description' => $_POST['description']
+		'title' => $_POST['title'],
+		'file_description' => $_POST['file_description']
 	);
 
 	if(isset($_FILES['file']['name']) && !empty($_FILES['file']['tmp_name'])){

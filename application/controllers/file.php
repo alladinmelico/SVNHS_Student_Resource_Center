@@ -56,7 +56,7 @@ class File extends CI_Controller{
 	{
 		if($this->input->server('REQUEST_METHOD') =='POST'){
 			$this->MFile->update();
-			redirect('file');
+			redirect('user/activity/'.$_POST['activities_idActivity']);
 		} else {
 			$data['title'] = "Upload Document";
 			$data['contents'] = 'files/edit';

@@ -10,7 +10,35 @@
 	<div class="row">
 		
 	</div>
-	<div class="row">
+
+	<div class="row row-cols-1 row-cols-md-3">
+		<?php foreach($classes as $class){ ?>
+			<div class="col mb-4">
+				<div class="card">
+
+				<div class="view">
+					<img class="card-img-top" src="<?=base_url('files/covers/'.$class['cover'])?>"
+					alt="Card image cap" height="250">
+					<a href="<?=base_url()?>user/classes/<?=$class['idClass']?>">
+						<div class="mask rgba-cyan-light"></div>
+					</a>
+				</div>
+
+				<div class="card-body">
+
+					<h2 class="card-title text-info"><?= $class['class_title']?></h2>
+					<p class="card-text"><?= $class['class_description']?></p>
+					<a href="<?=base_url()?>user/classes/<?=$class['idClass']?>" class="h2 d-flex justify-content-end"><i class="fas fa-chevron-circle-right "></i></a>
+
+				</div>
+
+				</div>
+			</div>
+		<?php }?>
+	</div>
+
+	
+	<!-- <div class="row">
 		<div class="col-xl">
 			<div class="d-flex flex-column bd-highlight mb-3">
 				<?php foreach($classes as $class){ ?>
@@ -29,7 +57,7 @@
 				<?php }?>
 			</div>
 		</div>
-	</div>
+	</div> -->
 
 </div>
 

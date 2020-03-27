@@ -7,7 +7,7 @@ class Teacher extends CI_Controller{
 			session_start();
 		}
 		if(!$this->session->has_userdata('idTeacher')){
-			redirect('access_denied');
+			redirect('login');
 		}
 		require_once ('vendor\autoload.php');
 	}
@@ -34,7 +34,7 @@ class Teacher extends CI_Controller{
 		$this->session->unset_userdata('username');
 		$this->session->unset_userdata('email');
 		unset($_SESSION['idAdmin']);
-		redirect('login');
+		redirect('');
 	}
 
 	function check($id=0,$user=0){

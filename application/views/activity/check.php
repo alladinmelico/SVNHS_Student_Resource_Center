@@ -59,15 +59,10 @@ small{
 					id="score" onchange="show_value(this.value,'score_value');overAll()">
 				</div>
 			<div class="row justify-content-center ">
-				<?php
-					$data = array('name'=>'submit',
-					'type' => 'submit',
-					'id'=>'',
-					'value'=>'SAVE',
-					'class'=>'btn btn-success mr-5 ml-auto');
-					echo form_submit($data);
-					echo form_close();
-				?>
+				<button name="submit" type="submit" class="btn btn-info mr-5 ml-auto">SAVE</button>
+
+				<?=form_close();?>
+				
 			</div>
 		</div>
 	</div>

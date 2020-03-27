@@ -10,30 +10,34 @@
 	<div class="row">
 		
 	</div>
-	<div class="row">
-		<div class="col-xl-12">
-			<table class="table table-striped table-inverse	">
-				<thead class="thead-inverse">
-					<tr>
-						<th>Title</th>
-						<th>Description</th>
-						<th>Code</th>
-						<th></th>
-					</tr>
-					</thead>
-					<tbody>
-					<?php foreach($classes as $class){ ?>
-						<tr>
-							<td scope="row"><?= $class['class_title']?></td>
-							<td scope="row"><?= $class['class_description']?></td>
-							<td scope="row"><?= $class['class_code']?></td>
-							<td><a href="<?=base_url()?>classes/<?=$class['idClass']?>"><i class="fas fa-chevron-circle-right h2"></i></a></td>
-						</tr>
-					<?php }?>
-					</tbody>
-			</table>
-		</div>
+
+	<div class="row row-cols-1 row-cols-md-3">
+		<?php foreach($classes as $class){ ?>
+			<div class="col mb-4">
+				<div class="card">
+
+				<div class="view">
+					<img class="card-img-top" src="<?=base_url('files/covers/'.$class['cover'])?>"
+					alt="Card image cap" height="250">
+					<a href="<?=base_url()?>classes/<?=$class['idClass']?>">
+						<div class="mask rgba-cyan-light"></div>
+					</a>
+				</div>
+
+				<div class="card-body">
+
+					<h2 class="card-title text-info"><?= $class['class_title']?></h2>
+					<p class="card-text"><?= $class['class_description']?></p>
+					<a href="<?=base_url()?>classes/<?=$class['idClass']?>" class="h2 d-flex justify-content-end"><i class="fas fa-chevron-circle-right "></i></a>
+
+				</div>
+
+				</div>
+			</div>
+		<?php }?>
 	</div>
+		
+	<!-- </div> -->
 
 </div>
 
@@ -55,7 +59,10 @@
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+				<button name="submit" class="btn btn-success" type="submit">SAVE</button>
+				<?=form_close();?>
 			</div>
 		</div>
 	</div>
 </div>
+

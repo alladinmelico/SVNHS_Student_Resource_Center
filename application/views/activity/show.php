@@ -5,13 +5,13 @@
 			<strong class="text-info"><?=$due['due'].' '.$due['dueTime']?></strong>
 		</div>
 		<div class="col-xs">
-			<button type="button" class="btn text-info btn-lg bg-none" data-toggle="modal" data-target="#modelId">
-			<i class="fas fa-edit"></i>
+			<button type="button" class="btn btn-lg bg-info text-light" data-toggle="modal" data-target="#modelId">
+			<i class="fas fa-edit fa-lg"></i>
 			</button>
 					<?php
 						echo form_open('activity/show');
 						echo form_hidden('idActivity',$this->uri->segment(2));?>
-						<button type="submit" class="btn text-danger btn-lg bg-none"><i class="fas fa-trash"></i></button>
+						<button type="submit" class="btn text-light btn-lg bg-danger"><i class="fas fa-trash fa-lg"></i></button>
 						<?php echo form_close();
 					?>
 		</div>
@@ -20,21 +20,20 @@
 		<p><?=$activity['activity_description']?></p>
 	</div>
 	<div class="row">
-		
-	</div>
-	<div class="row">
-		<table class="table table-striped table-inverse table-responsive">
+		<h3>Submitted</h3>
+		<table class="table table-hover table-responsive">
 			<thead class="thead-inverse">
 				<tr>
-					<th></th>
-					<th></th>
+					<th>Name</th>
+					<th>Title</th>
 					<th></th>
 				</tr>
 				</thead>
 				<tbody>
 					<?php foreach($files as $file) {?>
 						<tr>
-							<td scope="row"><?=$file['last_name']?></td>
+							<td scope="row"><?=ucfirst($file['first_name']).' '.ucfirst($file['last_name'])?></td>
+							<td scope="row"><a href="<?=base_url('search/file/'.$file['idFile'])?>"><?=$file['title']?></a></td>
 						</tr>
 					<?php }?>
 				</tbody>
@@ -62,14 +61,8 @@
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-				<?php
-					$data = array('name'=>'',
-					'type' => 'submit',
-					'value'=>'Save',
-					'class'=>'btn btn-success');
-					echo form_submit($data);
-					echo form_close();
-				?>
+				<button name="submit" class="btn btn-success" type="submit">SAVE</button>
+				<?=form_close();?>
 			</div>
 		</div>
 	</div>

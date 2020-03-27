@@ -29,10 +29,9 @@
 
 	echo form_hidden('activities_idActivity', $this->uri->segment(3));
 	
-	$data = array('name'=>'createActor',
-					'type' => 'submit',
-					'value'=>'Upload',
-					'class'=>'btn btn-success mt-5');
-	echo form_submit($data);
-	echo form_close();
 ?>
+<div class="container-fluid mt-5 d-flex justify-content-center">
+	<button name="submit" class="btn btn-success btn-lg" type="submit">SAVE</button>
+	
+</div>
+<?=form_close();?>

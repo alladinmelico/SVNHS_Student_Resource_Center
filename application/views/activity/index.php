@@ -2,16 +2,46 @@
 	<div class="row">
 		<div class="col">
 			<h1>Activities
-				<button type="button" class="btn" data-toggle="modal" data-target="#modelId">
-					<i class="fas fa-plus-circle h1"></i>
-				</button>
+				<a class="btn-floating btn-lg blue-gradient text-white mt-3" data-toggle="modal" data-target="#modelId">
+					<i class="fas fa-plus-circle"></i></a>
 			</h1>
 		</div>
 	</div>
 	<div class="row">
 		
 	</div>
-	<div class="row">
+
+	<div class="row row-cols-1 row-cols-md-3">
+		<?php foreach($activities as $activity){ ?>
+			<div class="col mb-4">
+				<div class="card">
+
+				<div class="view">
+					<img class="card-img-top" src="<?=base_url('files/covers/'.$activity['cover'])?>"
+					alt="Card image cap" height="250">
+					<a href="<?=base_url()?>classes/<?=$activity['idClass']?>" class="text-light">
+						<div class="mask rgba-cyan-strong flex-center display-4">
+							<?= $activity['class_title']?>
+						</div>
+					</a>
+				</div>
+
+				<div class="card-body">
+
+					<h2 class="card-title text-info"><?= $activity['activity_title']?></h2>
+					<p class="card-text"><?= $activity['activity_description']?></p>
+					<strong><?= $activity['activity_DueDate']?></strong>
+					<a href="activity/<?=$activity['idActivity']?>" class="h2 d-flex justify-content-end"><i class="fas fa-chevron-circle-right "></i></a>
+
+				</div>
+
+				</div>
+			</div>
+		<?php }?>
+	</div>
+
+
+	<!-- <div class="row">
 		<div class="col-xl-12">
 			<table class="table table-striped ">
 				<thead class="thead-inverse">
@@ -26,17 +56,17 @@
 					<tbody>
 					<?php foreach($activities as $activity){ ?>
 						<tr>
-							<td scope="row"><?= ucfirst($activity['activity_title'])?></td>
-							<td scope="row"><?= $activity['activity_description']?></td>
+							<td scope="row"><?= ucfirst($activity[''])?></td>
+							<td scope="row"><?= $activity['']?></td>
 							<td scope="row"><?= $activity['class_title']?></td>
-							<td scope="row lg"><?= $activity['activity_DueDate']?></td>
+							<td scope="row lg"></td>
 							<td><a href="activity/<?=$activity['idActivity']?>"><i class="fas fa-chevron-circle-right h2"></i></a></td>
 						</tr>
 					<?php }?>
 					</tbody>
 			</table>
 		</div>
-	</div>
+	</div> -->
 
 </div>
 
@@ -58,14 +88,8 @@
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-				<?php
-					$data = array('name'=>'',
-					'type' => 'submit',
-					'value'=>'Add',
-					'class'=>'btn btn-success');
-					echo form_submit($data);
-					echo form_close();
-				?>
+				<button name="submit" class="btn btn-success" type="submit">SAVE</button>
+				<?=form_close();?>
 			</div>
 		</div>
 	</div>

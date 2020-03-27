@@ -30,10 +30,6 @@
 	echo form_label('Description');
 	echo form_input($data);
 
-	$data = array('name'=>'',
-					'type' => 'submit',
-					'value'=>'Upload',
-					'class'=>'btn btn-success mt-5');
-	echo form_submit($data);
-	echo form_close();
-?>
+	?>
+	<button name="submit" class="btn btn-success" type="submit">SAVE</button>
+				<?=form_close();?>

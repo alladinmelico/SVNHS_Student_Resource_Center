@@ -1,3 +1,22 @@
+<style>
+	.bg {
+  /* The image used */
+
+  background: linear-gradient( rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 1) ), url("<?=base_url('files/covers/'.$class['cover'])?>");
+  /* Full height */
+  height: 100%;
+
+  /* Center and scale the image nicely */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+	.content{
+		z-index: 2;
+		position: absolute;
+		transform: translate(-50%, -50%);
+	}
+</style>
 <script src="https://www.gstatic.com/charts/loader.js"></script>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
@@ -104,15 +123,25 @@
 	</script>
 
 
-<div class="container">
-	<div class="row">
-		<div class="col-lg-1-12">
-			<h1 class="text-info"><?=ucfirst($subject['subject_name'])?></h1>
-			<h2><?=$class['class_title']?></h2>
-			<p><?=$class['class_description']?></p> 
-		</div>
+<div class="container-fluid ">
+	<div class="row bg text-light">
+			<div class="col-1">
+				<h3 class="text-info "><?=ucfirst($subject['subject_name'])?></h3>
+			</div>
+			<div class="col-lg">
+				<h1 class="text-light text-center mt-5 mb-5 display-3"><?=$class['class_title']?></h1>
+				<p class="mb-5 "><?=$class['class_description']?></p> 
+			</div>
+			<div class="col-1">
+				<button type="button" class="btn btn-primary  btn-sm" data-toggle="modal" data-target="#basicExampleModal">
+					<i class="fas fa-edit fa-lg"></i>
+				</button>
+				<button name="submit" type="submit" class="btn btn-danger btn-sm" value="delete" id="delete"><i class="fas fa-trash fa-lg"></i></button>
+			</div>
+			
 	</div>
-
+	
+	
 	<div class="row py-5">
 		<div class="col">
 			<div class="container">
@@ -155,8 +184,8 @@
 	<div class="row">
 		<div class="col-lg-1-12 py-3 px-3 border border-info rounded-lg shadow">
 			<h2>Activities
-				<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addActivity">
-					<i class="fas fa-plus-circle"></i>
+				<button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#addActivity">
+					<i class="fas fa-plus-circle fa-2x"></i>
 				</button>
 			</h2>
 			<table class="table table-hover table-inverse table-responsive db-dark">
@@ -201,14 +230,8 @@
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-				<?php
-					$data = array('name'=>'',
-					'type' => 'submit',
-					'value'=>'Upload',
-					'class'=>'btn btn-success');
-					echo form_submit($data);
-					echo form_close();
-				?>
+				<button name="submit" class="btn btn-success" type="submit">SAVE</button>
+				<?=form_close();?>
 			</div>
 		</div>
 	</div>
@@ -222,3 +245,30 @@
 		
 	});
 </script>
+
+<!-- Button trigger modal -->
+
+
+<!-- Modal -->
+<div class="modal fade" id="basicExampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+   <div class="modal-dialog modal-dialog-centered" role="document">
+	   <div class="modal-content">
+		   <div class="modal-header">
+			   <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+			   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				   <span aria-hidden="true">&times;</span>
+			   </button>
+		   </div>
+		   <div class="modal-body">
+		   		<div class="container-fluid">
+					<?php $this->load->view('class/edit');?>
+				</div>
+		   </div>
+		   <div class="modal-footer">
+			   <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+			   <button name="submit" class="btn btn-success" type="submit">SAVE</button>
+				<?=form_close();?>
+		   </div>
+	   </div>
+   </div>
+</div>

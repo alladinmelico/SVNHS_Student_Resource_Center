@@ -7,7 +7,7 @@ class User extends CI_Controller{
 		}
 		$this->load->library('session');
 		if(!$this->session->has_userdata('idUser')){
-			redirect('access_denied');
+			redirect('login');
 		}
 		require_once ('vendor\autoload.php');
 	}
@@ -75,6 +75,8 @@ class User extends CI_Controller{
 		$this->load->view('layout/template');
 	}
 
+	
+
 	function todo(){
 		$data['title'] = "Student Activity";
 		$data['contents'] = 'user/user_todo';
@@ -131,7 +133,7 @@ class User extends CI_Controller{
 		$this->session->unset_userdata('last_name');
 		$this->session->unset_userdata('email');
 		unset($_SESSION['idAdmin']);
-		redirect('login');
+		redirect('');
 	}
 }
 ?>
