@@ -96,6 +96,14 @@ class MUser extends CI_Model{
 	  } else return FALSE;
   }
 
+  function passwordCheck(){
+	$Q = $this->db->get_where('users',array('username'=>$_POST['username'],'password'=> hash('md5',$_POST['password'])));
+	$Q2 = $this->db->get_where('teachers',array('username'=>$_POST['username'],'password'=> hash('md5',$_POST['password'])));
+	if ($Q->num_rows() > 0 || $Q2->num_rows() > 0){
+		return TRUE;
+	} else return FALSE;
+  }
+
   function emailCheck($str){
 		$Q = $this->db->get_where('users',array('email'=>$str));
 		$Q2 = $this->db->get_where('teachers',array('email'=>$str));

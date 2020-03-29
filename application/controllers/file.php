@@ -33,6 +33,7 @@ class File extends CI_Controller{
 			$data['title'] = "File";
 			$data['contents'] = 'files/show';
 			$data['file'] = $this->MFile->getUserFile($id);
+			$data['isBookMarked'] = $this->MBookmark->isBookMarked($id);
 			$this->load->vars($data);
 			$this->load->view('layout/template');
 		}

@@ -1,4 +1,11 @@
 <?php include('layout/head.php');?>
+<style>
+	.error {
+    font-size: small;
+    color: red;
+    text-align: center;
+}
+</style>
   <body class="bg-dark">
       <div class="container mt-5 text-dark" style="width: 25rem;">
       <div class="card text-left winter-neva-gradient">
@@ -20,15 +27,18 @@
 						</label>
 					</div>
 
+					<?=form_error('password','<div class="error mt-3">', '</div>'); ?>
 					<div class="md-form md-outline form-lg">
 						<i class="fas fa-user prefix"></i>
-						<input name="username" type="text" id="inputIconEx2" class="form-control form-control-lg">
+						<input name="username" type="text" id="inputIconEx2" 
+							class="form-control form-control-lg <?=(validation_errors())? 'is-invalid':''?>">
 						<label for="inputIconEx2" class="bg-none">Username</label>
 					</div>
 
 					<div class="md-form md-outline form-lg">
 						<i class="fas fa-lock prefix"></i>
-						<input name="password" type="password" id="password" class="form-control">
+						<input name="password" type="password" id="password" 
+							class="form-control <?=(validation_errors())? 'is-invalid':''?>">
 						<label for="password">Password</label>
 					</div>
 					<div class="text-right mb-4">

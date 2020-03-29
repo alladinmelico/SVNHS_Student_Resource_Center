@@ -20,7 +20,19 @@ class Guest extends CI_Controller{
 	
     function login(){
 		if($this->input->server('REQUEST_METHOD') =='POST'){
-			$this->MUser->verify();
+			$this->load->library('form_validation');
+
+			$this->form_validation->set_rules('password', 'password', array(
+				'trim','required','callback_password_check'),array('password_check'=>'Username or Password is incorrect, please try again.'));
+
+			if ($this->form_validation->run() == FALSE)
+			{
+				$data['title'] = "Log in";
+				$this->load->vars($data);
+				$this->load->view('login');
+			} else{
+				$this->MUser->verify();
+			}
 		} else{
 			$data['title'] = "Login";
 			$this->load->vars($data);
@@ -94,16 +106,22 @@ class Guest extends CI_Controller{
 
 	function username_check($str){
 		if($this->MUser->usernameCheck($str)){
-			$this->form_validation->set_message('username_check', 'Username '.$str.' has already been used, please try again.');
             return FALSE;
 		} else return TRUE;
 	}
 
+	function password_check(){
+		if($this->MUser->passwordCheck()){
+			$this->form_validation->set_message('password_check', 'username or password is incorrect, please try again.');
+            return TRUE;
+		} else return FALSE;
+	}
+
 	function email_check($str){
-		if($this->MUser->emailCheck($str)){
+		if(!$this->MUser->emailCheck($str)){
 			$this->form_validation->set_message('email_check', 'E-mail '.$str.' has already been used, please try again.');
-            return FALSE;
-		} else return TRUE;
+            return TRUE;
+		} else return FALSE;
 	}
 
 	function access_denied(){

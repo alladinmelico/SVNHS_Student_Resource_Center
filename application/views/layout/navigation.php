@@ -95,20 +95,6 @@ show_error($message_403 , 403 );
 		</form>
 	</div>
 
-	<!-- <div class="dropdown open">
-		<button class="btn bg-none" 
-		type="button" id="triggerId" data-toggle="dropdown" 
-		aria-haspopup="true"aria-expanded="false">
-		<span class="position-absolute rounded-pill bg-danger text-white pl-1 pr-1">2</span>
-				<i class="fas fa-bell text-white h1 p-1"></i>
-		</button>
-		<div class="dropdown-menu dropdown-menu-right" aria-labelledby="triggerId">
-				<a class="dropdown-item text-dark" 
-				href="<?=base_url()?>user/logout">
-				</a>
-		</div>
-	</div> -->
-
 	<div class="dropdown open">
 		<button class="btn btn-outline-light dropdown-toggle" 
 		type="button" id="triggerId" data-toggle="dropdown" 
@@ -117,6 +103,10 @@ show_error($message_403 , 403 );
 		<i class="fas fa-user ml-2"></i>
 		</button>
 		<div class="dropdown-menu dropdown-menu-right" aria-labelledby="triggerId">
+			<?php if($this->session->has_userdata('idUser')){?>
+				<a class="dropdown-item text-info" 
+					href="<?=base_url('u/bookmark')?>">Bookmarks</a>
+			<?php }?>
 			<a class="dropdown-item text-danger" 
 				href="<?=base_url()?><?=($this->session->has_userdata('idUser'))? 'user':'teacher'?>/logout">Logout</a>
 		</div>

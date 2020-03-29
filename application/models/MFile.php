@@ -402,6 +402,8 @@ class MFile extends CI_Model{
 		$this->db->where('idFile',$_POST['idFile']);
 		$this->db->update('files');
 	}
+
+	
 	
 }
 ?>

@@ -3,6 +3,22 @@
 	.pdfobject-container { height: 80rem; width: 70rem; }
 </style>
 <div class="container mt-3">
+
+	<?php if($this->session->has_userdata('idUser') && ($this->uri->segment(1)=='search') ){?>
+		<div class="row">
+			<div class="container d-flex justify-content-end text-info">
+				<?php $action = ($isBookMarked)? 'delete':'create'?>
+				<form action="<?=base_url('u/bookmark/'.$action)?>" method="POST">
+
+					<input type="hidden" name="idFile" value="<?=$this->uri->segment(3)?>">
+					<input type="hidden" name="redirect" value="<?=base_url($this->uri->uri_string())?>">
+					<button type="submit" class="btn btn-elegant btn-sm rounded-lg">
+						<?=($isBookMarked)? '<i class="fas fa-bookmark fa-2x"></i>': '<i class="far fa-bookmark fa-2x"></i>' ?>
+					</button>
+				</form>
+			</div>
+		</div>
+	<?php }?>
 	<div class="row">
 		<div class="col-sm-3">
 			<?php if($file['users_idUser'] == $this->session->userdata('idUser') && $this->uri->segment(1) != 'search'){?>
