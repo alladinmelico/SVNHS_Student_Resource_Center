@@ -197,8 +197,8 @@
 	<div class="row">
 		<div class="col-lg-1-12 py-3 px-3 border border-info rounded-lg shadow">
 			<h2>Activities
-				<button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#addActivity">
-					<i class="fas fa-plus-circle fa-2x"></i>
+				<button type="button" class="btn blue-gradient px-3 rounded-circle text-white" data-toggle="modal" data-target="#addActivity">
+					<i class="fas fa-plus fa-lg"></i>
 				</button>
 			</h2>
 			<table class="table table-hover table-inverse table-responsive db-dark">

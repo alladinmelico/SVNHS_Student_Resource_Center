@@ -324,6 +324,103 @@ class MActivity extends CI_Model{
 		return $data;
 	}
 
+	function getUserActivitiesPerformance(){
+		$data = array();
+		$this->db->select('((au.score/a.total_items)*100) as score, a.activity_title');
+		$this->db->from('activities a');
+		$this->db->join('activity_user au','a.idActivity = au.activities_idActivity');
+		$this->db->join('users u','u.idUser = au.users_idUser');
+		$this->db->join('files f','f.idFile = au.files_idFile');
+		$this->db->where('au.users_idUser',$this->session->userdata('idUser'));
+		$this->db->where('a.isActive_Activity',1);
+		$this->db->where('au.score IS NOT NULL',NULL,FALSE);
+		$this->db->order_by('u.last_name','ASC');
+		$Q = $this->db->get();
+
+		if ($Q->num_rows() > 0){
+			foreach($Q->result_array() as $row){
+				$data[] = $row;
+			}
+		}
+
+		$Q->free_result();
+		return $data;
+	}
+
+	function getActivityTeacherStats(){
+		$data = array();
+		$activities = $this->getAllTeacherActivities();
+		
+		foreach( $activities as $activity){
+			$this->db->select('COUNT(cu.classes_idClass)')
+				->from('class_user cu')
+				->join('classes c','c.idClass = cu.classes_idClass')
+				->join('activities a','c.idClass = a.classes_idClass')
+				->where('a.idActivity',$activity['idActivity']);
+			$class_count = $this->db->get_compiled_select();
+
+			$this->db->select('COUNT(au.users_idUser)')
+				->from('activities a')
+				->join('activity_user au','a.idActivity = au.activities_idActivity')
+				->where('a.idActivity',$activity['idActivity']);
+			$submit_count = $this->db->get_compiled_select();
+
+			$this->db->select('COUNT(au.activities_idActivity)')
+				->from('activities a')
+				->join('activity_user au','a.idActivity = au.activities_idActivity')
+				->where('a.idActivity',$activity['idActivity'])
+				->where('au.score');
+			$unchecked_count = $this->db->get_compiled_select();
+
+			$this->db->select('COUNT(au.score)')
+				->from('activities a')
+				->join('activity_user au','a.idActivity = au.activities_idActivity')
+				->where('a.idActivity',$activity['idActivity'])
+				->where('au.score IS NOT NULL',NULL,FALSE)
+				->where('au.score < (a.total_items)/2');
+			$lower_half_count = $this->db->get_compiled_select();
+			
+			$this->db->select('COUNT(au.score)')
+				->from('activities a')
+				->join('activity_user au','a.idActivity = au.activities_idActivity')
+				->where('a.idActivity',$activity['idActivity'])
+				->where('au.score IS NOT NULL',NULL,FALSE)
+				->where('au.score > (a.total_items)/2')
+				->where('au.score != (a.total_items)');
+			$upper_half_count = $this->db->get_compiled_select();
+
+			$this->db->select('COUNT(au.score)')
+				->from('activities a')
+				->join('activity_user au','a.idActivity = au.activities_idActivity')
+				->where('a.idActivity',$activity['idActivity'])
+				->where('au.score IS NOT NULL',NULL,FALSE)
+				->where('au.score = (a.total_items)');
+			$perfect_count = $this->db->get_compiled_select();
+
+
+			$this->db->select("a.activity_title, ($class_count) - ($submit_count) as not_submit,
+			 ($unchecked_count) as unchecked, ($lower_half_count) as lower_half,
+			 ($upper_half_count) as upper_half, ($perfect_count) as perfect");
+			$this->db->from('activities a');
+			$this->db->join('classes c','a.classes_idClass = c.idClass');
+			$this->db->join('class_user cu', 'c.idClass = cu.classes_idClass');
+			$this->db->join('activity_user au','a.idActivity = au.activities_idActivity');
+			$this->db->join('users u','u.idUser = au.users_idUser');
+			$this->db->where('a.idActivity',$activity['idActivity']);
+			$this->db->where('c.isActive_Class',1);
+			// echo $this->db->get_compiled_select();
+			$Q = $this->db->get();
+	
+			if ($Q->num_rows() > 0){
+				$data[] = $Q->row_array();
+			}
+	
+			$Q->free_result();
+		}
+
+		return $data;
+	}
+
 	function getTotalItems($id){
 		
 		$data = null;

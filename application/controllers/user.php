@@ -16,9 +16,11 @@ class User extends CI_Controller{
 		
 		$data['title'] = "Student Resource";
 		$data['contents'] = 'user/index';
+		$data['files'] = $this->MFile->getAllFiles();
 		$data['todos'] = $this->MActivity->getUserToDo();
 		$data['classes'] = $this->MClass->getAllUserClasses();
 		$data['allClass'] = $this->MClass->getAllClass();
+		$data['performances'] = $this->MActivity->getUserActivitiesPerformance();
 		$data['side_content_1'] = 'user/user_list_todo';
 		$data['side_content_2'] = 'user/user_list_class';
 		$this->load->vars($data);

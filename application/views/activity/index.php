@@ -1,9 +1,9 @@
-<div class="container">
-	<div class="row">
+<div class="container mt-5">
+	<div class="row mb-5">
 		<div class="col">
 			<h1>Activities
-				<a class="btn-floating btn-lg blue-gradient text-white mt-3" data-toggle="modal" data-target="#modelId">
-					<i class="fas fa-plus-circle"></i></a>
+				<a class="btn blue-gradient px-3 rounded-circle text-white" data-toggle="modal" data-target="#modelId">
+				<i class="fas fa-plus fa-lg"></i></a>
 			</h1>
 		</div>
 	</div>

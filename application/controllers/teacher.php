@@ -16,6 +16,8 @@ class Teacher extends CI_Controller{
 		$data['title'] = "Teacher Resource Center";
 		$data['contents'] = 'teacher/index';
 		$data['requests'] = $this->MTeacher->getRequest();
+		$data['activitiesStat'] = $this->MActivity->getActivityTeacherStats();
+		$data['side_content_1'] = 'teacher/request';
 		$this->load->vars($data);
 		$this->load->view('layout/template');
 	}

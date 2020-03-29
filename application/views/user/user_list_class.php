@@ -5,8 +5,8 @@
 			<h3>Classes</h3>
 		</div>
 		<div class="col py-1">
-			<a class="btn-floating btn-lg blue-gradient text-white" data-toggle="modal" data-target="#modelId">
-			<i class="fas fa-plus"></i></a>
+			<a class="btn blue-gradient px-3 rounded-circle text-white" data-toggle="modal" data-target="#modelId">
+			<i class="fas fa-plus fa-lg"></i></a>
 		</div>
 	</div>
 	<div class="row">

@@ -1,9 +1,9 @@
-<div class="container">
+<div class="container mt-5">
 	<div class="row">
 		<div class="col">
-			<h1>Classes
-				<a class="btn-floating btn-lg blue-gradient text-white mt-3" data-toggle="modal" data-target="#modelId">
-				<i class="fas fa-plus-circle"></i></a>
+			<h1><i class="fas fa-chalkboard mr-3"></i>Classes
+				<a class="btn blue-gradient px-3 rounded-circle text-white" data-toggle="modal" data-target="#modelId">
+				<i class="fas fa-plus fa-lg"></i></a>
 			</h1>
 		</div>
 	</div>
@@ -11,7 +11,7 @@
 		
 	</div>
 
-	<div class="row row-cols-1 row-cols-md-3">
+	<div class="row row-cols-1 row-cols-md-3 mt-3">
 		<?php foreach($classes as $class){ ?>
 			<div class="col mb-4">
 				<div class="card">

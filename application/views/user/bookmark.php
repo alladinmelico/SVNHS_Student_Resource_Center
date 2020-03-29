@@ -1,6 +1,6 @@
 <div class="container mt-5">
 	<h1><i class="fas fa-bookmark mr-3"></i>Bookmarks</h1>
-	<div class="row row-cols-1 row-cols-md-3">
+	<div class="row row-cols-1 row-cols-md-3 mt-5">
 		<?php foreach($bookmarks as $bookmark){?>
 			<div class="col mb-4">
 				<div class="card">

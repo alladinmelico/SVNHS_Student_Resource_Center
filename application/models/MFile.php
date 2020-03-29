@@ -35,7 +35,15 @@ class MFile extends CI_Model{
 
 	function getAllFiles(){
 		$data = array();
-		$Q = $this->db->get_where('files',array('isPublic' => 1));
+		
+		$this->db->from('files f');
+		$this->db->join('activity_user au', 'f.idFile = au.files_idFile');
+		$this->db->join('activities a', 'a.idActivity = au.activities_idActivity');
+		$this->db->join('classes c', 'c.idClass = a.classes_idClass');
+		$this->db->where('f.isPublic',1);
+		$this->db->order_by('f.file_timestamp','DESC');
+		$this->db->limit(5);
+		$Q = $this->db->get();
 		if ($Q->num_rows() > 0){
 			foreach($Q->result_array() as $row){
 				$data[] = $row;
