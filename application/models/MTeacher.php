@@ -32,5 +32,18 @@ class MTeacher extends CI_Model{
 		$Q->free_result();
 		return $data;
 	}
+
+	function getAllTeachers(){
+		$data = array();
+		$Q = $this->db->get('teachers');
+		if($Q->num_rows() >0){
+			foreach($Q->result_array() as $row){
+				$data[] = $row;
+			}
+		}
+
+		$Q->free_result();
+		return $data;
+	}
 }
 ?>

@@ -135,6 +135,7 @@ class User extends CI_Controller{
 		$this->session->unset_userdata('first_name');
 		$this->session->unset_userdata('last_name');
 		$this->session->unset_userdata('email');
+		$this->session->unset_userdata('isAdmin');
 		unset($_SESSION['idAdmin']);
 		redirect('');
 	}

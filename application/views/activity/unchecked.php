@@ -1,7 +1,7 @@
 <div class="container">
 	<div class="row">
-		<div class="col-lg-12">
-			<table class="table table-hover table-inverse table-responsive">
+		<span class="col-lg-12">
+			<table class="table table-hover">
 				<thead class="thead-inverse text-dark">
 					<tr>
 						<th>Class</th>
@@ -21,11 +21,12 @@
 								<td scope="row"><?=ucfirst($uncheck['first_name']).' '.ucfirst($uncheck['last_name']) ?></td>
 								<td scope="row"><?=$uncheck['dateSubmitted']?></td>
 								<td scope="row"><?=$uncheck['dateDue']?></td>
-								<td scope="row"><?php
-									$timeRemained=$uncheck['dayRemaining'].' day';
+								<td scope="row text-center"><?php
+									$timeRemained=abs($uncheck['dayRemaining']).' day';
 									$timeRemained.=($uncheck['dayRemaining']>1)? 's and ':' and ';
-									$timeRemained.=(($uncheck['dayRemaining']*24)-($uncheck['timeRemaining']));
+									$timeRemained.=abs(($uncheck['dayRemaining']*24)-($uncheck['timeRemaining']));
 									$timeRemained.=($uncheck['timeRemaining']>1)? ' hours':' hour';
+									$timeRemained.=($uncheck['dayRemaining']<1)? ' <span class="text-danger"> LATE</span>':'';
 									echo $timeRemained;
 									if($uncheck['timeRemaining']<0){
 										echo '<i class="fas fa-exclamation-circle text-weight-bold">Late Submitted!</i>';

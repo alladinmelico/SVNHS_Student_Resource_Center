@@ -41,7 +41,7 @@ class MActivity extends CI_Model{
   function getAllActivities(){
 	$data = array();
 	$this->db->where('isActive_Activity',1);
-	$this->db->order_by('activity_name','ASC');
+	$this->db->order_by('activity_timestamp','ASC');
 	$Q = $this->db->get('activities');
 
 	if ($Q->num_rows() > 0){

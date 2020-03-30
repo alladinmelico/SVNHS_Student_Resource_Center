@@ -8,16 +8,27 @@ class MUser extends CI_Model{
 		}
   }
 
+  function getAllUsers(){
+	  $data = array();
+	  $this->db->where('isAdmin');
+	  $Q = $this->db->get('users');
+	  if($Q->num_rows() >0){
+		  foreach($Q->result_array() as $row){
+			  $data[] = $row;
+		  }
+	  }
+
+	  $Q->free_result();
+	  return $data;
+  }
 
   function verify(){
 	if($_POST['role']=='student'){
-		$this->db->select('idUser,username,first_name,last_name');
 		$this->db->where('username',$_POST['username']);
 		$this->db->where('password',hash('md5',$_POST['password']));
 		$this->db->limit(1);
 		$Q = $this->db->get('Users');
 	} elseif($_POST['role']=='teacher'){
-		$this->db->select('idTeacher,username,first_name,last_name');
 		$this->db->where('username',$_POST['username']);
 		$this->db->where('password',hash('md5',$_POST['password']));
 		$this->db->limit(1);
@@ -33,17 +44,14 @@ class MUser extends CI_Model{
 
 		if(isset($row['idTeacher'])){
 			$this->session->set_userdata('idTeacher',$row['idTeacher']);
-			if($row['isAdmin']==1){
-				$_SESSION['isAdmin'] = true;
-				redirect('admin');
-			} else {
-				redirect('teacher');
-			}
+			redirect('teacher');
+			
 		} elseif(isset($row['idUser'])){
 			$this->session->set_userdata('idUser',$row['idUser']);
+			print_r($row);
 			if($row['isAdmin']==1){
-				$_SESSION['isAdmin'] = true;
-				redirect('admin');
+				$this->session->set_userdata('isAdmin',TRUE);
+				redirect('admin/dashboard');
 			} else {
 				redirect('user');
 			}
@@ -143,6 +151,30 @@ class MUser extends CI_Model{
 		} else{
 			show_error($this->email->print_debugger());
 		}
+	}
+
+	function getAllUsersUnverified(){
+		$data = array();
+
+		$Q = $this->db->get_where('users',array('isActive_User'=>0));
+		if($Q->num_rows() >0){
+			foreach($Q->result_array() as $row){
+				$data[] = $row;
+			}
+		}
+  
+		$Q->free_result();
+		return $data;
+	}
+
+	function activate(){
+		$this->db->where('idUser',$_POST['idUser']);
+		$this->db->update('users',array('isActive_User'=>1));
+	}
+
+	function deactivate(){
+		$this->db->where('idUser',$_POST['idUser']);
+		$this->db->update('users',array('isActive_User'=>0));
 	}
 
 }

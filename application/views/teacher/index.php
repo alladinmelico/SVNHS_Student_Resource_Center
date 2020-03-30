@@ -16,7 +16,7 @@
             ]);
 
 			var options = {
-			title: 'Top Ranking Students',
+			title: 'Activities',
 			isStacked: true,
 			};
 

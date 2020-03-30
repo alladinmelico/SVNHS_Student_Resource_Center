@@ -2,7 +2,9 @@
   <body>
 		  <div>
 				<?php 
-					if($this->session->userdata('idUser') || $this->session->userdata('idTeacher')){
+					if($this->session->userdata('isAdmin')){
+						$this->load->view('/layout/admin_navigation');
+					}elseif($this->session->userdata('idUser') || $this->session->userdata('idTeacher')){
 						$this->load->view('/layout/navigation'); 
 					} else $this->load->view('/layout/guest_navigation');
 				?>

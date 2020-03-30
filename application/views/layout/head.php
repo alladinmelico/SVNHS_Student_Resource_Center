@@ -31,6 +31,7 @@
 	<!-- MDB core JavaScript -->
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.14.1/js/mdb.min.js"></script>
 	
+
 	<link rel="icon" href="<?=base_url()?>logo.ico">
 	<link rel="stylesheet" href="<?= base_url()?>css/custom.css">
     <link href="<?= base_url()?>css/all.css" rel="stylesheet">
