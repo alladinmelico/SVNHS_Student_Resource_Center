@@ -65,6 +65,26 @@ class MClass extends CI_Model{
 		return $data;
 	}
 
+	function getAllClassDetails(){
+		$data = array();
+		$this->db->select('GROUP_CONCAT(a.activity_title) as activity_title,c.idClass,
+		c.class_title,c.class_description,t.first_name,t.last_name,c.class_code,c.isActive_Class');
+		
+		$this->db->from('teachers t');
+		$this->db->join('classes c', 'c.teachers_idTeacher = t.idTeacher');
+		$this->db->join('activities a', 'a.classes_idClass = c.idClass');
+		$this->db->group_by('c.idClass');
+		
+		$Q = $this->db->get();
+		if($Q->num_rows() > 0){
+			foreach($Q -> result_array() as $row){
+				$data[] = $row;
+			}
+		}
+		$Q->free_result();
+		return $data;
+	}
+
   	function getAllTeacherClasses(){
 		$data = array();
 		$Q = $this->db->get_where('classes',array(
@@ -267,6 +287,35 @@ class MClass extends CI_Model{
 		if($Q->num_rows()>0){
 			return TRUE;
 		} else return FALSE;
+	}
+
+	function activate(){
+		$this->db->where('idClass',$_POST['id']);
+		$this->db->update('classes',array('isActive_Class'=>1));
+	}
+
+	function deactivate(){
+		$this->db->where('idClass',$_POST['id']);
+		$this->db->update('classes',array('isActive_Class'=>0));
+	}
+	
+	function getFileCounts(){
+		$data = array();
+		$this->db->select('c.class_title,COUNT(au.files_idFile) as files');
+		$this->db->from('classes c');
+		$this->db->join('activities a','a.classes_idClass = c.idClass');
+		$this->db->join('activity_user au','au.activities_idActivity = a.idActivity');
+		$this->db->group_by('c.idClass');
+		$Q = $this->db->get();
+
+		if($Q->num_rows() > 0){
+			foreach($Q -> result_array() as $row){
+				$data[] = $row;
+			}
+		}
+
+		$Q->free_result();
+		return $data;
 	}
 
 	

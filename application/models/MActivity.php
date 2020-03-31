@@ -53,6 +53,20 @@ class MActivity extends CI_Model{
 	$Q->free_result();
 	return $data;
 	}
+	function getAllActivitiesDetails(){
+		$data = array();
+		$this->db->order_by('activity_timestamp','ASC');
+		$Q = $this->db->get('activities');
+	
+		if ($Q->num_rows() > 0){
+			foreach($Q->result_array() as $row){
+				$data[] = $row;
+			}
+		}
+	
+		$Q->free_result();
+		return $data;
+		}
 
 	function getAllTeacherActivities(){
 		$data = array();
@@ -421,21 +435,14 @@ class MActivity extends CI_Model{
 		return $data;
 	}
 
-	function getTotalItems($id){
-		
-		$data = null;
-		// $this->db->select('((au.score/a.total_items) * 100) as percentage,au.activity_submitted');
-		// $this->db->from('class_user cu');
-		// $this->db->join('classes c','cu.classes_idClass = c.idClass');
-		// $this->db->join('activities a','a.classes_idClass = c.idClass');
-		// $this->db->join('activity_user au','a.idActivity = au.activities_idActivity');
-		// $this->db->where('au.users_idUser',$this->session->userdata('idUser'));
-		// $this->db->where('cu.users_idUser',$this->session->userdata('idUser'));
-		// $this->db->where('c.idClass',$id);
-		// $this->db->where('cu.confirmed',1);
-		// $data = $this->db->count_all_results();
-		
-		return $data;
+	function activate(){
+		$this->db->where('idActivity',$_POST['id']);
+		$this->db->update('activities',array('isActive_Activity'=>1));
+	}
+
+	function deactivate(){
+		$this->db->where('idActivity',$_POST['id']);
+		$this->db->update('activities',array('isActive_Activity'=>0));
 	}
 
 

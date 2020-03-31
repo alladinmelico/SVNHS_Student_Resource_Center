@@ -16,8 +16,11 @@ class Dashboard extends CI_Controller{
 		$data['contents'] = 'admin/dashboard';
 		$data['users'] = $this->MUser->getAllUsers();
 		$data['teachers'] = $this->MTeacher->getAllTeachers();
-		$data['classes'] = $this->MClass->getAllClass();
-		$data['activities'] = $this->MActivity->getAllActivities();
+		$data['classes'] = $this->MClass->getAllClassDetails();
+		$data['activities'] = $this->MActivity->getAllActivitiesDetails();
+		$data['files'] = $this->MFile->getAllFilesDetails();
+		$data['fileNum'] = $this->MFile->getAllFilesUploadToday();
+		$data['classNum'] = $this->MClass->getFileCounts();
 		$data['unverified'] = $this->MUser->getAllUsersUnverified();
 		$this->load->vars($data);
 		$this->load->view('layout/template');
@@ -28,8 +31,20 @@ class Dashboard extends CI_Controller{
 			print_r($_POST);
 			if($_POST['action']=='user'){
 				$this->MUser->activate();
-				redirect('admin/dashboard');
 			}
+			if($_POST['action']=='teacher'){
+				$this->MTeacher->activate();
+			}
+			if($_POST['action']=='activity'){
+				$this->MActivity->activate();
+			}
+			if($_POST['action']=='class'){
+				$this->MClass->activate();
+			}
+			if($_POST['action']=='file'){
+				$this->MFile->activate();
+			}
+			redirect('admin/dashboard');
 		}
 	}
 
@@ -38,8 +53,20 @@ class Dashboard extends CI_Controller{
 			print_r($_POST);
 			if($_POST['action']=='user'){
 				$this->MUser->deactivate();
-				redirect('admin/dashboard');
 			}
+			if($_POST['action']=='teacher'){
+				$this->MTeacher->deactivate();
+			}
+			if($_POST['action']=='activity'){
+				$this->MActivity->deactivate();
+			}
+			if($_POST['action']=='class'){
+				$this->MClass->deactivate();
+			}
+			if($_POST['action']=='file'){
+				$this->MFile->deactivate();
+			}
+			redirect('admin/dashboard');
 		}
 	}
 

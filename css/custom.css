@@ -78,7 +78,7 @@ a:hover {
 }
 .bg-info-shadow {
     background-color: rgb(250, 254, 255);
-    box-shadow: 1px 5px rgb(23, 162, 184);
+    box-shadow: 3px 7px rgb(23, 162, 184);
 }
 footer {
     z-index: 99;

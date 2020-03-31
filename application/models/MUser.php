@@ -168,12 +168,12 @@ class MUser extends CI_Model{
 	}
 
 	function activate(){
-		$this->db->where('idUser',$_POST['idUser']);
+		$this->db->where('idUser',$_POST['id']);
 		$this->db->update('users',array('isActive_User'=>1));
 	}
 
 	function deactivate(){
-		$this->db->where('idUser',$_POST['idUser']);
+		$this->db->where('idUser',$_POST['id']);
 		$this->db->update('users',array('isActive_User'=>0));
 	}
 

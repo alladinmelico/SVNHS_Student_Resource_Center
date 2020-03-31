@@ -54,6 +54,26 @@ class MFile extends CI_Model{
 		return $data;
 	}
 
+	function getAllFilesDetails(){
+		$data = array();
+		
+		$this->db->from('files f');
+		$this->db->join('activity_user au', 'f.idFile = au.files_idFile');
+		$this->db->join('activities a', 'a.idActivity = au.activities_idActivity');
+		$this->db->join('classes c', 'c.idClass = a.classes_idClass');
+		$this->db->order_by('f.file_timestamp','DESC');
+		$this->db->limit(5);
+		$Q = $this->db->get();
+		if ($Q->num_rows() > 0){
+			foreach($Q->result_array() as $row){
+				$data[] = $row;
+			}
+		}
+
+		$Q->free_result();
+		return $data;
+	}
+
  	function create(){
 	$data= array(
 		'file_description' => $_POST['description'],
@@ -411,7 +431,36 @@ class MFile extends CI_Model{
 		$this->db->update('files');
 	}
 
-	
+	function activate(){
+		$this->db->where('idFile',$_POST['id']);
+		$this->db->update('files',array('isPublic'=>1));
+	}
+
+	function deactivate(){
+		$this->db->where('idFile',$_POST['id']);
+		$this->db->update('files',array('isPublic'=>0));
+	}
+
+	function getAllFilesUploadToday(){
+		$data = array();
+		
+		$this->db->from('files f');
+		$this->db->join('activity_user au', 'f.idFile = au.files_idFile');
+		$this->db->join('activities a', 'a.idActivity = au.activities_idActivity');
+		$this->db->join('classes c', 'c.idClass = a.classes_idClass');
+		$this->db->where('DATE(f.file_timestamp) = CURDATE()');
+		$this->db->order_by('f.file_timestamp','DESC');
+		$this->db->limit(5);
+		$Q = $this->db->get();
+		if ($Q->num_rows() > 0){
+			foreach($Q->result_array() as $row){
+				$data[] = $row;
+			}
+		}
+
+		$Q->free_result();
+		return $data;
+	}
 	
 }
 ?>

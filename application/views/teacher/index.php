@@ -33,4 +33,10 @@
 			<div id="barchart" style="width: 1000px; height: 500px" class="rounded-lg shadow " ></div>
 		</div>
 	</div>
+
+	<div class="row mt-5">
+		<div class="col d-flex justify-content-center ">
+			<?php $this->load->view('class/index');?>
+		</div>
+	</div>
 </div>

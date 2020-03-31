@@ -45,5 +45,15 @@ class MTeacher extends CI_Model{
 		$Q->free_result();
 		return $data;
 	}
+
+	function activate(){
+		$this->db->where('idTeacher',$_POST['id']);
+		$this->db->update('teachers',array('isActive_Teacher'=>1));
+	}
+
+	function deactivate(){
+		$this->db->where('idTeacher',$_POST['id']);
+		$this->db->update('teachers',array('isActive_Teacher'=>0));
+	}
 }
 ?>

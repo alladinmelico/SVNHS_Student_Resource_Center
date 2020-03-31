@@ -1,5 +1,5 @@
 <?php include('head.php');?>
-  <body>
+  <body class="<?=($this->session->has_userdata('isAdmin'))? 'elegant-color-dark':''?>">
 		  <div>
 				<?php 
 					if($this->session->userdata('isAdmin')){

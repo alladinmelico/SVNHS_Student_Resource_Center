@@ -10,6 +10,13 @@ class Guest extends CI_Controller{
 	}
 
 	function index(){
+		if($this->session->has_userdata('isAdmin')){
+			redirect('admin/dashboard');
+		} elseif($this->session->has_userdata('idUser')){
+			redirect('user');
+		} elseif($this->session->has_userdata('idTeacher')){
+			redirect('teacher');
+		}
 		$data['title'] = "Home";
 		$data['contents'] = 'index';
 		$data['files'] = $this->MFile->getAllFiles();
