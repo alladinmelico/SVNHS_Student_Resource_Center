@@ -6,7 +6,7 @@ class MSubject extends CI_Model{
 
   function create(){
 	$data= array(
-		'subject_name' => $_POST['subject_name']
+		'subject_name' => strtolower($_POST['subject_name'])
 	);
 
 	$this->db->insert('subjects',$data);
@@ -41,6 +41,15 @@ class MSubject extends CI_Model{
 	return $data;
   }
 
+  function checkTitle(){
+	$this->db->like('subject_name',strtolower($_POST['subject_title']),'none');
+	// $this->db->like('subject_name',strtolower($_POST['subject_title']),'after');
+	$Q = $this->db->get('subjects',1);
+	if($Q->num_rows() > 0){
+		return TRUE;
+	} else return FALSE;
+  }
+
   function getAllSubjects(){
 	$data = array();
 	$this->db->order_by('subject_name','ASC');
@@ -56,6 +65,14 @@ class MSubject extends CI_Model{
 	return $data;
 	}
 
-	
+	function activate(){
+		$this->db->where('idSubject',$_POST['id']);
+		$this->db->update('subjects',array('isActive_Subject'=>1));
+	}
+
+	function deactivate(){
+		$this->db->where('idSubject',$_POST['id']);
+		$this->db->update('subjects',array('isActive_Subject'=>0));
+	}
 }
 ?>

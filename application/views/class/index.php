@@ -1,5 +1,5 @@
 <div class="container mt-5">
-	<div class="row mb-5">
+	<div class="row mb-3">
 		<div class="col">
 			<h1>Classes
 				<a class="btn blue-gradient px-3 rounded-circle text-white" data-toggle="modal" data-target="#modelId">

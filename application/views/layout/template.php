@@ -1,5 +1,5 @@
 <?php include('head.php');?>
-  <body class="<?=($this->session->has_userdata('isAdmin'))? 'elegant-color-dark':''?>">
+  <body class="<?=($this->session->has_userdata('isAdmin'))? 'elegant-color-dark':''?>" id="style">
 		  <div>
 				<?php 
 					if($this->session->userdata('isAdmin')){
@@ -44,7 +44,7 @@
 	<div class="container-fluid ">
         <div class="row">
 			<?php if((($this->uri->segment(1)) == 'user') || (($this->uri->segment(1)) == 'teacher') || (($this->uri->segment(1)) == '')){?>
-          		<div class="col-xs py-5 px-5">
+          		<div class="col-2 py-5 px-5">
 						<div class="row justify-content-center py-3">
 							<div class="cleanslate w24tz-current-time w24tz-middle" 
 								style="display: inline-block !important; visibility: hidden !important; min-width:300px !important; min-height:145px !important">
@@ -69,13 +69,13 @@
 				</div>
 			<?php }?>		
 			  
-			<div class="col-xl no-gutters">
+			<div class="col-lg no-gutters">
 			      <?php $this->load->view($contents); ?>
 			</div>
 			
 			<?php if((($this->uri->segment(1)) == 'user') || (($this->uri->segment(1)) == 'teacher') || (($this->uri->segment(1)) == '')){?>
-				<div class="col-xs py-5 px-5">
-					<div class="row py-3">
+				<div class="col-2">
+					<div class="row py-3 mt-5">
 						<?php if(isset($side_content_1)) $this->load->view($side_content_1);?>
 					</div>
 					<div class="row py-3">
@@ -90,12 +90,13 @@
 			  <?php $this->load->view('/layout/footer'); ?>
 		  </div>
 
-		  <div class="fixed-bottom d-flex justify-content-end">
-		  <a href="" class="btn btn-default btn-rounded mb-4" data-toggle="modal" data-target="#modalContactForm">
-			  <i class="fas fa-envelope fa-lg mr-2"></i>Contact Us
-
-		  </a>
+		<?php if(!$this->session->has_userdata('isAdmin')){?>
+		  	<div class="fixed-bottom d-flex justify-content-end">
+				<a href="" class="btn btn-default btn-rounded mb-4" data-toggle="modal" data-target="#modalContactForm">
+				<i class="fas fa-envelope fa-lg mr-2"></i>Contact Us
+				</a>
 			</div>
+		<?php }?>
 
   	
   </body>
@@ -139,6 +140,3 @@
   </div>
 </div>
 
-<script type="text/javascript">
-	$('.alert').alert()
-</script>

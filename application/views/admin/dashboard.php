@@ -1,3 +1,6 @@
+<script src="https://www.gstatic.com/charts/loader.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <!-- MDBootstrap Datatables  -->
 <link href="<?=base_url('css/addons/datatables.min.css')?>" rel="stylesheet">
 <!-- MDBootstrap Datatables  -->
@@ -9,13 +12,11 @@
 		$('#dtTeachers').DataTable();
 		$('#dtActivities').DataTable();
 		$('#dtClass').DataTable();
+		$('#dtFiles').DataTable();
 		$('.dataTables_length').addClass('bs-select');
 	});
 </script>
 
-<script src="https://www.gstatic.com/charts/loader.js"></script>
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">
         google.charts.load('current', {'packages':['corechart']});
 		google.charts.setOnLoadCallback(drawBar);
@@ -84,9 +85,33 @@
 			</div>
 		</div>
 
-		<div class="col-lg">
+		<div class="col-xl">
 			<div class="container border rounded-lg bg-info-shadow overflow-auto flex-center" id="style">
 				<div id="barchart" class="rounded-lg shadow" style="width: 500px;"></div>
+			</div>
+		</div>
+
+		<div class="col-xs ">
+			<div class="container border rounded-lg bg-info-shadow winter-neva-gradient overflow-auto">
+				<h2 class="text-dark">Subjects
+					<a class="btn blue-gradient px-3 rounded-circle text-white" data-toggle="modal" data-target="#modalSubject">
+					<i class="fas fa-plus fa-lg"></i></a>
+				</h2>
+				<div class="row overflow-auto flex-center" style="height:20em" id="style">
+					<table class="table table-hover text-center">
+						<tbody>
+							<form action="<?=base_url('subject/delete')?>" method="POST">
+								<?php foreach($subjects as $subject) {?>
+									<tr>
+										<td><?php $name = ucwords($subject['subject_name']);echo $name?></td>
+										<td><button type="submit" name="idSubject" value="<?=$subject['idSubject']?>" class="btn btn-danger px-3 btn-sm rounded-pill">
+										<i class="fas fa-minus"></i></button></td>
+									</tr>
+								<?php }?>
+							</form>
+						</tbody>
+					</table>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -119,12 +144,12 @@
 								<td scope="row"><?=$user['email']?></td>
 								<td class="text-center">
 									<?php if($user['isActive_User'] == 1){?>
-										<button name="user" value="<?=$name.','.$user['idUser']?>" type="button" id="active"
+										<button name="user" value="<?=$name.','.$user['idUser']?>" type="button" 
 										class="btn btn-info btn-sm px-3 rounded-pill isActive" data-toggle="modal" data-target="#modalActivate">
 											ACTIVE
-										</button>
+										</a>
 									<?php } else {?>
-										<button name="user" type="button" value="<?=$name.','.$user['idUser']?>" id="notActive"
+										<button name="user" type="button" value="<?=$name.','.$user['idUser']?>" 
 										class="btn btn-danger btn-sm px-3 rounded-pill notActive" data-toggle="modal" data-target="#modalDelete">
 											DEACTIVATED
 										</button>
@@ -164,12 +189,12 @@
 								<td scope="row"><?=$teacher['email']?></td>
 								<td class="text-center">
 									<?php if($teacher['isActive_Teacher'] == 1){?>
-										<button name="teacher" value="<?=$name.','.$teacher['idTeacher']?>" type="button" id="active"
+										<button name="teacher" value="<?=$name.','.$teacher['idTeacher']?>" type="button" 
 										class="btn btn-info btn-sm px-3 rounded-pill isActive" data-toggle="modal" data-target="#modalActivate">
 											ACTIVE
 										</button>
 									<?php } else {?>
-										<button name="teacher" type="button" value="<?=$name.','.$teacher['idTeacher']?>" id="notActive"
+										<button name="teacher" type="button" value="<?=$name.','.$teacher['idTeacher']?>" 
 										class="btn btn-danger btn-sm px-3 rounded-pill notActive" data-toggle="modal" data-target="#modalDelete">
 											DEACTIVATED
 										</button>
@@ -210,12 +235,12 @@
 								<td scope="row"><?=date("F j, Y, g:i a",strtotime($activity['activity_timestamp']))?></td>
 								<td class="text-center">
 									<?php if($activity['isActive_Activity'] == 1){?>
-										<button name="activity" value="<?=$name.','.$activity['idActivity']?>" type="button" id="active"
+										<button name="activity" value="<?=$name.','.$activity['idActivity']?>" type="button" 
 										class="btn btn-info btn-sm px-3 rounded-pill isActive" data-toggle="modal" data-target="#modalActivate">
 											ACTIVE
 										</button>
 									<?php } else {?>
-										<button name="activity" type="button" value="<?=$name.','.$activity['idActivity']?>" id="notActive"
+										<button name="activity" type="button" value="<?=$name.','.$activity['idActivity']?>" 
 										class="btn btn-danger btn-sm px-3 rounded-pill notActive" data-toggle="modal" data-target="#modalDelete">
 											DEACTIVATED
 										</button>
@@ -260,15 +285,14 @@
 								<td scope="row"><?=ucfirst($class['first_name']).' '.ucfirst($class['last_name'])?></td>
 								<td scope="row"><?=$class['activity_title']?></td>
 								<td scope="row"><?=$class['class_code']?></td>
-								<!-- <td scope="row"><?=date("F j, Y, g:i a",strtotime($class['class_timestamp']))?></td> -->
 								<td class="text-center">
 									<?php if($class['isActive_Class'] == 1){?>
-										<button name="class" value="<?=$name.','.$class['idClass']?>" type="button" id="active"
+										<button name="class" value="<?=$name.','.$class['idClass']?>" type="button" 
 										class="btn btn-info btn-sm px-3 rounded-pill isActive" data-toggle="modal" data-target="#modalActivate">
 											ACTIVE
 										</button>
 									<?php } else {?>
-										<button name="class" type="button" value="<?=$name.','.$class['idClass']?>" id="notActive"
+										<button name="class" type="button" value="<?=$name.','.$class['idClass']?>" 
 										class="btn btn-danger btn-sm px-3 rounded-pill notActive" data-toggle="modal" data-target="#modalDelete">
 											DEACTIVATED
 										</button>
@@ -294,7 +318,7 @@
 					</div>
 				</div>
 				<div class="row flex-center px-3"  id="style">
-					<table class="table table-hover" cellspacing="0" id="dtClass">
+					<table class="table table-hover" cellspacing="0" id="dtFiles">
 						<thead >
 							<tr>
 								<th class="th-lg font-weight-bold">Title</th>
@@ -311,12 +335,12 @@
 								<td scope="row"><?=date("F j, Y, g:i a",strtotime($file['file_timestamp']))?></td>
 								<td class="text-center">
 									<?php if($file['isPublic'] == 1){?>
-										<button name="file" value="<?=$name.','.$file['idFile']?>" type="button" id="active"
+										<button name="file" value="<?=$name.','.$file['idFile']?>" type="button" 
 										class="btn btn-info btn-sm px-3 rounded-pill isActive" data-toggle="modal" data-target="#modalActivate">
 											ACTIVE
 										</button>
 									<?php } else {?>
-										<button name="file" type="button" value="<?=$name.','.$file['idFile']?>" id="notActive"
+										<button name="file" type="button" value="<?=$name.','.$file['idFile']?>" 
 										class="btn btn-danger btn-sm px-3 rounded-pill notActive" data-toggle="modal" data-target="#modalDelete">
 											DEACTIVATED
 										</button>
@@ -359,8 +383,6 @@
     </div>
   </div>
 </div>
-<!-- Central Modal Small -->
-
 
 <!-- Modal -->
 <div class="modal fade" id="modalDelete" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
@@ -387,10 +409,35 @@
 	</div>
 </div>
 
+
+<div class="modal fade" id="modalSubject" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+	<div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+		<div class="modal-content">
+			<div class="modal-header bg-info text-light">
+				<h5 class="modal-title">Subjects</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+			</div>
+			<div class="modal-body">
+				<form action="<?=base_url('subject/create')?>" method="POST">
+				<label>Title</label>
+				<input type="text" name="subject_name" class="form-control" id="subjName">
+			</div>
+			<div class="modal-footer flex-center">
+				<button type="button" class="btn btn-outline-dark btn-sm" data-dismiss="modal">Close</button>
+				<button type="submit" name="submit" class="btn btn-info btn-sm">Add</button>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+
 <script>
 	$('#modalActivate').on('show.bs.modal', event => {
 		var button = $(event.relatedTarget);
 		var modal = $(this);
+		console.log(button);
 		$("#userName").text(button.val().split(',')[0]);
 		$("#inputAction").val(button.attr('name'));
 		$("#inputId").val(button.val().split(',')[1]);		

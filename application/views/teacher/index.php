@@ -39,4 +39,10 @@
 			<?php $this->load->view('class/index');?>
 		</div>
 	</div>
+
+	<div class="row mt-5">
+		<div class="col d-flex justify-content-center ">
+			<?php $this->load->view('activity/index');?>
+		</div>
+	</div>
 </div>

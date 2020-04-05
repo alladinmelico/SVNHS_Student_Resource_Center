@@ -22,6 +22,7 @@ class Dashboard extends CI_Controller{
 		$data['fileNum'] = $this->MFile->getAllFilesUploadToday();
 		$data['classNum'] = $this->MClass->getFileCounts();
 		$data['unverified'] = $this->MUser->getAllUsersUnverified();
+		$data['subjects'] = $this->MSubject->getAllSubjects();
 		$this->load->vars($data);
 		$this->load->view('layout/template');
 	}
@@ -44,6 +45,9 @@ class Dashboard extends CI_Controller{
 			if($_POST['action']=='file'){
 				$this->MFile->activate();
 			}
+			if($_POST['action']=='subject'){
+				$this->MSubject->activate();
+			}
 			redirect('admin/dashboard');
 		}
 	}
@@ -65,6 +69,9 @@ class Dashboard extends CI_Controller{
 			}
 			if($_POST['action']=='file'){
 				$this->MFile->deactivate();
+			}
+			if($_POST['action']=='subject'){
+				$this->MSubject->deactivate();
 			}
 			redirect('admin/dashboard');
 		}

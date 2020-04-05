@@ -1,8 +1,8 @@
 <div class="container mt-5">
-	<div class="row mb-5">
+	<div class="row mb-3">
 		<div class="col">
 			<h1>Activities
-				<a class="btn blue-gradient px-3 rounded-circle text-white" data-toggle="modal" data-target="#modelId">
+				<a class="btn blue-gradient px-3 rounded-circle text-white" data-toggle="modal" data-target="#modelIdActivity">
 				<i class="fas fa-plus fa-lg"></i></a>
 			</h1>
 		</div>
@@ -44,7 +44,7 @@
 
 
 <!-- Modal -->
-<div class="modal fade" id="modelId" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+<div class="modal fade" id="modelIdActivity" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
 	<div class="modal-dialog modal-dialog-centered" role="document">
 		<div class="modal-content">
 				<div class="modal-header">

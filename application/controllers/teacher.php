@@ -19,7 +19,10 @@ class Teacher extends CI_Controller{
 		$data['activitiesStat'] = $this->MActivity->getActivityTeacherStats();
 		$data['classes'] = $this->MClass->getAllTeacherClasses();
 		$data['subjects'] = $this->MSubject->getAllSubjects();
+		$data['activities'] = $this->MActivity->getAllTeacherActivities();
+		$data['unchecks'] = $this->MActivity->getTeacherUnchecked();
 		$data['side_content_1'] = 'teacher/request';
+		$data['side_content_2'] = 'teacher/unchecked';
 		$this->load->vars($data);
 		$this->load->view('layout/template');
 	}

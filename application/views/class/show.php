@@ -123,8 +123,8 @@
 	</script>
 
 
-<div class="container-fluid">
-	<div class="row bg text-light ">
+<div class="container">
+	<div class="row bg text-light py-3 px-3" style="border-radius: 1em;">
 			<div class="col-1">
 				<h3 class="text-info "><?=ucfirst($subject['subject_name'])?></h3>
 			</div>

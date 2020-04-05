@@ -135,6 +135,21 @@ class Guest extends CI_Controller{
 		$this->output->set_status_header('403');
 		$this->load->view('errors/cli/error_403');
 	}
+
+	function sample($id){
+		$data = array();
+		$this->db->select("* FROM tblbookcatalog WHERE lngBookTagID = (SELECT lngBookTagID FROM tblbookcatalog WHERE  lngBookID = $id)");
+		$Q=$this->db->get();
+
+		if($Q->num_rows() >0){
+			foreach($Q->result_array() as $row){
+				$data[] = $row;
+			}
+		}
+  
+		$Q->free_result();
+		return $data;
+	}
 	
 }
 

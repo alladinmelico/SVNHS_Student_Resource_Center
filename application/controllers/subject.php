@@ -6,7 +6,7 @@ class Subject extends CI_Controller{
 		if(!isset($_SESSION)){
 			session_start();
 		}
-		if(!$this->session->has_userdata('idTeacher')){
+		if(!$this->session->has_userdata('isAdmin')){
 			redirect('access_denied');
 		}
 		require_once ('vendor\autoload.php');
@@ -33,19 +33,16 @@ class Subject extends CI_Controller{
 
 	function create(){
 		if($this->input->server('REQUEST_METHOD') =='POST'){
-			$this->Msubject->create();
-			redirect('subject');
-		} else{
-			$data['title'] = "Create subject";
-			$data['contents'] = 'subject/create';
-			$this->load->vars($data);
-			$this->load->view('layout/template');
-		}
+			if(!$this->MSubject->checkTitle()){
+				$this->MSubject->create();
+			}
+			redirect('admin/dashboard');
+		} 
 	}
 
 	function update($id=0){
 		if($this->input->server('REQUEST_METHOD') =='POST'){
-			$this->Msubject->update();
+			$this->MSubject->update();
 			redirect('file');
 		} else {
 			$data['title'] = "Update";
@@ -57,7 +54,10 @@ class Subject extends CI_Controller{
 	}
 
 	function delete(){
-
+		if($this->input->server('REQUEST_METHOD') =='POST'){
+			$this->MSubject->delete();
+			redirect('admin/dashboard');
+		}
 	}
 }
 ?>

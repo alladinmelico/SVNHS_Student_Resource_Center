@@ -52,10 +52,10 @@ small{
 			?>
 				<div class="container px-5">
 					<label for="score" class="h3 text-info">Score</label>
-					<span id="score_value" class="text-warning font-weight-bold h5 float-right display-4"></span>
+					<span id="score_value" class="text-warning font-weight-bold h5 float-right display-4"><?=$file['score']?></span>
 				</div>
 				<div class="slidecontainer bg-transparent mb-3 px-5">
-					<input name="score" type="range" min="1" max="<?=$activity['total_items']?>" value="" step="0.1" class="slider" 
+					<input name="score" type="range" min="1" max="<?=$activity['total_items']?>" value="<?=$file['score']?>" step="0.1" class="slider" 
 					id="score" onchange="show_value(this.value,'score_value');overAll()">
 				</div>
 			<div class="row justify-content-center ">

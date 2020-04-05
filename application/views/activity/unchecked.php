@@ -1,6 +1,6 @@
 <div class="container">
 	<div class="row">
-		<span class="col-lg-12">
+		<div class="col-lg-12">
 			<table class="table table-hover">
 				<thead class="thead-inverse text-dark">
 					<tr>
