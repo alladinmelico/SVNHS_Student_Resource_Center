@@ -85,7 +85,7 @@
 </script>
 
 <div class="container mt-5">
-	<div class="row bg-dark rounded-lg px-3 py-3">
+	<div class="row border-info rounded-lg px-3 py-3" style="border-style: solid;border-width: 2px;">
 		<div class="col-xl">
 			<h1><?=ucfirst($activity['activity_title'])?></h1>
 			<strong class="text-info"><?=date("F j, Y, g:i a",strtotime($activity['activity_DueDate']))?></strong>
@@ -106,22 +106,23 @@
 		<p><?=$activity['activity_description']?></p>
 	</div>
 
-	<div class="row py-3 border border-info text-light rounded-lg bg-info">
-		<div class="col-2 text-center bg-info rounded-lg py-2">
-			<span class="font-weight-bold">Total Sentiment</span>
-			<div class="rounded-lg  flex-center" >
-				<p class="display-4"><?=floor((array_sum($totalSentiment)/count($totalSentiment))*100)?>%</p>
-				<br>
+	<?php if($submitted){?>
+		<div class="row py-3 border border-info text-light rounded-lg bg-info">
+			<div class="col-2 text-center bg-info rounded-lg py-2">
+				<span class="font-weight-bold">Total Sentiment</span>
+				<div class="rounded-lg  flex-center" >
+					<p class="display-4"><?=floor((array_sum($totalSentiment)/count($totalSentiment))*100)?>%</p>
+					<br>
+				</div>
+			</div>
+			<div class="col px-3">
+				<div id="barchart" class="border rounded-lg shadow" ></div>
+			</div>
+			<div class="col px-3">
+				<div id="piechart" class="border rounded-lg shadow" ></div>
 			</div>
 		</div>
-		<div class="col px-3">
-			<div id="barchart" class="border rounded-lg shadow" ></div>
-		</div>
-		<div class="col px-3">
-			<div id="piechart" class="border rounded-lg shadow" ></div>
-		</div>
-	</div>
-	
+	<?php }?>
 	<div class="row mt-5">
 		<div class="col-lg-12 shadow border border-info rounded-lg">
 			<h3><i class="fas fa-file-alt mr-3 mt-3"></i>Submissions</h3>

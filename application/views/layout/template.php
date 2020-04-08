@@ -60,11 +60,11 @@
 							style="border-width:0" width="300" height="300" frameborder="0" scrolling="no"></iframe>
 						</div>
 						<div class="row">
-							<iframe src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Ftaguigcity%2F&tabs=timeline&width=340&height=500&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=false&appId" 
+							<!-- <iframe src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Ftaguigcity%2F&tabs=timeline&width=340&height=500&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=false&appId" 
 							width="340" height="500" style="border:none;overflow:hidden" 
 							scrolling="no" frameborder="0" allowTransparency="true" 
 							allow="encrypted-media">
-							</iframe>
+							</iframe> -->
 						</div>
 				</div>
 			<?php }?>		
@@ -90,7 +90,7 @@
 			  <?php $this->load->view('/layout/footer'); ?>
 		  </div>
 
-		<?php if(!$this->session->has_userdata('isAdmin')){?>
+		<?php if($this->session->has_userdata('idUser') || $this->session->has_userdata('idTeacher')){?>
 		  	<div class="fixed-bottom d-flex justify-content-end">
 				<a href="" class="btn btn-default btn-rounded mb-4" data-toggle="modal" data-target="#modalContactForm">
 				<i class="fas fa-envelope fa-lg mr-2"></i>Contact Us

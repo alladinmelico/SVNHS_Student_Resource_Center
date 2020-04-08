@@ -30,12 +30,19 @@
 	</script>
 
 <div class="container mt-5">
-	<h1><i class="fas fa-chart-line mr-3"></i>Overall Performance</h1>
 	<div class="row mt-5 mb-5">
-		<div id="linechart" style="width: 1000px; height: 500px" class="card shadow"></div>
+		<h1><i class="fas fa-chart-line mr-3"></i>Overall Performance</h1>
+		<div id="linechart" style="width: 1000px; height: 500px" class="card shadow mx-auto"></div>
 	</div>
-	<h1><i class="fas fa-book mr-3 mt-3"></i>Latest Published Papers</h1>
-	<div class="row row-cols-1 row-cols-md-3 mt-5">
+
+	<div class="row">
+		<div class="col-xl">
+			<?php $this->load->view('user/user_class')?>
+		</div>
+	</div>
+
+	<h1><i class="fas fa-book mr-3 mt-5"></i>Latest Published Papers</h1>
+	<div class="row row-cols-1 row-cols-md-3 mt-3">
 		<?php foreach($files as $file){ ?>
 			<div class="col mb-4">
 				<div class="card">
@@ -61,6 +68,7 @@
 			</div>
 		<?php }?>
 	</div>
+	
 
 
 </div>

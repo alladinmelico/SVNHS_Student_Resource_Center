@@ -263,7 +263,7 @@ class MActivity extends CI_Model{
 		$this->db->where('cu.users_idUser',$this->session->userdata('idUser'));
 		$this->db->where('cu.confirmed',1);
 		$this->db->where('a.isActive_Activity',1);
-		$this->db->where('au.activities_idActivity');
+		$this->db->where('au.files_idFile');
 		$Q = $this->db->get();
 
 		if ($Q->num_rows() > 0){

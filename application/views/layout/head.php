@@ -34,5 +34,5 @@
 
 	<link rel="icon" href="<?=base_url()?>logo.ico">
 	<link rel="stylesheet" href="<?= base_url()?>css/custom.css">
-		
+	<?php date_default_timezone_set('Asia/Manila');?>
   </head>

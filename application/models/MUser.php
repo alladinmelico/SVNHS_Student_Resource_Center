@@ -167,6 +167,13 @@ class MUser extends CI_Model{
 		return $data;
 	}
 
+	
+	function saveSearch(){
+		if($this->session->has_userdata('idUser')){
+			$id = $this->session->userdata('idUser');
+		} else $id = $this->session->userdata('idTeacher');
+		$this->db->insert('searches',array('term'=>$_GET['term'],'Users_idUser'=>$id));
+	}
 	function activate(){
 		$this->db->where('idUser',$_POST['id']);
 		$this->db->update('users',array('isActive_User'=>1));

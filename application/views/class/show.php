@@ -123,7 +123,7 @@
 	</script>
 
 
-<div class="container">
+<div class="container mt-3">
 	<div class="row bg text-light py-3 px-3" style="border-radius: 1em;">
 			<div class="col-1">
 				<h3 class="text-info "><?=ucfirst($subject['subject_name'])?></h3>

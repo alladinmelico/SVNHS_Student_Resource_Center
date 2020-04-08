@@ -27,7 +27,7 @@
 								}
 								echo form_open('teacher/confirmUser');
 								echo form_hidden('idUser',$request['idUser']);?>
-								<button name="submit" class="btn btn-success" type="submit">SAVE</button>
+								<button name="submit" class="btn btn-info btn-sm" type="submit">CONFIRM</button>
 								<?=form_close();?>
 						</td>
 					</tr>

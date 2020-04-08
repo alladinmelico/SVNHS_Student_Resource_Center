@@ -35,7 +35,7 @@
 		'type' => 'datetime-local',
 		'id'=>'activity_DueDate',
 		'class'=>'form-control',
-		'value'=>$due['due'].'T'.$due['dueTime'],
+		'value'=>date("Y-m-d\\TG:i",strtotime($activity['activity_DueDate'])),
 		'required'=>'required');
 	echo form_label('Due Date');
 	echo form_input($data);
