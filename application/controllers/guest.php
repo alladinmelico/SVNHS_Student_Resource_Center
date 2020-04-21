@@ -136,19 +136,56 @@ class Guest extends CI_Controller{
 		$this->load->view('errors/cli/error_403');
 	}
 
-	function sample($id){
-		$data = array();
-		$this->db->select("* FROM tblbookcatalog WHERE lngBookTagID = (SELECT lngBookTagID FROM tblbookcatalog WHERE  lngBookID = $id)");
-		$Q=$this->db->get();
-
-		if($Q->num_rows() >0){
-			foreach($Q->result_array() as $row){
-				$data[] = $row;
-			}
+	function sample($id=0){
+		$file = array();
+		$handle = fopen("diabetes.csv", "r");
+		for ($i = 0; $row = fgetcsv($handle ); ++$i) {
+			$selected = array();
+			$selected['age'] = $row[7];
+			$selected['plasma_glucose']=$row[1];
+			$file[] = $selected;
 		}
-  
-		$Q->free_result();
-		return $data;
+		fclose($handle);
+		array_shift($file);
+
+		$file = array();
+		$handle = fopen("diabetes.csv", "r");
+		for ($i = 0; $row = fgetcsv($handle ); ++$i) {
+			$file[] = $row;
+		}
+		fclose($handle);
+		print_r($file);
+
+		// usort($file, function($a, $b) {
+		// 	return strtotime($a['date'])  - strtotime($b['date']);
+		// });
+
+		usort($file, function($a, $b) {
+			return ($a['age'])  - ($b['age']);
+		});
+
+		array_unique(array_column($file,'age'));
+
+		$data = array(
+			array('sentiment'=>1,'score'=>39),
+			array('sentiment'=>2,'score'=>44),
+			array('sentiment'=>3,'score'=>40),
+			array('sentiment'=>4,'score'=>45),
+			array('sentiment'=>5,'score'=>38),
+			array('sentiment'=>6,'score'=>43),
+			array('sentiment'=>7,'score'=>39)
+		);
+
+		$toForcast = array(57,66,88);
+		
+		$this->load->library('Analytics');
+		$data['reg'] = $this->analytics->regression($file,'age','plasma_glucose');
+
+		// $data['expo'] = ($this->analytics->exponential_smoothing($file,'date','close',0.2));
+		$data['alpha'] = 0.2;
+		$data['contents'] = 'regression';
+		$this->load->vars($data);
+		$this->load->view('layout/template');
 	}
 	
 }

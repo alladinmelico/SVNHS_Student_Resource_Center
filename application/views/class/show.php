@@ -25,6 +25,75 @@
 		google.charts.setOnLoadCallback(drawLine);
 		google.charts.setOnLoadCallback(drawPie);
 		google.charts.setOnLoadCallback(drawBar);
+		google.charts.setOnLoadCallback(drawChartExponential);
+		google.charts.setOnLoadCallback(drawRegression);
+		google.charts.setOnLoadCallback(col);
+
+		function drawRegression() {
+			var data = google.visualization.arrayToDataTable([
+                ['X','Points','forecast'],
+                <?php
+                    foreach($reg AS $row){ ?>
+                        [<?=$row['x'];?>,<?= $row['y'];?>,<?= $row['f'];?>],
+                <?php   } ?>
+            ]);
+
+			var options = {
+			title: 'Score Sentiment Relationship using Linear Regression',
+			hAxis: { title: 'Sentiment'},
+			vAxis: { title: 'Score'},
+			series: {
+				1: { lineWidth: 3, pointSize: 0 }
+				}
+			};
+
+			var chart = new google.visualization.ScatterChart(document.getElementById('reg_analytics'));
+			chart.draw(data, options);
+		}
+
+		function col() {
+			var data = google.visualization.arrayToDataTable([
+                ['X','Points','forecast'],
+                <?php
+                    foreach($reg AS $row){ ?>
+                        [<?=$row['x'];?>,<?= $row['y'];?>,<?= $row['f'];?>],
+                <?php   } ?>
+            ]);
+
+			var options = {
+			title: 'Score Sentiment Relationship using Linear Regression',
+			hAxis: { title: 'Sentiment'},
+			vAxis: { title: 'Score'},
+			series: {
+				1: { lineWidth: 3, pointSize: 0 }
+				}
+			};
+
+			var chart = new google.visualization.ColumnChart(document.getElementById('col_analytics'));
+			chart.draw(data, options);
+		}
+
+		function drawChartExponential() {
+					var data = google.visualization.arrayToDataTable([
+					['x','Actual Data','Forecast Alpha: <?=$alpha?>'],
+					<?php
+							foreach($expo AS $row){ ?>
+									['<?=$row['x'];?>',<?= $row['y'];?>,<?= $row['f'];?>],
+					<?php   } ?>]);
+	
+				var options = {
+					title: 'Score Forecast Using Exponential Smoothing',
+					hAxis: {
+					title: 'Time'
+					},
+					vAxis: {
+					title: 'Score'
+					}
+				};
+	
+			var chart_lines = new google.visualization.LineChart(document.getElementById('expo_analytics'));
+			chart_lines.draw(data, options);
+		}
 
 		function drawLine() {
 			var data = google.visualization.arrayToDataTable([
@@ -146,9 +215,25 @@
 			<div class="col">
 				<div class="container">
 					<?php if($scores){?>
-						<div class="row overflow-auto py-3 rounded-lg shadow">
+						<div class="row overflow-auto py-3 rounded-lg shadow px-3">
 							<div id="linechart" style="width: 1000px; height: 500px" ></div>
 						</div>
+						<div class="row overflow-auto py-3 rounded-lg shadow px-3 mt-3">
+							<form action="#" method="GET" class="mx-auto" >
+								<input type="number" name="toForecast" id="" class="border border-info" value="<?(isset($_GET['toForecast']))? $_GET['toForecast']:''?>" placeholder="Score to Forecast">
+								<input type="number" name="alpha" id="" class="border border-info" value="<?(isset($_GET['alpha']))? $_GET['alpha']:''?>" placeholder="α" min="0" max="1" step="0.1" >
+								<button type="submit" class="btn btn-sm btn-primary" name="expo_smoothing">Save</button>
+							</form>
+							<div id="expo_analytics" style="width: 1000px; height: 500px" ></div>
+						</div>
+						<div class="row overflow-auto py-3 rounded-lg shadow px-3 mt-3">
+							<form action="#" method="GET" class="mx-auto" >
+								<input type="number" name="toForecastRegression" id="" class="border border-info" value="<?(isset($_GET['toForecast']))? $_GET['toForecast']:''?>" placeholder="Score to Forecast">
+								<button type="submit" class="btn btn-sm btn-primary" name='regression'>Save</button>
+							</form>
+							<div id="reg_analytics" style="width: 1000px; height: 500px" ></div>
+						</div>
+						<div id="col_analytics" style="width: 1000px; height: 500px" ></div>
 					<?php }?>
 
 					

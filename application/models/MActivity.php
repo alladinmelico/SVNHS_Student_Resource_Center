@@ -435,6 +435,29 @@ class MActivity extends CI_Model{
 		return $data;
 	}
 
+	function getScoreSentiment($id){
+		$data = array();
+		$this->db->select('((au.score/a.total_items) * 100) as percentage,sentiment');
+		$this->db->from('class_user cu');
+		$this->db->join('classes c','cu.classes_idClass = c.idClass');
+		$this->db->join('activities a','a.classes_idClass = c.idClass');
+		$this->db->join('activity_user au','a.idActivity = au.activities_idActivity');
+		$this->db->join('files f','f.idFile = au.files_idFile');
+		$this->db->where('c.idClass',$id);
+		$this->db->where('cu.confirmed',1);
+		$this->db->where('a.isActive_Activity',1);
+		$Q = $this->db->get();
+
+		if ($Q->num_rows() > 0){
+			foreach($Q->result_array() as $row){
+				$data[] = $row;
+			}
+		}
+
+		$Q->free_result();
+		return $data;
+	}
+
 	function activate(){
 		$this->db->where('idActivity',$_POST['id']);
 		$this->db->update('activities',array('isActive_Activity'=>1));
