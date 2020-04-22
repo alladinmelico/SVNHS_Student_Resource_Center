@@ -1,11 +1,11 @@
-<script src="https://www.gstatic.com/charts/loader.js"></script>
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
 <!-- MDBootstrap Datatables  -->
 <link href="<?=base_url('css/addons/datatables.min.css')?>" rel="stylesheet">
 <!-- MDBootstrap Datatables  -->
 <script type="text/javascript" src="<?=base_url('js/addons/datatables.min.js')?>"></script>
 
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script src="https://www.gstatic.com/charts/loader.js"></script>
 <script type="text/javascript">
 	$(document).ready(function () {
 		$('#dtUsers').DataTable();
@@ -147,7 +147,6 @@
 										<button name="user" value="<?=$name.','.$user['idUser']?>" type="button" 
 										class="btn btn-info btn-sm px-3 rounded-pill isActive" data-toggle="modal" data-target="#modalActivate">
 											ACTIVE
-										</a>
 									<?php } else {?>
 										<button name="user" type="button" value="<?=$name.','.$user['idUser']?>" 
 										class="btn btn-danger btn-sm px-3 rounded-pill notActive" data-toggle="modal" data-target="#modalDelete">
@@ -370,7 +369,7 @@
         </button>
       </div>
       <div class="modal-body">
-		  <h4>Are you sure you want to activate <span id="userName" class="text-info font-weight-bold"></span>?</h4>
+		  <h4>Are you sure you want to activate <span id="userNameActivate" class="text-info font-weight-bold"></span>?</h4>
 		  <form action="<?=base_url('admin/dashboard/activate')?>" method="POST">
 		  <input type="hidden" name="action" id="inputAction">
 		  <input type="hidden" name="id" id="inputId">
@@ -434,14 +433,15 @@
 </div>
 
 <script>
+	
 	$('#modalActivate').on('show.bs.modal', event => {
 		var button = $(event.relatedTarget);
 		var modal = $(this);
-		console.log(button);
-		$("#userName").text(button.val().split(',')[0]);
+		$("#userNameActivate").text(button.val().split(',')[0]);
 		$("#inputAction").val(button.attr('name'));
 		$("#inputId").val(button.val().split(',')[1]);		
 	});
+
 
 	$('#modalDelete').on('show.bs.modal', event => {
 		var button = $(event.relatedTarget);
