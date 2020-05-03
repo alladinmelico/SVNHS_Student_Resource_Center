@@ -2,10 +2,10 @@
 <style>
 	.pdfobject-container { height: 80rem; width: 70rem; }
 </style>
-<div class="container mt-3">
+<div class="file-container">
 
 	<?php if($this->session->has_userdata('idUser') && ($this->uri->segment(1)=='search') ){?>
-		<div class="row">
+		<div class="file-activity-container">
 			<div class="container d-flex justify-content-end text-info">
 				<?php $action = ($isBookMarked)? 'delete':'create'?>
 				<form action="<?=base_url('u/bookmark/'.$action)?>" method="POST">

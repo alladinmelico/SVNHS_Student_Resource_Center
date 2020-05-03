@@ -51,28 +51,7 @@
 			chart.draw(data, options);
 		}
 
-		function col() {
-			var data = google.visualization.arrayToDataTable([
-                ['X','Points','forecast'],
-                <?php
-                    foreach($reg AS $row){ ?>
-                        [<?=$row['x'];?>,<?= $row['y'];?>,<?= $row['f'];?>],
-                <?php   } ?>
-            ]);
-
-			var options = {
-			title: 'Score Sentiment Relationship using Linear Regression',
-			hAxis: { title: 'Sentiment'},
-			vAxis: { title: 'Score'},
-			series: {
-				1: { lineWidth: 3, pointSize: 0 }
-				}
-			};
-
-			var chart = new google.visualization.ColumnChart(document.getElementById('col_analytics'));
-			chart.draw(data, options);
-		}
-
+		
 		function drawChartExponential() {
 					var data = google.visualization.arrayToDataTable([
 					['x','Actual Data','Forecast Alpha: <?=$alpha?>'],
@@ -165,10 +144,10 @@
 		function drawBar() {
 
 			var data = google.visualization.arrayToDataTable([
-                ['percentage','score'],
+                ['percentage','score',{ role: 'style' }],
                 <?php
                     foreach($topStudents AS $topStudent){ ?>
-                        ['<?= $topStudent['first_name'];?>',<?= $topStudent['avgScore'];?>],
+                        ['<?= $topStudent['first_name'];?>',<?= $topStudent['avgScore'];?>,'color: gray'],
                 <?php    } ?>
             ]);
 
@@ -178,10 +157,11 @@
 			chartArea: {width: '50%'},
 			hAxis: {
 				title: 'Total Scores',
-				minValue: 0
+				minValue: 0,
 			},
 			vAxis: {
-				title: 'Students'
+				title: 'Students',
+				
 			}
 			};
 
@@ -228,12 +208,12 @@
 						</div>
 						<div class="row overflow-auto py-3 rounded-lg shadow px-3 mt-3">
 							<form action="#" method="GET" class="mx-auto" >
-								<input type="number" name="toForecastRegression" id="" class="border border-info" value="<?(isset($_GET['toForecast']))? $_GET['toForecast']:''?>" placeholder="Score to Forecast">
+								<input type="text" name="toForecastRegression" id="" class="border border-info" 
+								value="<?=(isset($_GET['toForecast']))? $_GET['toForecast']:''?>" placeholder="Score to Forecast">
 								<button type="submit" class="btn btn-sm btn-primary" name='regression'>Save</button>
 							</form>
 							<div id="reg_analytics" style="width: 1000px; height: 500px" ></div>
 						</div>
-						<div id="col_analytics" style="width: 1000px; height: 500px" ></div>
 					<?php }?>
 
 					

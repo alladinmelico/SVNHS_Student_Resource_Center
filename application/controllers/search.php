@@ -11,15 +11,17 @@ class Search extends CI_Controller{
 
 	function index(){
 		if($this->input->server('REQUEST_METHOD') =='GET'){
-			if($this->session->has_userdata('idUser') || $this->session->has_userdata('idUser')){
-				$this->MUser->saveSearch();
-			}
-
-			$data['title'] = "Search";
-			$data['contents'] = 'search_view';
-			$data['searched'] = $this->MFile->search();
-			$this->load->vars($data);
-			$this->load->view('layout/template');
+			if($_GET['term'] != ''){
+				if($this->session->has_userdata('idUser') || $this->session->has_userdata('idUser')){
+					$this->MUser->saveSearch();
+				}
+	
+				$data['title'] = "Search";
+				$data['contents'] = 'search_view';
+				$data['searched'] = $this->MFile->search();
+				$this->load->vars($data);
+				$this->load->view('layout/template');
+			} 
 		}
 	}
 

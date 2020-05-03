@@ -1,71 +1,3 @@
-<style>
-	body {
-	font-family: "Lato", sans-serif;
-	transition: background-color .5s;
-	}
-
-	.sidenav {
-	height: 100%;
-	width: 0;
-	position: fixed;
-	z-index: 1;
-	top: 0;
-	left: 0;
-	background-color: #111;
-	overflow-x: hidden;
-	transition: 0.5s;
-	padding-top: 60px;
-	}
-
-	.sidenav a {
-	padding: 8px 8px 8px 10px;
-	text-decoration: none;
-	font-size: 25px;
-	color: white;
-	display: block;
-	transition: 0.3s;
-	}
-
-
-	.sidenav .closebtn {
-	position: absolute;
-	top: 0;
-	right: 25px;
-	font-size: 36px;
-	margin-left: 50px;
-	}
-
-	#main {
-	/* transition: margin-left .5s; */
-	padding: 16px;
-	}
-
-	#logout{
-		position: absolute;
-		bottom: 5px;
-	}
-
-	@media screen and (max-height: 450px) {
-	.sidenav {padding-top: 15px;}
-	.sidenav a {font-size: 18px;}
-	}
-
-	input {
-      border-top-style: hidden;
-      border-right-style: hidden;
-      border-left-style: hidden;
-      border-bottom-style: none;
-      }
-      .no-outline:focus {
-      outline: none;
-      }
-
-	  .custom-gradient,.blue-gradient{
-		background: rgb(0,93,124);
-		background: linear-gradient(13deg, rgba(0,93,124,1) 0%, rgba(51,181,229,1) 100%);
-	  }
-</style>
-
 <div id="mySidenav" class="sidenav bg-dark">
   <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
   <?php
@@ -80,35 +12,32 @@ show_error($message_403 , 403 );
   ?>
 </div>
 
-<nav class="navbar navbar-expand-lg navbar-dark custom-gradient">
-	<a class="navbar-brand" href="#" onclick="openNav()">
-		<i class="fas fa-bars mr-5"></i>
-	</a>
-	<a class="navbar-brand" href="<?=base_url()?><?=($this->session->has_userdata('idUser'))? 'user':'teacher'?>" >
-		<img src="<?=base_url()?>logo_banner.png" alt="" height="70em">
-	</a>
- 
-	<div class="container">
-		<form class="form-inline mx-auto bg-light rounded-lg" method="GET" action="<?=base_url()?>search">
-			<input class="no-outline bg-light rounded-left ml-1" name="term" type="text" placeholder="Search">
-			<button class="btn btn-info waves-effect btn-pill" type="submit"><i class="fas fa-search fa-lg"></i></button>
-		</form>
+<nav>
+	<div class="burger-logo">
+		<a class="burger" href="#" onclick="openNav()">
+			<i class="fas fa-bars"></i>
+		</a>
+		<a class="logo" href="<?=base_url()?>">
+			<picture>
+				<source media="(min-width: 768px)" srcset="<?=base_url()?>logo_banner.png">
+				<img src="<?=base_url()?>logo.png" alt="" height="50em">
+			</picture>
+		</a>
 	</div>
 
-	<div class="dropdown open">
-		<button class="btn btn-outline-light dropdown-toggle" 
-		type="button" id="triggerId" data-toggle="dropdown" 
-		aria-haspopup="true"aria-expanded="false">
-		<?=$this->session->userdata('first_name').' '.$this->session->userdata('last_name');?>
-		<i class="fas fa-user ml-2"></i>
+	<form class="search" method="GET" action="<?=base_url()?>search">
+		<input class="search-input" name="term" type="text" placeholder="Search" required>
+		<button class="search-button" type="submit"><i class="fas fa-search"></i></button>
+	</form>
+
+	<div class="profile">
+		<button class="profile-button">
+			<?=$this->session->userdata('first_name').' '.$this->session->userdata('last_name');?>
+			<i class="fas fa-user ml-2"></i>
 		</button>
-		<div class="dropdown-menu dropdown-menu-right" aria-labelledby="triggerId">
-			<?php if($this->session->has_userdata('idUser')){?>
-				<a class="dropdown-item text-info" 
-					href="<?=base_url('u/bookmark')?>">Bookmarks</a>
-			<?php }?>
-			<a class="dropdown-item text-danger" 
-				href="<?=base_url()?><?=($this->session->has_userdata('idUser'))? 'user':'teacher'?>/logout">Logout</a>
+		<div class="profile-content">
+			<a href="<?=base_url('u/bookmark')?>">Bookmark</a>
+			<a href="<?=base_url()?><?=($this->session->has_userdata('idUser'))? 'user':'teacher'?>/logout">Logout</a>
 		</div>
 	</div>
 </nav>

@@ -187,6 +187,43 @@ class Guest extends CI_Controller{
 		$this->load->vars($data);
 		$this->load->view('layout/template');
 	}
+
+	function scrape(){
+		$mainSite = "https://commons.deped.gov.ph";
+		$categories = array(
+			'humss' => 'b7788512-f928-47e9-9a29-8f887b9a54b4',
+
+		);
+		$this->load->library('simple_html_dom');
+		$cURL = curl_init('https://commons.deped.gov.ph/categories/'.$categories['humss']);
+		curl_setopt($cURL, CURLOPT_RETURNTRANSFER, TRUE);
+		$page = curl_exec($cURL);
+
+		if(curl_errno($cURL)){
+			echo "<script>alert('Scrapper Erro: ".curl_error($cURL)."')</script>";
+			exit;
+		}
+
+		// echo $page;
+
+		$this->simple_html_dom->load($page);
+
+		$titles = array();
+		$links = array();
+		$cards = array();
+		foreach($this->simple_html_dom->find('h4') as $title){
+			$text = $title->innertext;
+			
+			$titles[] = trim(explode("<",$text)[0]);
+		}
+
+		foreach($this->simple_html_dom->find('a[href^=/documents]') as $link){
+			$links[] = $mainSite.$link->href;
+		}
+
+		print_r($titles);
+		print_r($links);
+	}
 	
 }
 

@@ -1,0 +1,486 @@
+:root {
+    --blue: rgb(51, 181, 229);
+    --light-blue: rgb(140, 224, 255);
+    --dark-blue: rgb(15, 61, 78);
+    --green: rgb(43, 155, 127);
+    --dark-green: rgb(14, 63, 51);
+    --dark: rgb(37, 37, 37);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+}
+
+body {
+    font-family: 'Roboto Slab', serif;
+    font-weight: 400;
+    color: var(--dark);
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+h1,
+h3,
+h2,
+thead,
+i,
+a,
+strong {
+    color: var(--blue);
+    text-decoration: none;
+}
+
+i {
+    margin-right: 1rem;
+}
+
+a:hover {
+    color: var(--dark-blue);
+}
+
+table {
+    width: 100%;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--dark-blue);
+}
+
+input,
+button {
+    border: none;
+    outline: none;
+    background-color: transparent;
+}
+
+.search {
+    display: flex;
+    justify-content: space-between;
+    background-color: white;
+    border-radius: 2rem;
+    padding: 0.5rem;
+}
+
+.search-input,
+.search-button {
+    color: var(--blue);
+    font-size: 1.5rem;
+    background-color: white;
+}
+
+.search-button:hover {
+    color: var(--dark-blue);
+}
+
+.login {
+    font-size: 1.5rem;
+    text-align: center;
+    padding: 1rem;
+    color: white;
+    text-transform: uppercase;
+}
+
+.login::after {
+    content: "Login";
+}
+
+.login:hover {
+    text-decoration: none;
+    color: var(--blue);
+}
+
+.logo {
+    padding: 0.5rem;
+}
+
+.burger i {
+    color: white;
+    font-size: 2rem;
+    padding-left: 1rem;
+}
+
+.burger-logo {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.profile {
+    display: inline-block;
+    position: relative;
+    display: inline-block;
+}
+
+.profile-button {
+    font-size: 1.5rem;
+    color: white;
+}
+
+.profile-button:hover {
+    color: var(--blue);
+}
+
+.profile-content {
+    display: none;
+    background-color: var(--dark-blue);
+    text-align: center;
+    width: 100%;
+    border-radius: 1rem;
+    position: absolute;
+    z-index: 1;
+}
+
+.profile-content a {
+    font-size: 1.5rem;
+    display: block;
+}
+
+.profile-content a:hover {
+    color: white;
+}
+
+.profile:hover .profile-content {
+    display: block;
+}
+
+.main {
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-start;
+    padding-top: 3rem;
+}
+
+.right-container,
+.left-container,
+.main-content {
+    display: flex;
+    flex-direction: column;
+    min-width: 15%;
+}
+
+.left-container {
+    order: 1;
+}
+
+.main-content {
+    flex: 1;
+    order: 2;
+}
+
+.right-container {
+    order: 3;
+}
+
+.card-container {
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+}
+
+.card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 30%;
+    border-radius: 1rem;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    margin-bottom: 2rem;
+}
+
+.card-image {
+    position: relative;
+}
+
+.card-image img {
+    border-radius: 1rem 1rem 0 0;
+    width: 100%;
+    height: auto;
+    -webkit-transition: all 0.3s ease-in-out 0s;
+    -moz-transition: all 0.3s ease-in-out 0s;
+    transition: all 0.3s ease-in-out 0s;
+}
+
+.image-caption {
+    opacity: 0;
+    width: 100%;
+    text-align: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    color: white;
+    font-size: 2rem;
+    -webkit-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    -webkit-transition: all 0.3s ease-in-out 0s;
+    -moz-transition: all 0.3s ease-in-out 0s;
+    transition: all 0.3s ease-in-out 0s;
+}
+
+.card-image:hover .image-caption {
+    opacity: 1;
+}
+
+.card-image:hover img {
+    filter: brightness(50%);
+}
+
+.card:hover {
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.19);
+}
+
+.card h2,
+p,
+.card-bottom {
+    padding: 1rem;
+}
+
+.card-bottom {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.card-bottom a {
+    text-decoration: none;
+    font-size: 2rem;
+}
+
+.card-bottom a:hover .fas {
+    color: var(--dark-blue);
+}
+
+.sidenav {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #111;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+}
+
+.sidenav a {
+    padding: 8px 8px 8px 10px;
+    text-decoration: none;
+    font-size: 25px;
+    color: white;
+    display: block;
+    transition: 0.3s;
+}
+
+.sidenav .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+}
+
+.search-result {
+    display: flex;
+    flex-direction: column;
+    padding: 2rem;
+    width: 50%;
+}
+
+.search-result a {
+    text-decoration: underline;
+}
+
+.highlight {
+    background-color: var(--blue);
+    color: white;
+}
+
+.search-keys {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+}
+
+.badge {
+    background-color: var(--light-blue);
+    color: var(--dark-blue);
+    font-size: 0.8rem;
+    border-radius: 1rem;
+    padding: 0.2rem;
+    margin: 0.2rem;
+}
+
+@media screen and (max-height: 450px) {
+    .sidenav {
+        padding-top: 15px;
+    }
+    .sidenav a {
+        font-size: 18px;
+    }
+}
+
+#clock {
+    color: var(--dark-blue);
+    font-size: 4rem;
+}
+
+.scroll::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    background-color: rgb(235, 250, 255);
+}
+
+.scroll::-webkit-scrollbar {
+    width: 12px;
+    background-color: #F5F5F5;
+}
+
+.scroll::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
+    background-color: rgb(51, 181, 229);
+}
+
+.bg-info-shadow {
+    background-color: rgb(250, 254, 255);
+    box-shadow: 3px 7px rgb(23, 162, 184);
+}
+
+.custom-gradient,
+.blue-gradient {
+    background: rgb(0, 93, 124);
+    background: linear-gradient(13deg, rgba(0, 93, 124, 1) 0%, rgba(51, 181, 229, 1) 100%);
+}
+
+footer {
+    position: relative;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    text-align: center;
+    margin-top: auto;
+}
+
+@media only screen and (max-width: 600px) {
+    .main,
+    .main-content,
+    .card-container,
+    .card,
+    .search-result {
+        flex-direction: column;
+        width: 95%;
+        align-items: center;
+        margin: none;
+    }
+    .search-result {
+        padding: none;
+    }
+    .main {
+        width: 100%;
+    }
+    .left-container {
+        order: 3;
+    }
+    .main-content {
+        order: 1;
+    }
+    .right-container {
+        order: 2;
+    }
+    .search-input,
+    .login,
+    .logo {
+        font-size: 1rem;
+        padding: none;
+        margin: none;
+    }
+    #clock {
+        display: none;
+    }
+}
+
+@media only screen and (min-width: 600px) {
+    .main,
+    .main-content {
+        flex-direction: column;
+        width: 95%;
+        align-items: center;
+        margin: none;
+    }
+    .search-result {
+        width: 90%;
+    }
+    .main {
+        width: 100%;
+    }
+    .card {
+        width: 45%;
+    }
+    .card-container {
+        flex-direction: row;
+        align-items: flex-start;
+    }
+    .left-container {
+        order: 3;
+        display: none;
+    }
+    .main-content {
+        order: 1;
+    }
+    .right-container {
+        order: 2;
+    }
+    #clock {
+        display: none;
+    }
+}
+
+@media only screen and (min-width: 768px) {
+    .card {
+        width: 30%;
+    }
+    .search-result {
+        width: 80%;
+    }
+}
+
+@media only screen and (min-width: 992px) {
+    .main {
+        flex-direction: row;
+        align-items: flex-start;
+    }
+    .card {
+        width: 45%;
+    }
+    .left-container {
+        order: 1;
+        display: block;
+    }
+    .main-content {
+        order: 2;
+    }
+    .right-container {
+        order: 3;
+    }
+    #clock {
+        display: block;
+    }
+}
+
+@media only screen and (min-width: 1200px) {
+    .card {
+        width: 30%;
+    }
+    .search-result {
+        width: 50%;
+    }
+}

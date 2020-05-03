@@ -2,24 +2,10 @@ label {
     font-weight: bold;
 }
 
-
-/* .card {
-    background: #74ebd5;
-    /* fallback for old browsers */
-
-background: -webkit-linear-gradient(to right, #ACB6E5, #74ebd5);
-
-/* Chrome 10-25, Safari 5.1-6 */
-
-background: linear-gradient(to right, #ACB6E5, #74ebd5);
-
-/* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-
-
-}
 */ .text-dim {
     color: rgb(43, 155, 127);
 }
+
 h1,
 h2,
 h3,
@@ -31,25 +17,31 @@ i,
 .thead {
     color: rgb(51, 181, 229);
 }
+
 a {
     color: rgb(51, 181, 229);
 }
+
 a:hover {
     color: rgb(5, 82, 93);
 }
+
 #style::-webkit-scrollbar-track {
     -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
     background-color: rgb(235, 250, 255);
 }
+
 #style::-webkit-scrollbar {
     width: 12px;
     background-color: #F5F5F5;
 }
+
 #style::-webkit-scrollbar-thumb {
     border-radius: 10px;
     -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
     background-color: rgb(51, 181, 229);
 }
+
 .button-3d {
     position: relative;
     width: auto;
@@ -69,6 +61,7 @@ a:hover {
     -moz-box-shadow: 0px 6px 0px #d35400;
     box-shadow: 0px 6px 0px #d35400;
 }
+
 .button-3d:active {
     -webkit-box-shadow: 0px 2px 0px #d35400;
     -moz-box-shadow: 0px 2px 0px #d35400;
@@ -76,10 +69,12 @@ a:hover {
     position: relative;
     top: 4px;
 }
+
 .bg-info-shadow {
     background-color: rgb(250, 254, 255);
     box-shadow: 3px 7px rgb(23, 162, 184);
 }
+
 footer {
     z-index: 99;
     position: relative;
@@ -87,6 +82,7 @@ footer {
     right: 0;
     bottom: 0;
 }
+
 .custom-gradient,
 .blue-gradient {
     background: rgb(0, 93, 124);

@@ -13,7 +13,8 @@ label {
 
 body {
     direction: rtl;
-    text-align: left
+    text-align: left;
+    /* height: 100vh; */
 }
 
 dd {

@@ -1,26 +1,15 @@
-<style>
-    input {
-      border-top-style: hidden;
-      border-right-style: hidden;
-      border-left-style: hidden;
-      border-bottom-style: none;
-      }
-      .no-outline:focus {
-      outline: none;
-      }
-</style>
-<nav class="navbar blue-gradient">
-	<a class="navbar-brand" href="<?=base_url()?>" onclick="openNav()">
-		<img src="<?=base_url()?>logo_banner.png" alt="" height="70em">
+<nav>
+	<a class="logo" href="<?=base_url()?>" onclick="openNav()">
+		<picture>
+			<source media="(min-width: 768px)" srcset="<?=base_url()?>logo_banner.png">
+			<img src="<?=base_url()?>logo.png" alt="" height="50em">
+		</picture>
 	</a> 
-	<div class="container-sm">
-		<form class="form-inline mx-auto bg-light rounded-lg" method="GET" action="<?=base_url()?>search">
-			<input class="no-outline bg-light rounded-left ml-1" name="term" type="text" placeholder="Search">
-			<button class="btn btn-info waves-effect" type="submit"><i class="fas fa-search"></i></button>
-		</form>
-	</div>
 
-	<div class="d-flex justify-content-end">
-		<a type="button" href="<?=base_url()?>login" class="btn btn-light text-info"><i class="fas fa-user mr-2"></i>LOGIN</a>
-	</div>
+	<form class="search" method="GET" action="<?=base_url()?>search">
+		<input class="search-input" name="term" type="text" placeholder="Search" required>
+		<button class="search-button" type="submit"><i class="fas fa-search"></i></button>
+	</form>
+
+	<a type="button" href="<?=base_url('login')?>" class="login"><i class="fas fa-user" style="margin-right: 0.5rem"></i></a>
 </nav>

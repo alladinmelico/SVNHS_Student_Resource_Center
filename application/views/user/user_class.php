@@ -1,43 +1,31 @@
-<div class="container mt-5">
-	<div class="row">
-		<div class="col">
-			<h1><i class="fas fa-chalkboard mr-3"></i>Classes
-				<a class="btn blue-gradient px-3 rounded-circle text-white" data-toggle="modal" data-target="#modelId">
-				<i class="fas fa-plus fa-lg"></i></a>
-			</h1>
-		</div>
-	</div>
-	<div class="row">
-		
-	</div>
-
-	<div class="row row-cols-1 row-cols-md-3 mt-3">
+<h1><i class="fas fa-chalkboard"></i>Classes
+	<a class="" data-toggle="modal" data-target="#modelId">
+	<i class="fas fa-plus fa-lg"></i></a>
+</h1>
+	<div class="card-container">
 		<?php foreach($classes as $class){ ?>
-			<div class="col mb-4">
-				<div class="card">
-
-				<div class="view">
-					<img class="card-img-top" src="<?=base_url('files/covers/'.$class['cover'])?>"
-					alt="Card image cap" height="250">
-					<a href="<?=base_url()?>user/classes/<?=$class['idClass']?>">
-						<div class="mask rgba-cyan-light"></div>
-					</a>
-				</div>
+			
+			<div class="card">
+				<a href="<?=base_url()?>user/classes/<?=$class['idClass']?>">
+					<div class="card-image">
+						<img src="<?=base_url('files/covers/'.$class['cover'])?>"
+						alt="Card image cap">
+						<div class="image-caption">
+							<p><?= $class['class_title']?></p>
+						</div>
+					</div>
+				</a>
 
 				<div class="card-body">
-
-					<h2 class="card-title text-info"><?= $class['class_title']?></h2>
-					<p class="card-text"><?= $class['class_description']?></p>
-					<a href="<?=base_url()?>user/classes/<?=$class['idClass']?>" class="h2 d-flex justify-content-end"><i class="fas fa-chevron-circle-right "></i></a>
-
-				</div>
-
+					<h2><?= $class['class_title']?></h2>
+					<p><?= $class['class_description']?></p>
+					<div class="card-bottom">
+						<a href="<?=base_url()?>user/classes/<?=$class['idClass']?>"><i class="fas fa-chevron-circle-right "></i></a>
+					</div>
 				</div>
 			</div>
 		<?php }?>
 	</div>
-
-</div>
 
 
 <!-- Modal -->

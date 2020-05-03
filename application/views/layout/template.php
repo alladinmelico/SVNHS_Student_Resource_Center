@@ -1,14 +1,12 @@
 <?php include('head.php');?>
-  <body class="<?=($this->session->has_userdata('isAdmin'))? 'elegant-color-dark':''?>" id="style">
-		  <div>
-				<?php 
-					if($this->session->userdata('isAdmin')){
-						$this->load->view('/layout/admin_navigation');
-					}elseif($this->session->userdata('idUser') || $this->session->userdata('idTeacher')){
-						$this->load->view('/layout/navigation'); 
-					} else $this->load->view('/layout/guest_navigation');
-				?>
-		  </div>
+  <body class="scroll <?=($this->session->has_userdata('isAdmin'))? 'elegant-color-dark':''?>">
+		<?php 
+			if($this->session->userdata('isAdmin')){
+				$this->load->view('/layout/admin_navigation');
+			}elseif($this->session->userdata('idUser') || $this->session->userdata('idTeacher')){
+				$this->load->view('/layout/navigation'); 
+			} else $this->load->view('/layout/guest_navigation');
+		?>
 
 		  <?php
 		  	if($this->session->flashdata()){
@@ -31,64 +29,45 @@
 					$message = 'Your request to enroll in this class has been submitted, please wait for the confirmation of your teacher.';
 				}
 
-
 			?>
-				<div class="alert alert-<?=$color?>" role="alert">
-					<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
-					<?=$message?>
-				</div>
+			<div class="alert alert-<?=$color?>" role="alert">
+				<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+				<?=$message?>
+			</div>
 			<?php } ?>
 
-	<div class="container-fluid ">
-        <div class="row">
+		<div class="main">
 			<?php if((($this->uri->segment(1)) == 'user') || (($this->uri->segment(1)) == 'teacher') || (($this->uri->segment(1)) == '')){?>
-          		<div class="col-2 py-5 px-5">
-						<div class="row justify-content-center py-3">
-							<div class="cleanslate w24tz-current-time w24tz-middle" 
-								style="display: inline-block !important; visibility: hidden !important; min-width:300px !important; min-height:145px !important">
-								<p><a href="//24timezones.com/Manila/time" style="text-decoration: none" class="clock24" id="tz24-1585030937-c1145-eyJob3VydHlwZSI6IjEyIiwic2hvd2RhdGUiOiIxIiwic2hvd3NlY29uZHMiOiIxIiwiY29udGFpbmVyX2lkIjoiY2xvY2tfYmxvY2tfY2I1ZTc5YTcxOWQ1ZmQzIiwidHlwZSI6ImRiIiwibGFuZyI6ImVuIn0=" 
-									title="Manila - Clock" target="_blank" rel="nofollow">Taguig</a>
-								</p>
-								<div id="clock_block_cb5e79a719d5fd3"></div>
-							</div>
-								<script type="text/javascript" src="//w.24timezones.com/l.js" async></script>		
-						</div>
-						<div class="row justify-content-center py-3">
-							<iframe src="https://calendar.google.com/calendar/embed?height=300&amp;wkst=1&amp;bgcolor=%23039BE5&amp;ctz=Asia%2FManila&amp;showTitle=0&amp;showNav=0&amp;showDate=0&amp;showPrint=0&amp;showTabs=0&amp;showTz=0&amp;showCalendars=0&amp;mode=MONTH" 
-							style="border-width:0" width="300" height="300" frameborder="0" scrolling="no"></iframe>
-						</div>
-						<div class="row">
-							<!-- <iframe src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Ftaguigcity%2F&tabs=timeline&width=340&height=500&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=false&appId" 
-							width="340" height="500" style="border:none;overflow:hidden" 
-							scrolling="no" frameborder="0" allowTransparency="true" 
-							allow="encrypted-media">
-							</iframe> -->
-						</div>
-				</div>
-			<?php }?>		
-			  
-			<div class="col-lg no-gutters">
-			      <?php $this->load->view($contents); ?>
+				<div class="left-container">
+					<div class="clock-container">
+						<p>Philippine Standard Time</p>
+						<div id="clock"></div>
+					</div>
+					<div class="calendar"></div>
+				</div>	
+			<?php }?>	
+					
+			<div class="main-content">
+					<?php $this->load->view($contents); ?>
 			</div>
-			
+				
 			<?php if((($this->uri->segment(1)) == 'user') || (($this->uri->segment(1)) == 'teacher') || (($this->uri->segment(1)) == '')){?>
-				<div class="col-2">
-					<div class="row py-3 mt-5">
+				<div class="right-container">
+					<div class="side-container">
 						<?php if(isset($side_content_1)) $this->load->view($side_content_1);?>
 					</div>
-					<div class="row py-3">
+					<div class="side-container">
 						<?php if(isset($side_content_2)) $this->load->view($side_content_2);?>
 					</div>
 				</div>
 			<?php }?>
-        </div>
-	</div>
+		</div>
 
-		  <div>
-			  <?php $this->load->view('/layout/footer'); ?>
-		  </div>
+		<div>
+			<?php $this->load->view('/layout/footer'); ?>
+		</div>
 
 		<?php if($this->session->has_userdata('idUser') || $this->session->has_userdata('idTeacher')){?>
 		  	<div class="fixed-bottom d-flex justify-content-end">
@@ -98,7 +77,7 @@
 			</div>
 		<?php }?>
 
-  	
+		<script src="<?=base_url('js/app.js')?>"></script>
   </body>
 </html>
 
@@ -139,4 +118,5 @@
     </div>
   </div>
 </div>
+
 

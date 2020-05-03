@@ -56,14 +56,14 @@ class Classes extends CI_Controller{
 			}
 			fclose($handle);
 
-			$handle = fopen("sample_sentimentScore.csv", "r");
-			for ($i = 0; $row = fgetcsv($handle ); ++$i) {
-				$selected = array();
-				$selected['sentiment'] = $row[0];
-				$selected['percentage']=$row[1];
-				$fileReg[] = $selected;
-			}
-			fclose($handle);
+			// $handle = fopen("sample_sentimentScore.csv", "r");
+			// for ($i = 0; $row = fgetcsv($handle ); ++$i) {
+			// 	$selected = array();
+			// 	$selected['sentiment'] = $row[0];
+			// 	$selected['percentage']=$row[1];
+			// 	$fileReg[] = $selected;
+			// }
+			// fclose($handle);
 
 			array_shift($file);
 
@@ -71,12 +71,12 @@ class Classes extends CI_Controller{
 				$alpha = $_GET['alpha']; 
 				$toForecast = $_GET['toForecast'];
 			}
-			if(isset($_GET['expo_smoothing'])){
-				$toForecastReg = $_GET['toForecastRegression'];
+			if(isset($_GET['regression'])){
+				$toForecastReg = explode(',',urldecode($_GET['toForecastRegression']));
 			}
 
-			$data['reg'] = $this->analytics->regression($fileReg,'sentiment','percentage');
 			$data['expo'] = ($this->analytics->exponential_smoothing($file,'date','score',$alpha,$toForecast));
+			$data['reg'] = $this->analytics->regression($scoreSentiment,'sentiment','percentage',$toForecastReg);
 			$data['alpha']=$alpha;
 			$this->load->vars($data);
 			$this->load->view('layout/template');

@@ -35,7 +35,7 @@ class Analytics{
 
 		if($toForecast){
 			foreach($toForecast AS $data){
-				$reg[] = array('x'=>$data,'y'=>$data,'f'=>$a+$b*$data);
+				$reg[] = array('x'=>$data,'y'=>$a+$b*$data,'f'=>$a+$b*$data);
 			}
 		}
 		return $reg;
