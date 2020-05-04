@@ -276,6 +276,29 @@ class MActivity extends CI_Model{
 		return $data;
 	}
 
+	function getTotalUserToDoName(){
+		$data = array();
+		$this->db->select('a.activity_title,a.idActivity');
+		$this->db->from('class_user cu');
+		$this->db->join('classes c','cu.classes_idClass = c.idClass');
+		$this->db->join('activities a','a.classes_idClass = c.idClass');
+		$this->db->join('activity_user au','a.idActivity = au.activities_idActivity','left');
+		$this->db->where('cu.users_idUser',$this->session->userdata('idUser'));
+		$this->db->where('cu.confirmed',1);
+		$this->db->where('a.isActive_Activity',1);
+		$this->db->where('au.files_idFile');
+		$Q = $this->db->get();
+
+		if ($Q->num_rows() > 0){
+			foreach($Q->result_array() as $row){
+				$data[] = $row;
+			}
+		}
+
+		$Q->free_result();
+		return $data;
+	}
+
 	function deleteActivityUser(){
 		$this->db->where('users_idUser',$this->session->userdata('idUser'));
 		$this->db->where('activities_idActivity',$_POST['idActivity']);

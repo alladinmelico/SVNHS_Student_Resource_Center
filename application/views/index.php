@@ -17,7 +17,7 @@
 					
 					<div class="card-bottom">
 						<strong> <?=date("F j, Y, g:i a",strtotime($file['file_timestamp']))?></strong>
-						<a href="<?=base_url()?>search/file/<?=$file['idFile']?>"><i class="fas fa-chevron-circle-right "></i></a>
+						<a href="<?=base_url()?>search/file/<?=$file['idFile']?>"><i class="fa fa-chevron-right button"></i></a>
 					</div>
 				</div>
 		<?php }?>

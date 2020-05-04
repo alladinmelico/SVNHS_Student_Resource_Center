@@ -31,8 +31,16 @@ thead,
 i,
 a,
 strong {
-    color: var(--blue);
+    color: var(--dark-blue);
     text-decoration: none;
+}
+
+textarea,
+input,
+button,
+select {
+    font-family: inherit;
+    font-size: inherit;
 }
 
 i {
@@ -113,44 +121,6 @@ button {
     align-items: center;
 }
 
-.profile {
-    display: inline-block;
-    position: relative;
-    display: inline-block;
-}
-
-.profile-button {
-    font-size: 1.5rem;
-    color: white;
-}
-
-.profile-button:hover {
-    color: var(--blue);
-}
-
-.profile-content {
-    display: none;
-    background-color: var(--dark-blue);
-    text-align: center;
-    width: 100%;
-    border-radius: 1rem;
-    position: absolute;
-    z-index: 1;
-}
-
-.profile-content a {
-    font-size: 1.5rem;
-    display: block;
-}
-
-.profile-content a:hover {
-    color: white;
-}
-
-.profile:hover .profile-content {
-    display: block;
-}
-
 .main {
     display: flex;
     justify-content: space-around;
@@ -183,6 +153,7 @@ button {
     display: flex;
     justify-content: space-evenly;
     flex-wrap: wrap;
+    margin-top: 1rem;
 }
 
 .card {
@@ -250,6 +221,10 @@ p,
     align-items: center;
 }
 
+.flex-end {
+    justify-content: flex-end;
+}
+
 .card-bottom a {
     text-decoration: none;
     font-size: 2rem;
@@ -259,6 +234,13 @@ p,
     color: var(--dark-blue);
 }
 
+.chart {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
 .sidenav {
     height: 100%;
     width: 0;
@@ -266,16 +248,20 @@ p,
     z-index: 1;
     top: 0;
     left: 0;
-    background-color: #111;
+    background-color: var(--dark);
     overflow-x: hidden;
     transition: 0.5s;
-    padding-top: 60px;
+    padding-top: 3rem;
+}
+
+.sidenav-active {
+    width: 25%;
 }
 
 .sidenav a {
-    padding: 8px 8px 8px 10px;
+    padding: 1rem;
+    font-size: 2rem;
     text-decoration: none;
-    font-size: 25px;
     color: white;
     display: block;
     transition: 0.3s;
@@ -284,9 +270,14 @@ p,
 .sidenav .closebtn {
     position: absolute;
     top: 0;
-    right: 25px;
-    font-size: 36px;
-    margin-left: 50px;
+    right: 0.5rem;
+    font-size: 2rem;
+    transition: all 0.3s ease;
+}
+
+.sidenav .closebtn:hover {
+    transform: rotate(90deg);
+    font-size: 2.5rem;
 }
 
 .search-result {
@@ -320,13 +311,195 @@ p,
     margin: 0.2rem;
 }
 
-@media screen and (max-height: 450px) {
-    .sidenav {
-        padding-top: 15px;
+.menu li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.menu i {
+    font-size: 2rem;
+    padding-left: 1rem;
+    color: var(--light-blue);
+}
+
+.menu-item {
+    flex: 1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.menu-item a:hover {
+    text-decoration: underline;
+}
+
+.menu-item .badge {
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+.menu-item .badge:hover {
+    background-color: white;
+    color: var(--dark-blue);
+}
+
+.menu-item-content {
+    display: none;
+}
+
+.menu-item-content-active {
+    display: block;
+}
+
+.menu-item-content a,
+p {
+    color: var(--blue);
+    font-size: 1rem;
+}
+
+.active {
+    background-color: var(--dark-blue);
+}
+
+.modal {
+    display: none;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+    background-color: #fefefe;
+    padding: 1rem;
+    border-radius: 1rem;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    -webkit-animation-name: animate-top;
+    -webkit-animation-duration: 0.4s;
+    animation-name: animate-top;
+    animation-duration: 0.4s
+}
+
+.modal-header,
+.modal-body,
+.modal-footer {
+    display: flex;
+    justify-content: space-between;
+    font-size: 2rem;
+}
+
+.modal-body {
+    flex-direction: column;
+    font-size: 1rem;
+}
+
+.modal-footer {
+    justify-content: flex-end;
+}
+
+.modal-footer button {
+    font-size: 1rem;
+}
+
+.modal-header button {
+    font-size: 3rem;
+    color: var(--light-blue);
+}
+
+.modal-header button:hover {
+    color: var(--dark-blue);
+}
+
+.modal-open {
+    font-size: 1rem;
+}
+
+.button {
+    color: white;
+    text-align: center;
+    padding: 0.5rem;
+    font-size: 1.5rem;
+    border-radius: 1.5rem;
+    background-color: var(--blue);
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    cursor: pointer;
+}
+
+.button:hover {
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.19);
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    font-size: 1rem;
+    padding: 1rem;
+}
+
+.form input,
+select,
+textarea {
+    display: block;
+    font-size: 1rem;
+    width: 100%;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    padding: 0.5rem;
+    border: 2px solid lightgray;
+    margin-bottom: 1rem;
+}
+
+.form input:focus,
+select:focus,
+textarea:focus {
+    border-color: var(--blue);
+}
+
+textarea {
+    text-decoration: none;
+    width: 100%;
+}
+
+@-webkit-keyframes animate-top {
+    from {
+        top: -300px;
+        opacity: 0
     }
-    .sidenav a {
-        font-size: 18px;
+    to {
+        top: 0;
+        opacity: 1
     }
+}
+
+@keyframes animate-top {
+    from {
+        top: -300px;
+        opacity: 0
+    }
+    to {
+        top: 0;
+        opacity: 1
+    }
+}
+
+#contact-button {
+    position: fixed;
+    background-color: var(--light-blue);
+    bottom: 5px;
+    right: 5px;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
 }
 
 #clock {
@@ -398,10 +571,28 @@ footer {
     }
     .search-input,
     .login,
-    .logo {
+    .logo,
+    .profile {
         font-size: 1rem;
         padding: none;
         margin: none;
+    }
+    .profile-name {
+        display: none;
+    }
+    .profile-content {
+        transform: translateX(-60%);
+        width: 300%;
+    }
+    .profile-content a {
+        font-size: 1rem;
+    }
+    .sidenav-active {
+        width: 50%;
+    }
+    #linechart {
+        width: 430px;
+        height: 250px;
     }
     #clock {
         display: none;
@@ -439,6 +630,13 @@ footer {
     .right-container {
         order: 2;
     }
+    .sidenav-active {
+        width: 40%;
+    }
+    #linechart {
+        width: 400px;
+        height: 200px;
+    }
     #clock {
         display: none;
     }
@@ -450,6 +648,13 @@ footer {
     }
     .search-result {
         width: 80%;
+    }
+    .sidenav-active {
+        width: 40%;
+    }
+    #linechart {
+        width: 700px;
+        height: 300px;
     }
 }
 
@@ -471,6 +676,13 @@ footer {
     .right-container {
         order: 3;
     }
+    .sidenav-active {
+        width: 25%;
+    }
+    #linechart {
+        width: 900px;
+        height: 400px;
+    }
     #clock {
         display: block;
     }
@@ -482,5 +694,12 @@ footer {
     }
     .search-result {
         width: 50%;
+    }
+    .sidenav-active {
+        width: 20%;
+    }
+    #linechart {
+        width: 1000px;
+        height: 500px;
     }
 }

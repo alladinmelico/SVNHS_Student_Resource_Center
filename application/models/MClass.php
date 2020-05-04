@@ -223,6 +223,26 @@ class MClass extends CI_Model{
 		return $data;
 	}
 
+	function getTotalUserClassName(){
+		$data = array();
+		$this->db->select('c.class_title');
+		$this->db->from('classes c');
+		$this->db->join('class_user cu','cu.classes_idClass = c.idClass');
+		$this->db->join('users u','cu.users_idUser = u.idUser');
+		$this->db->where('cu.users_idUser',$this->session->userdata('idUser'));
+		$this->db->where('cu.confirmed',1);
+		$this->db->where('c.isActive_Class',1);
+		$Q = $this->db->get();
+		if($Q->num_rows() > 0){
+			foreach($Q -> result_array() as $row){
+				$data[] = $row;
+			}
+		}
+
+		$Q->free_result();
+		return $data;
+	}
+
 	function getCode($id){
 		$data = array();
 		$this->db->select('class_code');

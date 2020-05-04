@@ -70,53 +70,45 @@
 		</div>
 
 		<?php if($this->session->has_userdata('idUser') || $this->session->has_userdata('idTeacher')){?>
-		  	<div class="fixed-bottom d-flex justify-content-end">
-				<a href="" class="btn btn-default btn-rounded mb-4" data-toggle="modal" data-target="#modalContactForm">
-				<i class="fas fa-envelope fa-lg mr-2"></i>Contact Us
-				</a>
+		  	<div id="contact-button">
+				<button href="#" data-target="modal-mail" onclick="modalOpen(this)">
+					<i class="fas fa-envelope fa-lg mr-2"></i>Contact Us
+				</button>
 			</div>
 		<?php }?>
+		
+		<!-- Modal -->
+		<div class="modal" id="modal-mail">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title">Write to us</h5>
+					<button type="button" data-target="modal-mail" onclick="modalClose(this)">
+						&times;
+					</button>
+				</div>
+				<div class="modal-body">
+					<?=form_open('user/sendEmail',array('class' => 'form'))?>
+						<div class="inline-label-icon">
+							<i class="fas fa-tag prefix grey-text"></i>
+							<label data-error="wrong" data-success="right" for="subject">Subject</label>
+						</div>
+						<input name="subject" type="text" id="subject">
+		
+						<div class="inline-label-icon">
+							<i class="fas fa-pencil-alt"></i>
+							<label data-error="wrong" data-success="right" for="form8">Your message</label>
+						</div>
+						<textarea name="message" type="text" rows="4"></textarea>
+				</div>
+				<div class="modal-footer">
+					<button type="submit" class="button"><i class="fas fa-paper-plane"></i>Send</button>
+					<?=form_close()?>
+				</div>
+			</div>
+		</div>
 
 		<script src="<?=base_url('js/app.js')?>"></script>
   </body>
 </html>
-
-
-<div class="modal fade" id="modalContactForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-  aria-hidden="true">
-  <div class="modal-dialog modal-side modal-bottom-right" role="document">
-    <div class="modal-content">
-      <div class="modal-header text-center">
-        <h4 class="modal-title w-100 font-weight-bold">Write to us</h4>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body mx-3">
-
-		<?=form_open('user/sendEmail')?>
-
-        <div class="md-form mb-5">
-          <i class="fas fa-tag prefix grey-text"></i>
-          <input name="subject" type="text" id="form32" class="form-control validate">
-          <label data-error="wrong" data-success="right" for="form32">Subject</label>
-        </div>
-
-        <div class="md-form">
-			<i class="fas fa-pencil-alt	prefix grey-text"></i>
-          <textarea name="message" type="text" id="form8" class="md-textarea form-control" rows="4"></textarea>
-          <label data-error="wrong" data-success="right" for="form8">Your message</label>
-        </div>
-
-      </div>
-      <div class="modal-footer d-flex justify-content-center">
-		<button class="btn btn-info">Send <i class="fas fa-paper-plane ml-1"></i></button>
-			
-		<?=form_close()?>
-
-      </div>
-    </div>
-  </div>
-</div>
 
 

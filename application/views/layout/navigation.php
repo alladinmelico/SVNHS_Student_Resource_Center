@@ -1,4 +1,4 @@
-<div id="mySidenav" class="sidenav bg-dark">
+<div id="sidenav" class="sidenav">
   <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
   <?php
 	if($this->session->has_userdata('idUser')){
@@ -7,7 +7,7 @@
 		$this->load->view('layout/menu_teacher');
 	} else{
 		$message_403 = "You don't have access to the url you where trying to reach.";
-show_error($message_403 , 403 );
+		show_error($message_403 , 403 );
 	}
   ?>
 </div>
@@ -30,28 +30,14 @@ show_error($message_403 , 403 );
 		<button class="search-button" type="submit"><i class="fas fa-search"></i></button>
 	</form>
 
-	<div class="profile">
-		<button class="profile-button">
-			<?=$this->session->userdata('first_name').' '.$this->session->userdata('last_name');?>
-			<i class="fas fa-user ml-2"></i>
-		</button>
-		<div class="profile-content">
-			<a href="<?=base_url('u/bookmark')?>">Bookmark</a>
-			<a href="<?=base_url()?><?=($this->session->has_userdata('idUser'))? 'user':'teacher'?>/logout">Logout</a>
-		</div>
-	</div>
 </nav>
 
 <script>
 function openNav() {
-  document.getElementById("mySidenav").style.width = "250px";
-  document.getElementById("main").style.marginLeft = "250px";
-  document.body.style.backgroundColor = "rgba(0,0,0,0.4)";
+  document.getElementById("sidenav").classList.toggle('sidenav-active');
 }
 
 function closeNav() {
-  document.getElementById("mySidenav").style.width = "0";
-  document.getElementById("main").style.marginLeft= "0";
-  document.body.style.backgroundColor = "white";
+  document.getElementById("sidenav").classList.toggle('sidenav-active');
 }
 </script>

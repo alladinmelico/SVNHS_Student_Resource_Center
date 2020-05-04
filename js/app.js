@@ -15,3 +15,34 @@ function getCurrentTime() {
     var currentTime = hours + ':' + minutes + ':' + seconds;
     return currentTime;
 }
+
+function menuClassContent() {
+    document.getElementById("class-content").classList.toggle("menu-item-content-active");
+}
+
+function menuToDoContent() {
+    document.getElementById("todo-content").classList.toggle("menu-item-content-active");
+}
+
+function menuProfileContent() {
+    document.getElementById("profile-content").classList.toggle("menu-item-content-active");
+}
+
+function modalOpen(modal) {
+    const modalTarget = document.getElementById(modal.dataset.target);
+
+    modalTarget.style.display = "flex";
+}
+
+function modalClose(modal) {
+    const modalTarget = document.getElementById(modal.dataset.target);
+
+    modalTarget.style.display = "none";
+}
+
+window.onclick = (event) => {
+    let modal = event.target;
+    if (modal.getAttribute('class') == "modal") {
+        modal.style.display = "none";
+    }
+}

@@ -3,7 +3,7 @@
 	if(isset($error)){
 		print_r($error);
 	}
-	echo form_open('user/addClass');
+	echo form_open('user/addClass',array('class' =>'form'));
 	$option = array();
 
 	$option[''] = '';
