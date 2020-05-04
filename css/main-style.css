@@ -362,6 +362,14 @@ p {
     background-color: var(--dark-blue);
 }
 
+.danger {
+    color: rgb(155, 40, 40);
+}
+
+.warn {
+    color: rgb(243, 176, 89)
+}
+
 .modal {
     display: none;
     justify-content: center;

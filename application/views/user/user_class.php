@@ -32,7 +32,7 @@
 <div class="modal" id="modal-class">
 	<div class="modal-content">
 		<div class="modal-header">
-			<h5 class="modal-title">Create Class</h5>
+			<h5 class="modal-title">Add Class</h5>
 			<button type="button" data-target="modal-class" onclick="modalClose(this)">
 				&times;
 			</button>

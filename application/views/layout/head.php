@@ -5,15 +5,15 @@
     
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="google-signin-client_id" 
-    content="293153048084-oh88r7c3hf34sp3q3vlkbb43p8m4j7tn.apps.googleusercontent.com">
+    <!-- <meta name="google-signin-client_id" 
+    content="293153048084-oh88r7c3hf34sp3q3vlkbb43p8m4j7tn.apps.googleusercontent.com"> -->
 
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> -->
 	
 	<!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" 
 	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"> -->
 
-	<script src="https://apis.google.com/js/platform.js" async defer></script>
+	<!-- <script src="https://apis.google.com/js/platform.js" async defer></script> -->
 
 	<!-- Font Awesome -->
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">

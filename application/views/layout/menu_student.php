@@ -49,6 +49,7 @@
 
 	<div class="menu-item-content" id="profile-content">
 		<a href="<?=base_url('u/bookmark')?>">Bookmarks</a>
-		<a href="<?=base_url()?><?=($this->session->has_userdata('idUser'))? 'user':'teacher'?>/logout">Logout</a>
+		<a href="<?=base_url()?><?=($this->session->has_userdata('idUser'))? 'user':'teacher'?>/logout">
+			<span class="danger">Logout</span></a>
 	</div>
 </ul>
