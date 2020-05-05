@@ -8,7 +8,7 @@
 						<img src="<?=base_url('files/covers/'.$todo['cover'])?>"
 						alt="Card image cap">
 						<div class="image-caption">
-							<p><?= $todo['class_title']?></p>
+							<?= $todo['class_title']?>
 						</div>
 					</div>
 				</a>

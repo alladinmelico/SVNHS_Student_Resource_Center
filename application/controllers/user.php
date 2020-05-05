@@ -47,6 +47,7 @@ class User extends CI_Controller{
 			$data['activities'] = $this->MClass->getClassActivities($id);
 			$data['subject'] = $this->MClass->getClassSubject($id);
 			$data['performances'] = $this->MActivity->getStudentPerformances($id);
+			$data['side_content_1'] = 'user/classmates';
 			$this->load->vars($data);
 			$this->load->view('layout/template');
 		}

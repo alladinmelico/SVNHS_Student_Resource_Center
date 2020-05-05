@@ -1,89 +1,65 @@
-
-<style>
-	.pdfobject-container { height: 80rem; width: 70rem; }
-</style>
 <div class="file-container">
 
+	<!-- check if on search page to add the file to the bookmarks -->
 	<?php if($this->session->has_userdata('idUser') && ($this->uri->segment(1)=='search') ){?>
 		<div class="file-activity-container">
-			<div class="container d-flex justify-content-end text-info">
-				<?php $action = ($isBookMarked)? 'delete':'create'?>
-				<form action="<?=base_url('u/bookmark/'.$action)?>" method="POST">
-
-					<input type="hidden" name="idFile" value="<?=$this->uri->segment(3)?>">
-					<input type="hidden" name="redirect" value="<?=base_url($this->uri->uri_string())?>">
-					<button type="submit" class="btn btn-elegant btn-sm rounded-lg">
-						<?=($isBookMarked)? '<i class="fas fa-bookmark fa-2x"></i>': '<i class="far fa-bookmark fa-2x"></i>' ?>
-					</button>
-				</form>
-			</div>
+			<?php $action = ($isBookMarked)? 'delete':'create'?>
+			<form action="<?=base_url('u/bookmark/'.$action)?>" method="POST">
+				<input type="hidden" name="idFile" value="<?=$this->uri->segment(3)?>">
+				<input type="hidden" name="redirect" value="<?=base_url($this->uri->uri_string())?>">
+				<button type="submit" class="btn btn-elegant btn-sm rounded-lg">
+					<?=($isBookMarked)? '<i class="fas fa-bookmark fa-2x"></i>': '<i class="far fa-bookmark fa-2x"></i>' ?>
+				</button>
+			</form>
 		</div>
 	<?php }?>
-	<div class="row">
-		<div class="col-sm-3">
+
+	<div class="file-detail">
+		<div class="file-detail-toolbar">
 			<?php if($file['users_idUser'] == $this->session->userdata('idUser') && $this->uri->segment(1) != 'search'){?>
-				<div class="row justify-content-end">
-					<div class="custom-control custom-switch d-flex justify-content-end mr-3">
+				<div class="radio-custom">
 					<?php
 						echo form_open('file/show');
 						echo form_hidden('source',$file['source']);
 						echo form_hidden('idFile',$file['idFile']);
 						echo form_hidden('idActivity',$this->uri->segment(3));
 					?>
-						<input name="isPublic" type="checkbox" class="custom-control-input "
-						id="customSwitch1" data-toggle="modal" data-target="#modelId" 
-							<?=($file['isPublic'])? 'checked':''?>>
-						<label class="custom-control-label" for="customSwitch1">Public</label>
-					</div>
+						<input name="isPublic" type="checkbox"
+						id="isPublic"<?=($file['isPublic'])? 'checked':''?>>
+						<label class="custom-control-label" for="isPublic">Public</label>
 				</div>
 			<?php }?>
-			<div class="row py-5">
-				<div class="col">
-					<h3><?=$file['title']?></h3>
-				</div>
+			<div class="edit-delete">
 				<?php if($file['users_idUser'] == $this->session->userdata('idUser') && $this->uri->segment(1) != 'search'){?>	
-					<div class="col">
-
-						<a href="" type="button" class="btn btn-primary btn-sm " data-toggle="modal" data-target="#exampleModalCenter"><i class="fas fa-edit fa-lg"></i></a>
-							<!-- <button name="submit" type="button" class="btn btn-primary btn-sm" value="update" id="customSwitch1" data-toggle="modal" data-target="#modelId" ><i class="fas fa-edit fa-lg"></button> -->
-							<button name="submit" type="submit" class="btn btn-danger btn-sm" value="delete" id="delete"><i class="fas fa-trash fa-lg"></i></button>
-							
-					</div>
+					<button type="button" ><i class="fas fa-edit fa-lg"></i></button>
+					<button name="submit" type="submit" value="delete" id="delete"><i class="fas fa-trash fa-lg"></i></button>
 				<?php }?>
 			</div>
-			<div class="row">
-				<p><?=$file['file_description']?></p>	
-			</div>
-			<div class="row">
-				<strong class="mr-1">Language:</strong>
-				<p class="text-info font-weight-bold"><?=$this->MFile->getFileLanguage($file['language']);?></p>
-			</div>
-			<div class="row">
-				<strong class="mr-1">Sentiment:</strong>
-				<p class="text-info font-weight-bold"><?=($this->MFile->getFileSentiment($file['sentiment']));?></p>
-				<?=(ucfirst($this->MFile->getFileLanguage($file['language'])) != 'English')? 
-				'<small class="text-muted">Sentiment analysis does not currently work on languages other than English, we will notify you if this feature comes available</small>':''?>
-			</div>
-			<div class="row mt-2">
-				<strong class="mr-1">Entities:</strong>
-				<p><?php 
-					$entity = array_values($this->MFile->getFileEntity($file['entity']));
-					foreach($entity as $data){
-						foreach($data as $key => $text){
-							if($key=='wikipediaUrl'){?>
-							
-								<a href="<?=$data['wikipediaUrl']?>" target="_blank"
-								 class="badge badge-pill badge-info font-weight-bold"><?=$data['name']?></a>
-							<?php }
-						}	
-					}
-				?>
-				</p>
-			</div>
 		</div>
-		<div id="document" class="col shadow border border-info rounded-lg py-2">	
-		</div>
+		<h3><?=$file['title']?></h3>
+		<p><?=$file['file_description']?></p>	
+		<strong class="mr-1">Language:</strong>
+		<p class="text-info font-weight-bold"><?=$this->MFile->getFileLanguage($file['language']);?></p>
+		<strong class="mr-1">Sentiment:</strong>
+		<p class="text-info font-weight-bold"><?=($this->MFile->getFileSentiment($file['sentiment']));?></p>
+		<?=(ucfirst($this->MFile->getFileLanguage($file['language'])) != 'English')? 
+		'<small class="text-muted">Sentiment analysis does not currently work on languages other than English, we will notify you if this feature comes available</small>':''?>
+		<strong class="mr-1">Entities:</strong>
+		<p class="search-keys"><?php 
+			$entity = array_values($this->MFile->getFileEntity($file['entity']));
+			foreach($entity as $data){
+				foreach($data as $key => $text){
+					if($key=='wikipediaUrl'){?>
+					
+						<a href="<?=$data['wikipediaUrl']?>" target="_blank"
+							class="badge badge-pill badge-info font-weight-bold"><?=$data['name']?></a>
+					<?php }
+				}	
+			}
+		?>
+		</p>
 	</div>
+		<div id="document" class=""></div>
 </div>
 
 <?php

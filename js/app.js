@@ -1,4 +1,5 @@
 const clock = document.getElementById('clock');
+const alertBanner = document.querySelector('.alert');
 
 setInterval(function() {
     if (clock !== null) {
@@ -14,6 +15,12 @@ function getCurrentTime() {
     var seconds = currentDate.getSeconds() < 10 ? '0' + currentDate.getSeconds() : currentDate.getSeconds();
     var currentTime = hours + ':' + minutes + ':' + seconds;
     return currentTime;
+}
+
+if (alertBanner) {
+    alertBanner.addEventListener('click', (event) => {
+        event.toElement.parentElement.remove();
+    });
 }
 
 function menuClassContent() {

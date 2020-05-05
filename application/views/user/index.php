@@ -36,7 +36,7 @@
 	</script>
 
 <h1><i class="fas fa-chart-line"></i>Overall Performance</h1>
-<div id="linechart" class="chart"></div>
+<div id="linechart" class="graph chart"></div>
 <?php
 	$this->load->view('user/user_class');
 	$this->load->view('index');

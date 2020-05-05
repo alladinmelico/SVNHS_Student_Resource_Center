@@ -7,7 +7,7 @@
 							<img src="<?=base_url('files/covers/'.$file['cover'])?>"
 							alt="Card image cap">
 							<div class="image-caption">
-								<p><?= $file['title']?></p>
+								<?= $file['title']?>
 							</div>
 						</div>
 					</a>

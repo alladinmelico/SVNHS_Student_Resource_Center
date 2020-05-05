@@ -30,16 +30,15 @@
 				}
 
 			?>
-			<div class="alert alert-<?=$color?>" role="alert">
-				<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				</button>
+			<div class="alert-<?=$color?>" role="alert">
+				<button type="button" class="alert">&times;</button>
 				<?=$message?>
 			</div>
 			<?php } ?>
 
 		<div class="main">
-			<?php if((($this->uri->segment(1)) == 'user') || (($this->uri->segment(1)) == 'teacher') || (($this->uri->segment(1)) == '')){?>
+			<?php if((($this->uri->segment(1)) == 'user') || (($this->uri->segment(1)) == 'teacher') 
+			|| (($this->uri->segment(1)) == '')){?>
 				<div class="left-container">
 					<div class="clock-container">
 						<p>Philippine Standard Time</p>

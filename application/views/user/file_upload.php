@@ -1,35 +1,25 @@
 
-<!-- <form action="<?= base_url()?>file/create" enctype="multipart/form-data" method="POST">
-	<div class="form-group">
-		<label for="">Upload File</label>
-		<input type="file" class="form-control-file" name="file" id="file">
-		<input type="text" class="form-control" name="description" id="">
-		<button type="submit" class="btn btn-primary">Upload</button>
-	</div>
-</form> -->
 
+	<?php
 
-<?php
+		if(isset($error)){
+			print_r($error);
+		}
+		echo form_open_multipart('file/create');
 
-	if(isset($error)){
-		print_r($error);
-	}
-	 echo form_open_multipart('file/create');
+		$data = array('name'=>'file',
+			'required'=>'required');
+		echo form_label('Upload');
+		echo form_upload($data);
 
-	 $data = array('name'=>'file',
-		'class'=>'form-control',
-		'required'=>'required');
-	echo form_label('Upload');
-	echo form_upload($data);
-
-	$data = array('name'=>'description',
-		'type' => 'text',
-		'id'=>'description',
-		'class'=>'form-control',
-		'required'=>'required');
-	echo form_label('Description');
-	echo form_input($data);
+		$data = array('name'=>'description',
+			'type' => 'text',
+			'id'=>'description',
+			'required'=>'required');
+		echo form_label('Description');
+		echo form_input($data);
 
 	?>
-	<button name="submit" class="btn btn-success" type="submit">SAVE</button>
-				<?=form_close();?>
+	<button name="submit" class="button" type="submit">SAVE</button>
+	<?=form_close();?>
+</div>
