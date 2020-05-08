@@ -1,33 +1,58 @@
 <style>
-	.bg {
-  /* The image used */
-
-  background: linear-gradient( rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 1) ), url("<?=base_url('files/covers/'.$class['cover'])?>");
-  /* Full height */
-  height: 100%;
-
-  /* Center and scale the image nicely */
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-}
-	.content{
-		z-index: 2;
-		position: absolute;
-		transform: translate(-50%, -50%);
+	#class-header {
+		display: flex;
+		justify-content: space-between;
+		align-content: center;
+		background: linear-gradient( rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 1) ), url("<?=base_url('files/covers/'.$class['cover'])?>");
+		height: 100%;
+		background-position: center;
+		background-repeat: no-repeat;
+		background-size: cover;
+		border-radius: 1rem;
+		padding: 2rem;
+		box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+		margin-bottom: 1rem;
 	}
+	#class-toolbar{
+		display: flex;
+		flex-direction: column;
+		justify-content: space-around;
+	}
+	#class-details h1,h3,p{
+		color: white;
+	}
+	.form{
+		width: 20%;
+		margin: auto;
+		margin: 0;
+	}
+	.chart{
+		flex-direction: column;
+		box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+		border-radius: 1rem;
+		padding: 1rem;
+	}
+
+	.g{
+		background-color: red;
+	}
+	
 </style>
+
 <script src="https://www.gstatic.com/charts/loader.js"></script>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">
         google.charts.load('current', {'packages':['corechart']});
-		google.charts.setOnLoadCallback(drawLine);
-		google.charts.setOnLoadCallback(drawPie);
-		google.charts.setOnLoadCallback(drawBar);
-		google.charts.setOnLoadCallback(drawChartExponential);
-		google.charts.setOnLoadCallback(drawRegression);
-		google.charts.setOnLoadCallback(col);
+
+		function loadCharts(){
+			google.charts.setOnLoadCallback(drawLine);
+			google.charts.setOnLoadCallback(drawPie);
+			google.charts.setOnLoadCallback(drawBar);
+			google.charts.setOnLoadCallback(drawChartExponential);
+			google.charts.setOnLoadCallback(drawRegression);
+		}
+
 
 		function drawRegression() {
 			var data = google.visualization.arrayToDataTable([
@@ -168,105 +193,88 @@
 			var chart = new google.visualization.BarChart(document.getElementById('barchart'));
 
 			chart.draw(data, options);
-			}
+		}
+		loadCharts();
+		window.onresize = function(){loadCharts()}
 	</script>
 
 
-<div class="container mt-3">
-	<div class="row bg text-light py-3 px-3" style="border-radius: 1em;">
-			<div class="col-1">
-				<h3 class="text-info "><?=ucfirst($subject['subject_name'])?></h3>
-			</div>
-			<div class="col-lg">
-				<h1 class="text-light text-center mt-5 mb-5 display-3"><?=$class['class_title']?></h1>
-				<p class="mb-5 "><?=$class['class_description']?></p> 
-			</div>
-			<div class="col-1">
-				<button type="button" class="btn btn-primary  btn-sm" data-toggle="modal" data-target="#basicExampleModal">
-					<i class="fas fa-edit fa-lg"></i>
-				</button>
-				<button name="submit" type="submit" class="btn btn-danger btn-sm" value="delete" id="delete"><i class="fas fa-trash fa-lg"></i></button>
-			</div>
-			
+<div id="class-header">
+	<div id="class-details">
+		<h3><?=ucfirst($subject['subject_name'])?></h3>
+		<h1><?=$class['class_title']?></h1>
+		<p><?=$class['class_description']?></p> 
 	</div>
+	<div id="class-toolbar">
+		<button type="button" data-target="modal-class" onclick="modalOpen(this)">
+			<i class="fas fa-edit button"></i>
+		</button>
+		<button name="submit" type="submit" value="delete" id="delete"><i class="fas fa-trash button"></i></button>
+	</div>		
+</div>
 	
 	<?php if($users){?>
-		<div class="row py-5">
-			<div class="col">
 				<div class="container">
 					<?php if($scores){?>
-						<div class="row overflow-auto py-3 rounded-lg shadow px-3">
-							<div id="linechart" style="width: 1000px; height: 500px" ></div>
-						</div>
-						<div class="row overflow-auto py-3 rounded-lg shadow px-3 mt-3">
-							<form action="#" method="GET" class="mx-auto" >
+						<div id="linechart" class="graph chart"></div>
+						<div class="chart">
+							<form action="#" method="GET" class="form">
 								<input type="number" name="toForecast" id="" class="border border-info" value="<?(isset($_GET['toForecast']))? $_GET['toForecast']:''?>" placeholder="Score to Forecast">
 								<input type="number" name="alpha" id="" class="border border-info" value="<?(isset($_GET['alpha']))? $_GET['alpha']:''?>" placeholder="α" min="0" max="1" step="0.1" >
 								<button type="submit" class="btn btn-sm btn-primary" name="expo_smoothing">Save</button>
 							</form>
-							<div id="expo_analytics" style="width: 1000px; height: 500px" ></div>
+							<div id="expo_analytics" class="graph"></div>
 						</div>
-						<div class="row overflow-auto py-3 rounded-lg shadow px-3 mt-3">
-							<form action="#" method="GET" class="mx-auto" >
-								<input type="text" name="toForecastRegression" id="" class="border border-info" 
+						<div class="chart">
+							<form action="#" method="GET" class="form">
+								<input type="text" name="toForecastRegression" id=""
 								value="<?=(isset($_GET['toForecast']))? $_GET['toForecast']:''?>" placeholder="Score to Forecast">
 								<button type="submit" class="btn btn-sm btn-primary" name='regression'>Save</button>
 							</form>
-							<div id="reg_analytics" style="width: 1000px; height: 500px" ></div>
+							<div id="reg_analytics" class="graph" ></div>
 						</div>
 					<?php }?>
 
 					
 					<?php if($topStudents){?>
-						<div class="row py-3">
-							<div class="col px-3">
-								<div id="piechart" class="rounded-lg shadow" ></div>
-							</div>
-							<div class="col px-3">
-								<div id="barchart" class="rounded-lg shadow" ></div>
-							</div>
+						<div class="">
+							<div id="piechart" class="chart graph"></div>
+							<div id="barchart" class="chart graph"></div>
 						</div>
 					<?php }?>
 				</div>
-			</div>
-		</div>
-	
-
-	<div class="row py-5">
-		<div class="col py-3 px-3 border border-info rounded-lg shadow">
-			<h2>Students</h2>
-			<table class="table table-hover db-dark overflow-auto">
-				<thead>
-					<tr>
-						<th>Name</th>
-					</tr>
-					</thead>
-					<tbody>
-						<?php foreach($users as $user){?>
-							<tr>
-								<td scope="row"><?= ucfirst($user['first_name']).' '.ucfirst($user['last_name']) ?></td>
-							</tr>
-						<?php }?>
-					</tbody>
-			</table>
-		</div>
-	</div>
-
 	<?php } 
 	else {
 	?>
-		<h2 class="mt-5">No student has been enrolled in this class...</h2>
-		<strong class="text-muted mb-5">Kindly check your request inbox in your <a href="<?=base_url('teacher')?>">dashboard.</a></strong>
+		<h2>No student has been enrolled in this class...</h2>
+		<strong>Kindly check your request inbox in your <a href="<?=base_url('teacher')?>">dashboard.</a></strong>
 	<?php }?>
 
-	<div class="row">
-		<div class="col-lg-1-12 py-3 px-3 border border-info rounded-lg shadow">
+	<div id="students">
+		<h2>Students</h2>
+		<table>
+			<thead>
+				<tr>
+					<th>Name</th>
+				</tr>
+				</thead>
+				<tbody>
+					<?php foreach($users as $user){?>
+						<tr>
+							<td scope="row"><?= ucfirst($user['first_name']).' '.ucfirst($user['last_name']) ?></td>
+						</tr>
+					<?php }?>
+				</tbody>
+		</table>
+	</div>
+
+	<div id="activities">
 			<h2>Activities
-				<button type="button" class="btn blue-gradient px-3 rounded-circle text-white" data-toggle="modal" data-target="#addActivity">
-					<i class="fas fa-plus fa-lg"></i>
+				<button type="button" data-target="modal-activity" onclick="modalOpen(this)">
+					<i class="fas fa-plus button"></i>
 				</button>
 			</h2>
-			<table class="table table-hover table-inverse table-responsive db-dark">
+			<table>
 				<thead>
 					<tr>
 						<th>Title</th>
@@ -278,75 +286,52 @@
 					<tbody>
 						<?php foreach($activities as $activity){?>
 							<tr>
-								<td scope="row"><?=$activity['activity_title']?></td>
-								<td scope="row"><?=$activity['activity_description']?></td>
-								<td scope="row"><?=$activity['activity_timestamp']?></td>
-								<td scope="row"><?= anchor('activity/'.$activity['idActivity'],'<i class="fas fa-chevron-circle-right h2"></i>')?></td>
+								<td><?=$activity['activity_title']?></td>
+								<td><?=$activity['activity_description']?></td>
+								<td><?=$activity['activity_timestamp']?></td>
+								<td><?= anchor('activity/'.$activity['idActivity'],'<i class="fas fa-chevron-circle-right h2"></i>')?></td>
 							</tr>
 						<?php }?>
 					</tbody>
 			</table>
+	</div>
+
+
+<!-- Modal -->
+<div class="modal" id="modal-activity">
+	<div class="modal-content">
+		<div class="modal-header">
+			<h5 class="modal-title">Add Activity</h5>
+			<button type="button" data-target="modal-activity" onclick="modalClose(this)">
+				&times;
+			</button>
+		</div>
+		<div class="modal-body">
+			<?php $this->load->view('activity/create');?>
+		</div>
+		<div class="modal-footer">
+			<button type="submit" class="button">Add</button>
+			<?=form_close()?>
 		</div>
 	</div>
 </div>
 
 
 <!-- Modal -->
-<div class="modal fade" id="addActivity" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
-	<div class="modal-dialog modal-dialog-centered" role="document">
-		<div class="modal-content">
-				<div class="modal-header">
-						<h5 class="modal-title">Add Activity</h5>
-							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-								<span aria-hidden="true">&times;</span>
-							</button>
-					</div>
-			<div class="modal-body">
-				<div class="container-fluid">
-					<?php $this->load->view('activity/create');?>
-				</div>
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-				<button name="submit" class="btn btn-success" type="submit">SAVE</button>
-				<?=form_close();?>
-			</div>
+<div class="modal" id="modal-class">
+	<div class="modal-content">
+		<div class="modal-header">
+			<h5 class="modal-title">Edit Class</h5>
+			<button type="button" data-target="modal-class" onclick="modalClose(this)">
+				&times;
+			</button>
+		</div>
+		<div class="modal-body">
+			<?php $this->load->view('class/edit');?>
+		</div>
+		<div class="modal-footer">
+			<button type="submit" class="button">Save</button>
+			<?=form_close()?>
 		</div>
 	</div>
-</div>
-
-<script>
-	$('#exampleModal').on('show.bs.modal', event => {
-		var button = $(event.relatedTarget);
-		var modal = $(this);
-		// Use above variables to manipulate the DOM
-		
-	});
-</script>
-
-<!-- Button trigger modal -->
-
-
-<!-- Modal -->
-<div class="modal fade" id="basicExampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-   <div class="modal-dialog modal-dialog-centered" role="document">
-	   <div class="modal-content">
-		   <div class="modal-header">
-			   <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-			   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-				   <span aria-hidden="true">&times;</span>
-			   </button>
-		   </div>
-		   <div class="modal-body">
-		   		<div class="container-fluid">
-					<?php $this->load->view('class/edit');?>
-				</div>
-		   </div>
-		   <div class="modal-footer">
-			   <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-			   <button name="submit" class="btn btn-success" type="submit">SAVE</button>
-				<?=form_close();?>
-		   </div>
-	   </div>
-   </div>
 </div>

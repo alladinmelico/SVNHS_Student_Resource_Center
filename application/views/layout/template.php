@@ -1,5 +1,5 @@
 <?php include('head.php');?>
-  <body class="scroll <?=($this->session->has_userdata('isAdmin'))? 'elegant-color-dark':''?>">
+  <body class="scroll <?=($this->session->has_userdata('isAdmin'))? 'bg-dark':''?>">
 		<?php 
 			if($this->session->userdata('isAdmin')){
 				$this->load->view('/layout/admin_navigation');
@@ -36,33 +36,11 @@
 			</div>
 			<?php } ?>
 
-		<div class="main">
-			<?php if((($this->uri->segment(1)) == 'user') || (($this->uri->segment(1)) == 'teacher') 
-			|| (($this->uri->segment(1)) == '')){?>
-				<div class="left-container">
-					<div class="clock-container">
-						<p>Philippine Standard Time</p>
-						<div id="clock"></div>
-					</div>
-					<div class="calendar"></div>
-				</div>	
-			<?php }?>	
 					
-			<div class="main-content">
-					<?php $this->load->view($contents); ?>
-			</div>
-				
-			<?php if((($this->uri->segment(1)) == 'user') || (($this->uri->segment(1)) == 'teacher') || (($this->uri->segment(1)) == '')){?>
-				<div class="right-container">
-					<div class="side-container">
-						<?php if(isset($side_content_1)) $this->load->view($side_content_1);?>
-					</div>
-					<div class="side-container">
-						<?php if(isset($side_content_2)) $this->load->view($side_content_2);?>
-					</div>
-				</div>
-			<?php }?>
+		<div class="main-content">
+				<?php $this->load->view($contents); ?>
 		</div>
+			
 
 		<div>
 			<?php $this->load->view('/layout/footer'); ?>

@@ -26,7 +26,7 @@ class Activity extends CI_Controller{
 			$this->MActivity->delete();
 			redirect('activity');
 		} else{
-			$data['title'] = "activity";
+			$data['title'] = "Activity";
 			$data['contents'] = 'activity/show';
 			$data['activity'] = $this->MActivity->getTeacherActivity($id);
 			$data['submitted'] = $this->MActivity->getStudentSubmitted($id);

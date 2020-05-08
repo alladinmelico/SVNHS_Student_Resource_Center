@@ -3,7 +3,9 @@
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">
         google.charts.load('current', {'packages':['corechart']});
-		google.charts.setOnLoadCallback(drawBar);
+		function loadCharts(){
+			google.charts.setOnLoadCallback(drawBar);
+		}
 
 		function drawBar() {
 
@@ -24,25 +26,11 @@
 
 			chart.draw(data, options);
 			}
+		loadCharts();
+		window.onresize = function(){loadCharts()}
 	</script>
 
-<div class="container mt-5">
-	<h1><i class="fas fa-chart-bar mr-3"></i>Activity Performances</h1>
-	<div class="row mt-5">
-		<div class="col d-flex justify-content-center ">
-			<div id="barchart" style="width: 1000px; height: 500px" class="rounded-lg shadow " ></div>
-		</div>
-	</div>
-
-	<div class="row mt-5">
-		<div class="col d-flex justify-content-center ">
-			<?php $this->load->view('class/index');?>
-		</div>
-	</div>
-
-	<div class="row mt-5">
-		<div class="col d-flex justify-content-center ">
-			<?php $this->load->view('activity/index');?>
-		</div>
-	</div>
-</div>
+<h1><i class="fas fa-chart-bar mr-3"></i>Activity Performances</h1>
+<div id="barchart" class="graph chart" ></div>
+<?php $this->load->view('class/index');?>
+<?php $this->load->view('activity/index');?>

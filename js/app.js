@@ -1,27 +1,23 @@
-const clock = document.getElementById('clock');
 const alertBanner = document.querySelector('.alert');
+const menu = document.querySelectorAll('.menu-item .badge');
+const modalActivate = document.getElementById('modal-activate');
 
-setInterval(function() {
-    if (clock !== null) {
-        clock.innerHTML = getCurrentTime();
-    }
-}, 1);
-
-function getCurrentTime() {
-    var currentDate = new Date();
-    var hours = currentDate.getHours() > 12 ? currentDate.getHours() - 12 : currentDate.getHours();
-    hours === 0 ? hours = 12 : hours = hours;
-    var minutes = currentDate.getMinutes();
-    var seconds = currentDate.getSeconds() < 10 ? '0' + currentDate.getSeconds() : currentDate.getSeconds();
-    var currentTime = hours + ':' + minutes + ':' + seconds;
-    return currentTime;
-}
 
 if (alertBanner) {
     alertBanner.addEventListener('click', (event) => {
         event.toElement.parentElement.remove();
     });
 }
+
+(function menuContent() {
+    menu.forEach(item => {
+        item.addEventListener('click', () => {
+            document.getElementById(item.dataset.target).classList.toggle("menu-item-content-active");
+            console.log(item.dataset.target);
+        })
+    });
+})();
+
 
 function menuClassContent() {
     document.getElementById("class-content").classList.toggle("menu-item-content-active");
@@ -37,13 +33,20 @@ function menuProfileContent() {
 
 function modalOpen(modal) {
     const modalTarget = document.getElementById(modal.dataset.target);
-
+    if (modal.dataset.target == 'modal-activate') {
+        document.getElementById('nameActivate').innerText = modal.value.split(',')[0];
+        document.getElementById('inputAction').value = modal.getAttribute('name');
+        document.getElementById('inputId').value = modal.value.split(',')[1];
+    } else if (modal.dataset.target == 'modal-delete') {
+        document.getElementById('nameDelete').innerText = modal.value.split(',')[0];
+        document.getElementById('inputActionDelete').value = modal.getAttribute('name');
+        document.getElementById('inputIdDelete').value = modal.value.split(',')[1];
+    }
     modalTarget.style.display = "flex";
 }
 
 function modalClose(modal) {
     const modalTarget = document.getElementById(modal.dataset.target);
-
     modalTarget.style.display = "none";
 }
 

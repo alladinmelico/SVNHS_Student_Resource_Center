@@ -22,6 +22,7 @@ body {
     color: var(--dark);
     display: flex;
     flex-direction: column;
+    align-items: center;
     min-height: 100vh;
 }
 
@@ -62,6 +63,7 @@ nav {
     justify-content: space-between;
     align-items: center;
     background-color: var(--dark-blue);
+    width: 100%;
 }
 
 input,
@@ -78,6 +80,7 @@ textarea {
     background-color: white;
     border-radius: 2rem;
     padding: 0.5rem;
+    margin-right: 2rem;
 }
 
 .search-input,
@@ -124,32 +127,11 @@ textarea {
     align-items: center;
 }
 
-.main {
-    display: flex;
-    justify-content: space-around;
-    align-items: flex-start;
-    padding-top: 3rem;
-}
-
-.right-container,
-.left-container,
 .main-content {
     display: flex;
     flex-direction: column;
-    min-width: 15%;
-}
-
-.left-container {
-    order: 1;
-}
-
-.main-content {
-    flex: 1;
-    order: 2;
-}
-
-.right-container {
-    order: 3;
+    align-items: center;
+    margin-top: 8vh;
 }
 
 .card-login {
@@ -336,6 +318,10 @@ p,
     margin-bottom: 2rem;
 }
 
+.two-chart {
+    flex-direction: row;
+}
+
 .sidenav {
     height: 100%;
     width: 0;
@@ -437,6 +423,9 @@ p,
 .menu-item .badge {
     font-size: 1.5rem;
     cursor: pointer;
+    color: var(--dark-blue);
+    text-align: center;
+    padding: 0.3rem;
 }
 
 .menu-item .badge:hover {
@@ -468,7 +457,7 @@ p {
 }
 
 .danger {
-    color: rgb(155, 40, 40);
+    color: rgb(155, 40, 40) !important;
 }
 
 .warn {
@@ -601,6 +590,21 @@ textarea {
     justify-content: space-between;
 }
 
+.sentiment {
+    display: flex;
+    justify-content: space-around;
+    color: var(--blue);
+    align-items: center;
+    font-size: 2rem;
+    border-radius: 1rem;
+    padding: 1rem;
+}
+
+.sentiment p {
+    font-size: 3rem;
+    color: var(--dark-blue);
+}
+
 @-webkit-keyframes animate-top {
     from {
         top: -300px;
@@ -685,6 +689,24 @@ textarea {
     background-color: orange;
 }
 
+.btn-danger {
+    background-color: lightcoral;
+}
+
+.btn-success {
+    background-color: lightgreen;
+}
+
+.data-table {
+    background-color: red;
+    width: 80%;
+}
+
+.bg-dark {
+    background-color: var(--dark);
+    color: white;
+}
+
 #login {
     background-repeat: no-repeat;
     background-position: left;
@@ -724,7 +746,6 @@ footer {
 }
 
 @media only screen and (max-width: 600px) {
-    .main,
     .main-content,
     .card-container,
     .card,
@@ -736,18 +757,6 @@ footer {
     }
     .search-result {
         padding: none;
-    }
-    .main {
-        width: 100%;
-    }
-    .left-container {
-        order: 3;
-    }
-    .main-content {
-        order: 1;
-    }
-    .right-container {
-        order: 2;
     }
     .search-input,
     .login,
@@ -777,6 +786,9 @@ footer {
     .file-detail {
         width: 100%;
     }
+    .two-chart {
+        flex-direction: column;
+    }
     #login {
         background-image: url('../login-cover-02.jpg');
     }
@@ -784,13 +796,12 @@ footer {
         width: 430px;
         height: 250px;
     }
-    #clock {
-        display: none;
+    #top-dashboard {
+        flex-direction: column;
     }
 }
 
 @media only screen and (min-width: 600px) {
-    .main,
     .main-content {
         flex-direction: column;
         width: 95%;
@@ -800,25 +811,12 @@ footer {
     .search-result {
         width: 90%;
     }
-    .main {
-        width: 100%;
-    }
     .card {
         width: 45%;
     }
     .card-container {
         flex-direction: row;
         align-items: flex-start;
-    }
-    .left-container {
-        order: 3;
-        display: none;
-    }
-    .main-content {
-        order: 1;
-    }
-    .right-container {
-        order: 2;
     }
     .sidenav-active {
         width: 40%;
@@ -830,6 +828,9 @@ footer {
     .file-detail {
         width: 100%;
     }
+    .two-chart {
+        flex-direction: column;
+    }
     #login {
         background-image: url('../login-cover-02.jpg');
     }
@@ -837,8 +838,8 @@ footer {
         width: 400px;
         height: 200px;
     }
-    #clock {
-        display: none;
+    #top-dashboard {
+        flex-direction: column;
     }
 }
 
@@ -873,32 +874,15 @@ footer {
 }
 
 @media only screen and (min-width: 992px) {
-    .main {
-        flex-direction: row;
-        align-items: flex-start;
-    }
-    .card {
-        width: 45%;
-    }
-    .left-container {
-        order: 1;
-        display: block;
-    }
-    .main-content {
-        order: 2;
-    }
-    .right-container {
-        order: 3;
-    }
-    .sidenav-active {
-        width: 25%;
-    }
     .file-container {
         flex-direction: row;
         justify-content: space-between;
     }
     .file-detail {
         width: 20%;
+    }
+    .two-chart {
+        flex-direction: row;
     }
     #login {
         background-image: url(../login-cover-03.jpg);
@@ -907,20 +891,23 @@ footer {
         width: 900px;
         height: 400px;
     }
-    #clock {
-        display: block;
+    #top-dashboard {
+        flex-direction: row;
     }
 }
 
 @media only screen and (min-width: 1200px) {
-    .card {
-        width: 30%;
+    .main-content {
+        width: 80%;
     }
     .search-result {
         width: 50%;
     }
     .sidenav-active {
         width: 20%;
+    }
+    .two-chart {
+        flex-direction: row;
     }
     .graph {
         width: 1000px;

@@ -1,68 +1,47 @@
-<div class="container mt-5">
-	<div class="row mb-3">
-		<div class="col">
-			<h1>Classes
-				<a class="btn blue-gradient px-3 rounded-circle text-white" data-toggle="modal" data-target="#modelId">
-				<i class="fas fa-plus fa-lg"></i></a>
-			</h1>
-		</div>
-	</div>
-	<div class="row">
-		
-	</div>
+<h1>Classes
+	<button class="modal-open" data-target="modal-class" onclick="modalOpen(this)">
+	<i class="fas fa-plus button"></i></button>
+</h1>
 
-	<div class="row row-cols-1 row-cols-md-3">
-		<?php foreach($classes as $class){ ?>
-			<div class="col mb-4">
-				<div class="card">
-
-				<div class="view">
-					<img class="card-img-top" src="<?=base_url('files/covers/'.$class['cover'])?>"
-					alt="Card image cap" height="250">
-					<a href="<?=base_url()?>classes/<?=$class['idClass']?>">
-						<div class="mask rgba-cyan-light"></div>
-					</a>
+<div class="card-container">
+	<?php foreach($classes as $class){ ?>
+		<div class="card">
+			<a href="<?=base_url()?>classes/<?=$class['idClass']?>">
+				<div class="card-image">
+					<img src="<?=base_url('files/covers/'.$class['cover'])?>"
+					alt="Card image cap">
+					<div class="image-caption">
+						<?= $class['class_title']?>
+					</div>
 				</div>
+			</a>
 
-				<div class="card-body">
-
-					<h2 class="card-title text-info"><?= $class['class_title']?></h2>
-					<p class="card-text"><?= $class['class_description']?></p>
-					<a href="<?=base_url()?>classes/<?=$class['idClass']?>" class="h2 d-flex justify-content-end"><i class="fas fa-chevron-circle-right "></i></a>
-
-				</div>
-
+			<div class="card-body">
+				<h2><?= $class['class_title']?></h2>
+				<p><?= $class['class_description']?></p>
+				<div class="card-bottom flex-end">
+					<a href="<?=base_url()?>classes/<?=$class['idClass']?>" ><i class="fa fa-chevron-right button"></i></a>
 				</div>
 			</div>
-		<?php }?>
-	</div>
-		
-	<!-- </div> -->
-
+		</div>
+	<?php }?>
 </div>
-
 
 <!-- Modal -->
-<div class="modal fade" id="modelId" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
-	<div class="modal-dialog modal-dialog-centered" role="document">
-		<div class="modal-content">
-				<div class="modal-header">
-						<h5 class="modal-title">Create Class</h5>
-							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-								<span aria-hidden="true">&times;</span>
-							</button>
-					</div>
-			<div class="modal-body">
-				<div class="container-fluid">
-					<?php $this->load->view('class/create');?>
-				</div>
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-				<button name="submit" class="btn btn-success" type="submit">SAVE</button>
-				<?=form_close();?>
-			</div>
+<div class="modal" id="modal-class">
+	<div class="modal-content">
+		<div class="modal-header">
+			<h5 class="modal-title">Create Class</h5>
+			<button type="button" data-target="modal-class" onclick="modalClose(this)">
+				&times;
+			</button>
+		</div>
+		<div class="modal-body">
+			<?php $this->load->view('class/create');?>
+		</div>
+		<div class="modal-footer">
+			<button type="submit" class="button">Save</button>
+			<?=form_close()?>
 		</div>
 	</div>
 </div>
-

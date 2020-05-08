@@ -1,9 +1,28 @@
+<style>
+	.radio-custom{
+		display: flex;
+		flex-direction: column;
+		overflow: scroll;
+		height: 30vh;
+	}
+	.radio-item{
+		width: 300px;
+	}
+	.radio-custom input[type="radio"]:checked+label img{
+		border: 10px solid green;
+		filter: contrast(180%);
+	}
+	.radio-item img{
+		width: 100%;
+	}
+</style>
+
 <?php
 
 	if(isset($error)){
 		print_r($error);
 	}
-	echo form_open('classes/create');
+	echo form_open('classes/create',array('class'=>'form'));
 
 	$option = array();
 
@@ -12,12 +31,11 @@
 		$option[$subject['idSubject']] = ucfirst($subject['subject_name']);
 	}
 	echo form_label('Subject');
-	echo form_dropdown('subjects_idSubject',$option,'choose',array('class'=>'form-control mb-3'));
+	echo form_dropdown('subjects_idSubject',$option,'choose');
 	
 	$data = array('name'=>'class_title',
 		'type' => 'text',
 		'id'=>'class_title',
-		'class'=>'form-control mb-3',
 		'required'=>'required');
 	echo form_label('Title');
 	echo form_input($data);
@@ -25,7 +43,6 @@
 	$data = array('name'=>'class_description',
 		'type' => 'text',
 		'id'=>'class_description',
-		'class'=>'form-control mb-3',
 		'required'=>'required');
 	echo form_label('Description');
 	echo form_input($data);
@@ -33,7 +50,6 @@
 	$data = array('name'=>'class_code',
 		'type' => 'text',
 		'id'=>'class_code',
-		'class'=>'form-control mb-5',
 		'value'=> random_string('alnum', 8),
 		'required'=>'required',
 		'readonly'=>'readonly');
@@ -46,13 +62,9 @@
 	shuffle($map);
 ?>
 
-<div class="container  overflow-auto" style="height: 300px">
-	<div class=" container btn-group btn-group-toggle d-flex flex-column " data-toggle="buttons" >
-		<?php foreach($map as $item){?>
-			<label class="btn btn-light form-check-label text-center">
-				<img src="<?=base_url().'files/covers/'.$item?>" alt="" width="320">
-				<input name="cover" value="<?=$item?>" class="form-check-input" type="radio" id="option2" autocomplete="off" style="width:100px">
-			</label>
-		<?php } ?>
-	</div>
+<div class="radio-custom scroll">
+	<?php foreach($map as $item){?>
+			<input name="cover" value="<?=$item?>" type="radio" id="<?=$item?>">
+			<label for="<?=$item?>" class="radio-item"><img src="<?=base_url().'files/covers/'.$item?>"></label>
+	<?php } ?>
 </div>

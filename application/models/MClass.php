@@ -209,6 +209,24 @@ class MClass extends CI_Model{
 		
 		return $data;
 	}
+	
+	function getTotalTeacherClassName(){
+		$data = array();
+		$this->db->select('c.class_title');
+		$this->db->from('classes c');
+		$this->db->join('teachers t','t.idTeacher = c.teachers_idTeacher');
+		$this->db->where('c.teachers_idTeacher',$this->session->userdata('idTeacher'));
+		$this->db->where('c.isActive_Class',1);
+		$Q = $this->db->get();
+		if($Q->num_rows() > 0){
+			foreach($Q -> result_array() as $row){
+				$data[] = $row;
+			}
+		}
+
+		$Q->free_result();
+		return $data;
+	}
 
 	function getTotalUserClass(){
 		$data = null;

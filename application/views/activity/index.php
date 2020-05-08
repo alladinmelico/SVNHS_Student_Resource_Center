@@ -1,68 +1,49 @@
-<div class="container mt-5">
-	<div class="row mb-3">
-		<div class="col">
-			<h1>Activities
-				<a class="btn blue-gradient px-3 rounded-circle text-white" data-toggle="modal" data-target="#modelIdActivity">
-				<i class="fas fa-plus fa-lg"></i></a>
-			</h1>
-		</div>
-	</div>
-	<div class="row">
-		
-	</div>
+<h1>Activities
+	<button class="modal-open" data-target="modal-activity" onclick="modalOpen(this)">
+	<i class="fas fa-plus button"></i></a>
+</h1>
 
-	<div class="row row-cols-1 row-cols-md-3">
-		<?php foreach($activities as $activity){ ?>
-			<div class="col mb-4">
-				<div class="card">
-
-				<div class="view">
-					<img class="card-img-top" src="<?=base_url('files/covers/'.$activity['cover'])?>"
-					alt="Card image cap" height="250">
-					<a href="<?=base_url()?>classes/<?=$activity['idClass']?>" class="text-light">
-						<div class="mask rgba-cyan-strong flex-center display-4">
-							<?= $activity['class_title']?>
-						</div>
-					</a>
+<div class="card-container">
+	<?php foreach($activities as $activity){ ?>
+		<div class="card">
+			<a href="activity/<?=$activity['idActivity']?>">
+				<div class="card-image">
+					<img src="<?=base_url('files/covers/'.$activity['cover'])?>">
+					<div class="image-caption">
+						<?= $activity['class_title']?>
+					</div>
 				</div>
+			</a>
 
-				<div class="card-body">
-
-					<h2 class="card-title text-info"><?= $activity['activity_title']?></h2>
-					<p class="card-text"><?= $activity['activity_description']?></p>
-					<strong><?= $activity['activity_DueDate']?></strong>
-					<a href="activity/<?=$activity['idActivity']?>" class="h2 d-flex justify-content-end"><i class="fas fa-chevron-circle-right "></i></a>
-
-				</div>
-
+			<div class="card-body">
+				<h2><?= $activity['activity_title']?></h2>
+				<p><?= $activity['activity_description']?></p>
+				<div class="card-bottom flex-end">
+					<?= $activity['activity_DueDate']?>
+					<a href="activity/<?=$activity['idActivity']?>" ><i class="fa fa-chevron-right button"></i></a>
 				</div>
 			</div>
-		<?php }?>
-	</div>
+		</div>
 
+	<?php }?>
 </div>
-
 
 <!-- Modal -->
-<div class="modal fade" id="modelIdActivity" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
-	<div class="modal-dialog modal-dialog-centered" role="document">
-		<div class="modal-content">
-				<div class="modal-header">
-						<h5 class="modal-title">Create Activity</h5>
-							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-								<span aria-hidden="true">&times;</span>
-							</button>
-					</div>
-			<div class="modal-body">
-				<div class="container-fluid">
-					<?php $this->load->view('activity/create');?>
-				</div>
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-				<button name="submit" class="btn btn-success" type="submit">SAVE</button>
-				<?=form_close();?>
-			</div>
+<div class="modal" id="modal-activity">
+	<div class="modal-content">
+		<div class="modal-header">
+			<h5 class="modal-title">Create Activity</h5>
+			<button type="button" data-target="modal-activity" onclick="modalClose(this)">
+				&times;
+			</button>
+		</div>
+		<div class="modal-body">
+			<?php $this->load->view('activity/create');?>
+		</div>
+		<div class="modal-footer">
+			<button type="submit" class="button">Save</button>
+			<?=form_close()?>
 		</div>
 	</div>
 </div>
+

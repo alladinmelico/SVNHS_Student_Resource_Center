@@ -10,7 +10,7 @@
         <i class="fas fa-chalkboard"></i>
         <div class="menu-item">
             <a href="<?=base_url('user/classes')?>">Classes</a>
-			<span class="badge" onclick="menuClassContent()"><?=$this->MClass->getTotalUserClass();?></span>
+			<span class="badge" data-target="class-content"><?=$this->MClass->getTotalUserClass();?></span>
         </div>
 	</li>
 
@@ -27,7 +27,7 @@
         <i class="fas fa-exclamation-circle"></i>
         <div class="menu-item">
             <a href="<?=base_url('user/todo')?>">To Do</a>
-            <span class="badge" onclick="menuToDoContent()"><?=$this->MActivity->getTotalUserToDo()?></span>
+            <span class="badge" data-target="todo-content"><?=$this->MActivity->getTotalUserToDo()?></span>
         </div>
 	</li>
 	
@@ -43,7 +43,8 @@
 	<li class="<?=($this->uri->segment(2)=='bookmark')? 'active':'';?>">
 		<i class="fas fa-user"></i>
 		<div class="menu-item">
-			<a href="#" onclick="menuProfileContent()">Profile</a>
+			<a href="#">Profile</a>
+			<i class="fa fa-arrow-down badge" data-target="profile-content"></i>
 		</div>
 	</li>
 

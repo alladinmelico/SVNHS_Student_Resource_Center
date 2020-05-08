@@ -1,20 +1,19 @@
 <style>
-    input {
-      border-top-style: hidden;
-      border-right-style: hidden;
-      border-left-style: hidden;
-      border-bottom-style: none;
-      }
-      .no-outline:focus {
-      outline: none;
-      }
+	#log-out{
+		color: white;
+		padding: 1rem;
+	}
 </style>
-<nav class="navbar blue-gradient">
-	<a class="navbar-brand" href="<?=base_url('admin/dashboard')?>" >
-		<img src="<?=base_url()?>logo_banner.png" alt="" height="70em">
-	</a>
-	<div class="d-flex justify-content-end">
-		<a type="button" href="<?=base_url('user/logout')?>" 
-		class="btn btn-light text-info"><i class="fas fa-user mr-2"></i>LOG OUT</a>
+<nav>
+	<div class="burger-logo">
+		<a class="logo" href="<?=base_url()?>">
+			<picture>
+				<source media="(min-width: 768px)" srcset="<?=base_url()?>logo_banner.png">
+				<img src="<?=base_url()?>logo.png" alt="" height="50em">
+			</picture>
+		</a>
 	</div>
+
+	<a href="<?=base_url('user/logout')?>" id="log-out"><i class="fas fa-user"></i>LOG OUT</a>
+
 </nav>
