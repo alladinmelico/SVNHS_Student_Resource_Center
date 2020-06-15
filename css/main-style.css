@@ -582,7 +582,7 @@ textarea {
 .file-detail {
     display: flex;
     flex-direction: column;
-    width: 20%;
+    width: 30%;
 }
 
 .file-detail-toolbar {

@@ -8,7 +8,7 @@
 		border-radius: 1rem;
 		width: 100%;
 	}
-	#top-dashboard h2,strong{
+	#top-dashboard h3,strong,span{
 		color: white;
 	}
 
@@ -17,6 +17,14 @@
 	#subject{
 		display: flex;
 		flex-direction: column;
+	}
+
+	#total-upload span{
+		color: white
+	}
+
+	#total-upload strong{
+		font-size: 2rem;
 	}
 	
 	#tables{
@@ -121,7 +129,7 @@
 
 <div id="top-dashboard">
 	<div id="email-unverified">
-		<h2>Emails Unverified</h2>
+		<h3>Emails Unverified</h3>
 		<strong><?=count($unverified)?></strong>
 		<?php foreach($unverified as $user){?>
 			<span><?=ucfirst($user['first_name']).' '.ucfirst($user['last_name'])?></span>
@@ -129,8 +137,7 @@
 	</div>
 
 	<div id="total-upload">
-		<h2>Total Uploads</h2>
-		<p>Today</p>
+		<h3>Total Uploads (today)</h3>
 		<strong><?=count($fileNum);?></strong>
 		<span>FILES</span>
 	</div>
@@ -138,10 +145,10 @@
 	<div id="barchart" class="chart"></div>
 
 	<div id="subject">
-		<h2>Subjects
+		<h3>Subjects
 			<a>
 			<i class="fas fa-plus fa-lg"></i></a>
-		</h2>
+		</h3>
 		<form action="<?=base_url('subject/delete')?>" method="POST">
 			<?php foreach($subjects as $subject) {?>
 					<?php $name = ucwords($subject['subject_name']);echo $name?>
@@ -354,7 +361,7 @@
 <div class="modal" id="modal-delete">
 	<div class="modal-content">
 		<div class="modal-header">
-			<h5 class="modal-title">Deactivate</h5>
+			<h5 class="modal-title danger">Deactivate</h5>
 			<button type="button" data-target="modal-delete" onclick="modalClose(this)">
 				&times;
 			</button>

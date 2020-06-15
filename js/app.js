@@ -18,19 +18,6 @@ if (alertBanner) {
     });
 })();
 
-
-function menuClassContent() {
-    document.getElementById("class-content").classList.toggle("menu-item-content-active");
-}
-
-function menuToDoContent() {
-    document.getElementById("todo-content").classList.toggle("menu-item-content-active");
-}
-
-function menuProfileContent() {
-    document.getElementById("profile-content").classList.toggle("menu-item-content-active");
-}
-
 function modalOpen(modal) {
     const modalTarget = document.getElementById(modal.dataset.target);
     if (modal.dataset.target == 'modal-activate') {
